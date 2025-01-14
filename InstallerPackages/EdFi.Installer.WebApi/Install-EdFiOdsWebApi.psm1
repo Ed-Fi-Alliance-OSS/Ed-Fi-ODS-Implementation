@@ -149,16 +149,10 @@ function Install-EdFiOdsWebApi {
             WebApiFeatures = @{
                 BearerTokenTimeoutMinutes="23"
                 ExcludedExtensions=@{}
-                Features= @(
-                    @{
-                        Name= "OpenApiMetadata"
-                        IsEnabled= $true
-                    },
-                    @{
-                        Name= "AggregateDependencies"
-                        IsEnabled= $true
-                    }
-                )
+                FeatureManagement = @{
+                    OpenApiMetadata = $true
+                    AggregateDependencies = $true
+                }
             }
         }
         PS c:/> Install-EdFiOdsWebApi @parameters
@@ -285,18 +279,18 @@ function Install-EdFiOdsWebApi {
         # application pool identity used by WebAPI will be created.
         # 
         # To create a custom login for SQL Server:
-        #    If integrated security is not enabled, a username and password must be provided in the database conection information parameter(s)
+        #    If integrated security is not enabled, a username and password must be provided in the database connection information parameter(s)
         #    If integrated security is enabled, the username provided must be a valid Windows user
         #    If integrated security is enabled, the application pool identity used by WebAPI needs to be updated to use the same Windows username 
         # To create a custom login for Postgres:
-        #    If integrated security is not enabled, a username and password must be provided in the database conection information parameter(s)
+        #    If integrated security is not enabled, a username and password must be provided in the database connection information parameter(s)
         #    If integrated security is enabled, pg_ident.conf map needs to be updated to use the username provided
         [bool]
         $CreateSqlLogin = $true,
         
         # Deploy WebApi with MultiTenant support. 
         # Passing this flag, requires to pass Tenants configuration.
-        # When true, this flag will enable the MultiTenancy feature in ApiSettings.Features
+        # When true, this flag will enable the MultiTenancy feature in FeatureManagement.
         [switch]
         [Parameter(Mandatory=$true, ParameterSetName="MultiTenant")]
         $IsMultiTenant,
@@ -477,52 +471,44 @@ function Invoke-TransformWebConfigAppSettings {
         $settings.ApiSettings.Engine = $Config.engine
         $settings.ApiSettings.OdsConnectionStringEncryptionKey = $Config.OdsConnectionStringEncryptionKey
         $settings.ApiSettings.OdsContextRouteTemplate = $Config.OdsContextRouteTemplate
-        
-        if ($Config.WebApiFeatures.Features -ne $Null) {
-            foreach ($feature in $Config.WebApiFeatures.Features) {
-                foreach ($defaultfeature in $settings.ApiSettings.Features) {
-                    if ( $feature.Name -eq $defaultfeature.Name) {
-                        $defaultfeature.IsEnabled =$feature.IsEnabled
-                    }
-                }
+
+        if ($Config.WebApiFeatures.FeatureManagement -ne $null) {
+            foreach ($feature in $Config.WebApiFeatures.FeatureManagement.Keys) {
+                $settings.FeatureManagement[$feature] = $Config.WebApiFeatures.FeatureManagement[$feature]
             }
         }
 
         # If IsMultiTenant flag was used, enable MultiTenancy feature
         if ($Config.IsMultiTenant) {
-            if (($settings.ApiSettings.Features | Where-Object { $_.Name -eq 'MultiTenancy'}) -eq $null) {
-                $settings.ApiSettings.Features += @{Name = 'MultiTenancy'; IsEnabled=$true}
-            } else {
-                ($settings.ApiSettings.Features | Where-Object { $_.Name -eq 'MultiTenancy'}).IsEnabled = $true
-            }
+            $settings.FeatureManagement.MultiTenancy = $true
         }
 
         # Add a Log4net property override to specify the log's destination
         $splitPackageVersion = $Config.PackageVersion.Split(".")
-        
+
         # If $splitPackageVersion has no value, fetch the latest package version from the PackageDirectory path
         if (-not $splitPackageVersion) {
             $packageName = $Config.PackageName
-            $packageDirectory = $Config.PackageDirectory.Path.Split("\") | Select-Object -Last 1
+            $packageDirectory = $Config.PackageDirectory.Path.Split("\\") | Select-Object -Last 1
             $splitPackageVersion = $packageDirectory.Split('.') | Select-Object -Last 3
         }
-        
+
         # We only care about Major/Minor for determining the log file name
         if ($splitPackageVersion.Count -lt 3) {
-            throw "Invalid PackageVersion provided $($Config.PackageVersion). PackageVersion must include major,minor and patch."
+            throw "Invalid PackageVersion provided $($Config.PackageVersion). PackageVersion must include major, minor, and patch."
         }
         $logDestination = $Config.LogDestinationPath.replace("{version}", -join($splitPackageVersion[0], ".", $splitPackageVersion[1]))
-        
-        if ($Null -eq $settings.Log4NetCore) { 
-            $settings.Log4NetCore = @{}
+
+        if ($null -eq $settings.Log4NetCore) {
+            $settings.Log4NetCore = @{ }
         }
-        
-        if ($Null -eq $settings.Log4NetCore.PropertyOverrides) { 
+
+        if ($null -eq $settings.Log4NetCore.PropertyOverrides) {
             $settings.Log4NetCore.PropertyOverrides = @()
         }
-        
+
         $rollingFileXpath = "/log4net/appender[@name='RollingFile']/file"
-        if ($settings.Log4NetCore.PropertyOverrides.Where({$_.XPath -eq $rollingFileXpath}).Count -eq 0) {
+        if ($settings.Log4NetCore.PropertyOverrides.Where({ $_.XPath -eq $rollingFileXpath }).Count -eq 0) {
             $settings.Log4NetCore.PropertyOverrides += @{
                 XPath = $rollingFileXpath
                 Attributes = @{
@@ -530,19 +516,26 @@ function Invoke-TransformWebConfigAppSettings {
                 }
             }
         }
-        
+
         if ($Config.IsSandbox) {
             $settings.ApiSettings.PlainTextSecrets = $Config.WebApiFeatures.PlainTextSecrets
-            if ($Config.WebApiFeatures.PlainTextSecrets -eq $Null) {
+            if ($Config.WebApiFeatures.PlainTextSecrets -eq $null) {
                 $settings.ApiSettings.PlainTextSecrets = $true
             }
         }
-        
-        if ($Config.WebApiFeatures.BearerTokenTimeoutMinutes) { $settings.ApiSettings.BearerTokenTimeoutMinutes = $Config.WebApiFeatures.BearerTokenTimeoutMinutes }
-        if ($Config.WebApiFeatures.ExcludedExtensions) { $settings.ApiSettings.ExcludedExtensions=$Config.WebApiFeatures.ExcludedExtensions }
+
+        if ($Config.WebApiFeatures.BearerTokenTimeoutMinutes) { 
+            $settings.ApiSettings.BearerTokenTimeoutMinutes = $Config.WebApiFeatures.BearerTokenTimeoutMinutes 
+        }
+
+        if ($Config.WebApiFeatures.ExcludedExtensions) { 
+            $settings.ApiSettings.ExcludedExtensions = $Config.WebApiFeatures.ExcludedExtensions 
+        }
+
         New-JsonFile $settingsFile $settings -Overwrite
     }
 }
+
 
 function Invoke-TransformWebConfigConnectionStrings {
     [CmdletBinding()]

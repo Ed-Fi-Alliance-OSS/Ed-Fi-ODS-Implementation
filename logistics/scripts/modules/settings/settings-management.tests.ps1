@@ -51,11 +51,10 @@ Describe 'Assert-ValidAppSettings' {
 Describe 'Get-FeatureSubTypesFromSettings' {
     It "returns a single known subtype" {
         $subtypes = Get-FeatureSubTypesFromSettings @{
-            ApiSettings = @{
-                Features = @(
-                    @{ Name = 'ChangeQueries'; IsEnabled = $true; }
-                )
+            FeatureManagement = @{
+                ChangeQueries = $true
             }
+            ApiSettings = @{}
         }
 
         $subtypes | Should -Not -BeNullOrEmpty
@@ -66,12 +65,11 @@ Describe 'Get-FeatureSubTypesFromSettings' {
 
     It "returns multiple known subtypes" {
         $subtypes = Get-FeatureSubTypesFromSettings @{
-            ApiSettings = @{
-                Features = @(
-                    @{ Name = 'ChangeQueries'; IsEnabled = $true; }
-                    @{ Name = 'OwnershipBasedAuthorization'; IsEnabled = $true; }
-                )
+            FeatureManagement = @{
+                ChangeQueries = $true
+                OwnershipBasedAuthorization = $true
             }
+            ApiSettings = @{}
         }
 
         $subtypes | Should -Not -BeNullOrEmpty
@@ -82,13 +80,12 @@ Describe 'Get-FeatureSubTypesFromSettings' {
 
     It "returns only known subtypes" {
         $subtypes = Get-FeatureSubTypesFromSettings @{
-            ApiSettings = @{
-                Features = @(
-                    @{ Name = 'Unknown'; IsEnabled = $true; }
-                    @{ Name = 'ChangeQueries'; IsEnabled = $true; }
-                    @{ Name = 'OwnershipBasedAuthorization'; IsEnabled = $true; }
-                )
+            FeatureManagement = @{
+                ChangeQueries = $true
+                OwnershipBasedAuthorization = $true
+                Unknown = $true
             }
+            ApiSettings = @{}
         }
 
         @($subtypes).Length | Should -Be 2
@@ -99,12 +96,11 @@ Describe 'Get-FeatureSubTypesFromSettings' {
 
     It "returns only enabled subtypes" {
         $subtypes = Get-FeatureSubTypesFromSettings @{
-            ApiSettings = @{
-                Features = @(
-                    @{ Name = 'ChangeQueries'; IsEnabled = $false; }
-                    @{ Name = 'OwnershipBasedAuthorization'; IsEnabled = $true; }
-                )
+            FeatureManagement = @{
+                ChangeQueries = $false
+                OwnershipBasedAuthorization = $true
             }
+            ApiSettings = @{}
         }
 
         @($subtypes).Length | Should -Be 1
@@ -112,7 +108,7 @@ Describe 'Get-FeatureSubTypesFromSettings' {
         $subtypes | Should -Contain 'RecordOwnership'
     }
 
-    It "returns $null if setting are not present" {
+    It "returns `$null if setting are not present" {
         $subtypes = Get-FeatureSubTypesFromSettings $null
 
         $subtypes | Should -BeNullOrEmpty
@@ -122,13 +118,12 @@ Describe 'Get-FeatureSubTypesFromSettings' {
 Describe 'Get-EnabledFeaturesFromSettings' {
     It "returns all enabled features" {
         $features = Get-EnabledFeaturesFromSettings @{
-            ApiSettings = @{
-                Features = @(
-                    @{ Name = 'Extensions'; IsEnabled = $true; }
-                    @{ Name = 'Profiles'; IsEnabled = $false; }
-                    @{ Name = 'OpenApiMetadata'; IsEnabled = $true; }
-                )
+            FeatureManagement = @{
+                Extensions = $true
+                Profiles = $false
+                OpenApiMetadata = $true
             }
+            ApiSettings = @{}
         }
 
         $features | Should -Not -BeNullOrEmpty
@@ -139,20 +134,19 @@ Describe 'Get-EnabledFeaturesFromSettings' {
 
     It "returns no features if non are enabled" {
         $features = Get-EnabledFeaturesFromSettings @{
-            ApiSettings = @{
-                Features = @(
-                    @{ Name = 'Extensions'; IsEnabled = $false; }
-                    @{ Name = 'Profiles'; IsEnabled = $false; }
-                    @{ Name = 'OpenApiMetadata'; IsEnabled = $false; }
-                )
+            FeatureManagement = @{
+                Extensions = $false
+                Profiles = $false
+                OpenApiMetadata = $false
             }
+            ApiSettings = @{}
         }
 
         $features | Should -BeNullOrEmpty
         @($features).Length | Should -Be 0
     }
 
-    It "returns $null if setting are not present" {
+    It "returns `$null if setting are not present" {
         $features = Get-EnabledFeaturesFromSettings $null
 
         $features | Should -BeNullOrEmpty
@@ -186,40 +180,36 @@ Describe 'Get-MergedSettings' {
 Describe 'Set-Feature' {
     It "returns a settings object with a new feature when the feature does not exist" {
         $appSettings = "TestDrive:\appSettings.json"
-        Set-Content $appSettings -value '{ "ApiSettings": { "Features": [ ] } }'
+        Set-Content $appSettings -value '{ "FeatureManagement": { } }'
 
         $settings = Get-MergedAppSettings $appSettings
         $settings = Set-Feature -Settings $settings -FeatureName "NewFeature" -IsEnabled $true
 
         $settings | Should -Not -BeNullOrEmpty
-        $settings.ApiSettings | Should -Not -BeNullOrEmpty
-        $settings.ApiSettings.Features | Should -Not -BeNullOrEmpty
-        $settings.ApiSettings.Features.Length | Should -Be 1
+        $settings.FeatureManagement | Should -Not -BeNullOrEmpty
+        $settings.FeatureManagement.Keys.Count | Should -Be 1
 
-        $feature = $settings.ApiSettings.Features[0]
+        $featureEnabled = $settings.FeatureManagement.NewFeature
 
-        $feature | Should -Not -BeNullOrEmpty
-        $feature.Name | Should -Be "NewFeature"
-        $feature.IsEnabled | Should -Be $true
+        $featureEnabled | Should -Not -BeNullOrEmpty
+        $featureEnabled | Should -Be $true
     }
 
     It "returns a settings file with an updated feature" {
         $appSettings = "TestDrive:\appSettings.json"
-        $settings = Set-Content $appSettings -value '{ "ApiSettings": { "Features": [ {"Name" : "Feature", "IsEnabled" : "false"} ] } }'
+        $settings = Set-Content $appSettings -value '{ "FeatureManagement": { "Feature": false } }'
 
         $settings = Get-MergedAppSettings $appSettings
         $settings = Set-Feature -Settings $settings -FeatureName "Feature" -IsEnabled $true
 
         $settings | Should -Not -BeNullOrEmpty
-        $settings.ApiSettings | Should -Not -BeNullOrEmpty
-        $settings.ApiSettings.Features | Should -Not -BeNullOrEmpty
-        $settings.ApiSettings.Features.Length | Should -Be 1
+        $settings.FeatureManagement | Should -Not -BeNullOrEmpty
+        $settings.FeatureManagement.Keys.Count | Should -Be 1
 
-        $feature = $settings.ApiSettings.Features[0]
+        $featureEnabled = $settings.FeatureManagement.Feature
 
-        $feature | Should -Not -BeNullOrEmpty
-        $feature.Name | Should -Be "Feature"
-        $feature.IsEnabled | Should -Be $true
+        $featureEnabled | Should -Not -BeNullOrEmpty
+        $featureEnabled | Should -Be $true
     }
 }
 

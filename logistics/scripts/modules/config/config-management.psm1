@@ -82,28 +82,6 @@ function Get-ExcludedExtensionSourcesFromConfig {
     return $jsonExcludedExtensions
 }
 
-function Get-FeaturesFromConfig {
-    param(
-        [Parameter(Mandatory = $true)] [string] $configFile
-    )
-
-    $enabledFeatures = @()
-    $jsonFromFile = (Get-Content $configFile -Raw -Encoding UTF8 | ConvertFrom-JSON)
-
-    foreach ($feature in (Get-AvailableFeatures).featureName) {
-        if ($jsonFromFile.ApiSettings.Features -match $feature){
-           $featureEnabledBooleanValue= ($jsonFromFile.ApiSettings.Features |?{ $_.Name -eq $feature}).IsEnabled
-        }
-        else {
-            $featureEnabledBooleanValue = $false
-        }
-        if ($featureEnabledBooleanValue) {
-            $enabledFeatures += $feature
-        }
-    }
-    return $enabledFeatures
-}
-
 <#
 .description
 Given a Connection String Builder template and a list of replacement tokens,
@@ -141,40 +119,6 @@ function Get-DbConnectionStringBuilderFromTemplate {
     }
 }
 
-function Get-Configuration {
-    param(
-        [string] $configFile = $folders.base.invoke('Application/EdFi.Ods.WebApi/appsettings.json')
-    )
-
-    $csbs = Get-DbConnectionStringBuilderFromConfig $configFile
-
-    $features = Get-FeaturesFromConfig $configFile
-
-    if ($features -contains "extensions") {
-        $excludedExtensionSources = Get-ExcludedExtensionSourcesFromConfig $configFile
-        $artifactSources = Select-SupportingArtifactResolvedSources |
-            Select-ExtensionArtifactResolvedName -exclude $excludedExtensionSources
-    }
-
-    $subtypes = @()
-    Get-AvailableFeatures |
-        Where-Object { ($null -ne $_.subTypeName) -and ($features -contains $_.featureName) } |
-        ForEach-Object { $subtypes += $_.subTypeName }
-
-    $filePaths = Get-RepositoryArtifactPaths
-    # Add paths to enabled extension directories
-    $filePaths += Get-ExtensionScriptFiles $artifactSources
-
-    return @{
-        databaseIds     = Get-DatabaseIds
-        csbs            = $csbs
-        ArtifactSources = $artifactSources
-        Features        = $features
-        SubTypes        = $subTypes
-        FilePaths       = $filePaths
-    }
-}
-
 Export-ModuleMember -Function `
     Get-DatabaseIds,
     Get-AvailableFeatures,
@@ -182,6 +126,4 @@ Export-ModuleMember -Function `
     Get-RepositoryArtifactPaths,
     Get-ExtensionScriptFiles,
     Get-ExcludedExtensionSourcesFromConfig,
-    Get-FeaturesFromConfig,
-    Get-DbConnectionStringBuilderFromTemplate,
-    Get-Configuration
+    Get-DbConnectionStringBuilderFromTemplate

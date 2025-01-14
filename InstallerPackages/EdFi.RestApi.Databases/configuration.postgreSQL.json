@@ -8,58 +8,25 @@
   "InstallType": "Sandbox",
   "Tenants": {
   },  
+  "FeatureManagement": {
+    "OpenApiMetadata": true,
+    "AggregateDependencies": true,
+    "TokenInfo": true,
+    "Extensions": true,
+    "Composites": true,
+    "Profiles": false,
+    "ChangeQueries": true,
+    "IdentityManagement": false,
+    "OwnershipBasedAuthorization": false,
+    "UniqueIdValidation": false,
+    "MultiTenancy": false
+  },
   "ApiSettings": {
     "Engine": "PostgreSQL",
     "ExtensionVersion": "1.1.0",
     "StandardVersion": "5.2.0",
     "PopulatedTemplateDBTimeOutInSeconds": "600",
     "OdsTokens": [],
-    "Features": [
-      {
-        "Name": "OpenApiMetadata",
-        "IsEnabled": true
-      },
-      {
-        "Name": "AggregateDependencies",
-        "IsEnabled": true
-      },
-      {
-        "Name": "TokenInfo",
-        "IsEnabled": true
-      },
-      {
-        "Name": "Extensions",
-        "IsEnabled": true
-      },
-      {
-        "Name": "Composites",
-        "IsEnabled": true
-      },
-      {
-        "Name": "Profiles",
-        "IsEnabled": false
-      },
-      {
-        "Name": "ChangeQueries",
-        "IsEnabled": true
-      },
-      {
-        "Name": "IdentityManagement",
-        "IsEnabled": false
-      },
-      {
-        "Name": "OwnershipBasedAuthorization",
-        "IsEnabled": false
-      },
-      {
-        "Name": "UniqueIdValidation",
-        "IsEnabled": false
-      },
-      {
-        "IsEnabled": false,
-        "Name": "MultiTenancy"
-      }
-    ],
     "ExcludedExtensions": [],
     "OdsDatabaseTemplateName": "",
     "DropDatabases": false,

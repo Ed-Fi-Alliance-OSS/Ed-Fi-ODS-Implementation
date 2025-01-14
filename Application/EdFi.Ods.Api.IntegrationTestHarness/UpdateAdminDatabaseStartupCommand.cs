@@ -13,6 +13,7 @@ using System.Xml;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Admin.DataAccess.Utils;
+using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Startup;
@@ -21,9 +22,11 @@ using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using log4net;
 using Microsoft.Extensions.Configuration;
+using Microsoft.FeatureManagement;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Formatting = Newtonsoft.Json.Formatting;
@@ -37,7 +40,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         private readonly IClientAppRepo _clientAppRepo;
         private readonly IDefaultApplicationCreator _defaultApplicationCreator;
         private readonly IConfiguration _configuration;
-        private readonly ApiSettings _apiSettings;
+        private readonly IFeatureManager _featureManager;
+        private readonly DatabaseEngine _databaseEngine;
         private readonly TestHarnessConfiguration _testHarnessConfiguration;
         private readonly ITenantConfigurationMapProvider _tenantConfigurationMapProvider;
         private readonly IContextProvider<TenantConfiguration> _tenantConfigurationContextProvider;
@@ -48,14 +52,16 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         public UpdateAdminDatabaseStartupCommand(IClientAppRepo clientAppRepo,
             IDefaultApplicationCreator defaultApplicationCreator,
             IConfiguration configuration,
-            ApiSettings apiSettings,
+            IFeatureManager featureManager,
+            DatabaseEngine databaseEngine,
             TestHarnessConfigurationProvider testHarnessConfigurationProvider,
             IDomainModelProvider domainModelProvider)
         {
             _clientAppRepo = clientAppRepo;
             _defaultApplicationCreator = defaultApplicationCreator;
             _configuration = configuration;
-            _apiSettings = apiSettings;
+            _featureManager = featureManager;
+            _databaseEngine = databaseEngine;
             _testHarnessConfiguration = testHarnessConfigurationProvider.GetTestHarnessConfiguration();
             _domainModelProvider = domainModelProvider;
 
@@ -76,12 +82,13 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         public UpdateAdminDatabaseStartupCommand(IClientAppRepo clientAppRepo,
             IDefaultApplicationCreator defaultApplicationCreator,
             IConfiguration configuration,
-            ApiSettings apiSettings,
+            IFeatureManager featureManager,
+            DatabaseEngine databaseEngine,
             TestHarnessConfigurationProvider testHarnessConfigurationProvider,
             IContextProvider<TenantConfiguration> tenantConfigurationContextProvider,
             ITenantConfigurationMapProvider tenantConfigurationMapProvider,
             IDomainModelProvider domainModelProvider)
-            : this (clientAppRepo, defaultApplicationCreator, configuration, apiSettings, testHarnessConfigurationProvider, domainModelProvider)
+            : this(clientAppRepo, defaultApplicationCreator, configuration, featureManager, databaseEngine, testHarnessConfigurationProvider, domainModelProvider)
         {
             _tenantConfigurationMapProvider = tenantConfigurationMapProvider;
             _tenantConfigurationContextProvider = tenantConfigurationContextProvider;
@@ -91,7 +98,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         {
             PostmanEnvironment postmanEnvironment;
 
-            if (!_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
+            if (!_featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy))
             {
                 _logger.Debug($"Loading test data in Admin Database.");
                 postmanEnvironment = UpdateAdminDatabase();
@@ -137,7 +144,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true,
-                            Value =  _apiSettings.IsFeatureEnabled(ApiFeature.Composites.ToString()),
+                            Value =  _featureManager.IsFeatureEnabled(ApiFeature.Composites),
                             Key = "CompositesFeatureIsEnabled"
                         });
 
@@ -145,7 +152,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true,
-                            Value = _apiSettings.IsFeatureEnabled(ApiFeature.Profiles.ToString()),
+                            Value = _featureManager.IsFeatureEnabled(ApiFeature.Profiles),
                             Key = "ProfilesFeatureIsEnabled"
                         });
 
@@ -153,7 +160,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true,
-                            Value = _apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.ToString()),
+                            Value = _featureManager.IsFeatureEnabled(ApiFeature.ChangeQueries),
                             Key = "ChangeQueriesFeatureIsEnabled"
                         });
 
@@ -197,7 +204,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             string odsConnectionString = string.Format(_configuration.GetConnectionString("EdFi_Ods"), tenantIdentifier);
 
             var dbConnectionStringBuilderAdapterFactory =
-                new DbConnectionStringBuilderAdapterFactory(_apiSettings.GetDatabaseEngine());
+                new DbConnectionStringBuilderAdapterFactory(_databaseEngine);
 
             var connectionStringBuilderAdapter = dbConnectionStringBuilderAdapterFactory.Get();
             connectionStringBuilderAdapter.ConnectionString = odsConnectionString;
