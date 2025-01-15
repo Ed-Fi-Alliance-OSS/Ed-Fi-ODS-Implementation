@@ -6,6 +6,7 @@
 using System;
 using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Common;
 using Microsoft.AspNetCore.Hosting;
@@ -20,14 +21,18 @@ namespace EdFi.Ods.WebApi
     {
         public static async Task Main(string[] args)
         {
+            string startupClassName;
+
             using (var hostBuilderInitial = Host.CreateDefaultBuilder(args).Build())
             {
                 var config = hostBuilderInitial.Services.GetService<IConfiguration>();
+                startupClassName = config.GetValue<string>("StartupClassName");
+
                 AssemblyLoaderHelper.LoadAssembliesFromFolder(
                     AssemblyLoaderHelper.GetPluginFolder(
                         config?.GetValue<string>("Plugin:Folder") ?? string.Empty));
             }
-            
+
             var hostBuilder = Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(ConfigureLogging)
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
@@ -37,7 +42,15 @@ namespace EdFi.Ods.WebApi
                         webBuilder.ConfigureKestrel(
                             serverOptions => { serverOptions.AddServerHeader = false; });
 
-                        webBuilder.UseStartup<Startup>();
+                        if (string.IsNullOrEmpty(startupClassName) || startupClassName.EqualsIgnoreCase("Startup"))
+                        {
+                            webBuilder.UseStartup<Startup>();
+                        }
+                        else
+                        {
+                            var startupFactory = new StartupFactory(startupClassName);
+                            webBuilder.UseStartup(context => startupFactory.Create(context));
+                        }
                     });
 
             await ConfigureHostUsingPlugins();
