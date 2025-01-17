@@ -99,7 +99,6 @@ function createSectionLinks(sectionName) {
 
 // dynamically creates the api sections using the #sectionTemplate
 function createSections() {
-    const { Tenants } = appSettings;
     var uri = sections['Resources'].links[0].uri;
 
     Object.keys(sections).forEach(function (sectionName) {
@@ -184,6 +183,18 @@ const fetchOpenApiMetadata = (webApiVersionUrlJson) => {
     })
 }
 
+function fetchSandboxDisclaimer() {
+    const { SandboxDisclaimer } = appSettings;
+    const disclaimerElement = document.getElementById('disclaimer')
+    if (disclaimerElement && SandboxDisclaimer) {
+        disclaimerElement.innerHTML = `
+            <div class="alert alert-warning notice" role="alert">
+                <i class="bi bi-exclamation-triangle"></i>
+                ${SandboxDisclaimer}
+            </div>`
+    }
+}
+
 fetchAppSettings()
   .then(fetchWebApiVersionUrl)
   .then(showVersion)
@@ -191,6 +202,7 @@ fetchAppSettings()
   .then(mapSections)
   .then(showPageDescription)
   .then(createSections)
+  .then(fetchSandboxDisclaimer)
   // extra .then() because Edge has no .finally() support
   .then(hideProgress)
   .finally(hideProgress)
