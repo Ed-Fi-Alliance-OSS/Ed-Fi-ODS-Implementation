@@ -64,7 +64,7 @@ namespace EdFi.Ods.SwaggerUI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             string webApiUrl = Configuration.GetValue("WebApiVersionUrl", string.Empty);
-            string edFiAzureSwaggerUIDisclaimerContent = Configuration.GetValue("EdFiAzureSwaggerUIDisclaimerContent", string.Empty);
+            string sandboxDisclaimer = Configuration.GetValue("SandboxDisclaimer", string.Empty);
             var tenants = Configuration.GetSection("Tenants").Get<List<Tenants>>() ?? new List<Tenants>();
             string swaggerStyleSheetPath = "../swagger.css";
 
@@ -102,12 +102,12 @@ namespace EdFi.Ods.SwaggerUI
                                         WebApiVersionUrl = webApiUrl,
                                         RoutePrefix = _routePrefix,
                                         Tenants = tenants,
-                                        EdFiAzureSwaggerUIDisclaimerContent = edFiAzureSwaggerUIDisclaimerContent
+                                        SandboxDisclaimer = sandboxDisclaimer
                                     }));
                         });
                 });
 
-            logger.LogInformation($"EdFiAzureSwaggerUIDisclaimerContent = '{edFiAzureSwaggerUIDisclaimerContent}'");
+            logger.LogInformation($"SandboxDisclaimer = '{sandboxDisclaimer}'");
             logger.LogInformation($"WebApiUrl = '{webApiUrl}'");
             logger.LogInformation($"UseReverseProxyHeaders = '{_useReverseProxyHeaders}'");
             logger.LogInformation($"PathBase = '{_pathBase}'");

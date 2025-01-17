@@ -183,14 +183,14 @@ const fetchOpenApiMetadata = (webApiVersionUrlJson) => {
     })
 }
 
-function fetchEdFiAzureSwaggerUIDisclaimerContent() {
-    const { EdFiAzureSwaggerUIDisclaimerContent } = appSettings;
+function fetchSandboxDisclaimer() {
+    const { SandboxDisclaimer } = appSettings;
     const disclaimerElement = document.getElementById('disclaimer')
-    if (disclaimerElement && EdFiAzureSwaggerUIDisclaimerContent) {
+    if (disclaimerElement && SandboxDisclaimer) {
         disclaimerElement.innerHTML = `
             <div class="alert alert-warning notice" role="alert">
                 <i class="bi bi-exclamation-triangle"></i>
-                ${EdFiAzureSwaggerUIDisclaimerContent}
+                ${SandboxDisclaimer}
             </div>`
     }
 }
@@ -202,7 +202,7 @@ fetchAppSettings()
   .then(mapSections)
   .then(showPageDescription)
   .then(createSections)
-  .then(fetchEdFiAzureSwaggerUIDisclaimerContent)
+  .then(fetchSandboxDisclaimer)
   // extra .then() because Edge has no .finally() support
   .then(hideProgress)
   .finally(hideProgress)
