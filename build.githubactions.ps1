@@ -398,7 +398,7 @@ function CreateOrUpdateRepositoriesJson {
     #Define the messages to ignore
     $ignoreMessages = @(
         "Updating for new CodeGen version",
-        "Updating for new Extensions- TPDM, Sample, Homograph package version",
+        "Updating for new Extensions- TPDM, Sample, Homograph,Profiles.Sample package version",
         "Updating for new EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL package version"
     )
 
