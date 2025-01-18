@@ -41,7 +41,6 @@ function Invoke-InstallCustomSettings {
             ConnectionStrings            = @{
                 EdFi_Ods      = 'Server=(local); Trusted_Connection=True; Database=EdFi_{0}; Application Name=EdFi.Ods.SandboxAdmin'
                 EdFi_Admin    = 'Server=(local); Trusted_Connection=True; Database=EdFi_Admin; Application Name=EdFi.Ods.SandboxAdmin'
-                EdFi_Security = 'Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True; Application Name=EdFi.Ods.SandboxAdmin'
                 EdFi_Master   = 'Server=(local); Trusted_Connection=True; Database=master; Application Name=EdFi.Ods.SandboxAdmin'
             }
             OAuthUrl                     = 'https://localhost/EdFiOdsWebApi'

@@ -91,11 +91,6 @@ function Install-EdFiOdsSandboxAdmin {
                 Server="edfi-auth.my-sql-server.example"
                 UseIntegratedSecurity=$true
             }
-            SecurityDbConnectionInfo = @{
-                Engine="SqlServer"
-                Server="edfi-auth.my-sql-server.example"
-                UseIntegratedSecurity=$true
-            }
             OdsDbConnectionInfo = @{
                 Engine="SqlServer"
                 Server="edfi-sandbox.my-sql-server.example"
@@ -219,11 +214,6 @@ function Install-EdFiOdsSandboxAdmin {
         [Parameter(ParameterSetName="SharedCredentials")]
         $AdminDatabaseName = "EdFi_Admin",
 
-        # Name for the Security database. Default: EdFi_Security.
-        [string]
-        [Parameter(ParameterSetName="SharedCredentials")]
-        $SecurityDatabaseName = "EdFi_Security",
-
         # Shared database connectivity information.
         #
         # The hashtable must include: Server, Engine (SqlServer or PostgreSQL), and
@@ -242,16 +232,6 @@ function Install-EdFiOdsSandboxAdmin {
         [hashtable]
         [Parameter(Mandatory=$true, ParameterSetName="SeparateCredentials")]
         $AdminDbConnectionInfo,
-
-        # Database connectivity only for the security database.
-        #
-        # The hashtable must include: Server, Engine (SqlServer or PostgreSQL), and
-        # either UseIntegratedSecurity or Username and Password (Password can be skipped
-        # for PostgreSQL when using pgconf file). Optionally can include Port and
-        # DatabaseName.
-        [hashtable]
-        [Parameter(Mandatory=$true, ParameterSetName="SeparateCredentials")]
-        $SecurityDbConnectionInfo,
 
         #"EdFi_Admin.OdsInstances" entries will be based on this database connectivity 
         # information.
@@ -324,10 +304,8 @@ function Install-EdFiOdsSandboxAdmin {
         WebSitePort = $WebSitePort
         WebApplicationName = $WebApplicationName
         AdminDatabaseName = $AdminDatabaseName
-        SecurityDatabaseName = $SecurityDatabaseName
         DbConnectionInfo = $DbConnectionInfo
         AdminDbConnectionInfo = $AdminDbConnectionInfo
-        SecurityDbConnectionInfo = $SecurityDbConnectionInfo
         OdsDbConnectionInfo = $OdsDbConnectionInfo
         MasterDbConnectionInfo = $MasterDbConnectionInfo
         CreateSqlLogin = $CreateSqlLogin
@@ -390,11 +368,9 @@ function Initialize-Configuration {
         }
         else {
             Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.AdminDbConnectionInfo
-            Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.SecurityDbConnectionInfo
             Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.OdsDbConnectionInfo
             Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.MasterDbConnectionInfo
             $Config.AdminDbConnectionInfo.ApplicationName = "Ed-Fi SandboxAdmin"
-            $Config.SecurityDbConnectionInfo.ApplicationName = "Ed-Fi SandboxAdmin"
             $Config.OdsDbConnectionInfo.ApplicationName = "Ed-Fi SandboxAdmin"
             $Config.MasterDbConnectionInfo.ApplicationName = "Ed-Fi SandboxAdmin"
             $Config.engine = $Config.AdminDbConnectionInfo.Engine
@@ -457,9 +433,6 @@ function Invoke-TransformWebConfigConnectionStrings {
             $Config.AdminDbConnectionInfo = $Config.DbConnectionInfo.Clone()
             $Config.AdminDbConnectionInfo.DatabaseName = $Config.AdminDatabaseName
 
-            $Config.SecurityDbConnectionInfo = $Config.DbConnectionInfo.Clone()
-            $Config.SecurityDbConnectionInfo.DatabaseName = $Config.SecurityDatabaseName
-
             $Config.OdsDbConnectionInfo = $Config.DbConnectionInfo.Clone()
             $Config.MasterDbConnectionInfo = $Config.DbConnectionInfo.Clone()
         }
@@ -467,10 +440,6 @@ function Invoke-TransformWebConfigConnectionStrings {
             # Inject default database names if not provided
             if (-not $Config.AdminDbConnectionInfo.DatabaseName) {
                 $Config.AdminDbConnectionInfo.DatabaseName = "EdFi_Admin"
-            }
-
-            if (-not $Config.SecurityDbConnectionInfo.DatabaseName) {
-                $Config.SecurityDbConnectionInfo.DatabaseName = "EdFi_Security"
             }
         }
         $Config.OdsDbConnectionInfo.DatabaseName = "EdFi_{0}"
@@ -485,13 +454,11 @@ function Invoke-TransformWebConfigConnectionStrings {
         Write-Host "Setting database connections in $($Config.WebConfigLocation)"
 
         $adminconnString = New-ConnectionString -ConnectionInfo $Config.AdminDbConnectionInfo -SspiUsername $Config.WebApplicationName
-        $securityConnString = New-ConnectionString -ConnectionInfo $Config.SecurityDbConnectionInfo -SspiUsername $Config.WebApplicationName
         $odsConnString = New-ConnectionString -ConnectionInfo $Config.OdsDbConnectionInfo -SspiUsername $Config.WebApplicationName
         $masterConnString = New-ConnectionString -ConnectionInfo $Config.MasterDbConnectionInfo -SspiUsername $Config.WebApplicationName
 
         if ($Config.UnEncryptedConnection) {
             $adminconnString += ";Encrypt=false"
-            $securityConnString += ";Encrypt=false"
             $odsConnString += ";Encrypt=false"
             $masterConnString += ";Encrypt=false"
         }
@@ -500,14 +467,12 @@ function Invoke-TransformWebConfigConnectionStrings {
             # Enable connection pooling for PostgreSQL
             $poolingConfiguration = ";Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50"
             $adminconnString += $poolingConfiguration
-            $securityConnString += $poolingConfiguration
             $odsConnString += $poolingConfiguration
         }
 
         $connectionstrings = @{
             ConnectionStrings = @{
                 EdFi_Admin = $adminconnString
-                EdFi_Security = $securityConnString 
                 EdFi_Ods = $odsConnString 
                 EdFi_Master = $masterConnString
             }
@@ -600,7 +565,6 @@ function New-SqlLogins {
         else
         {
             Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName
-            Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName
             Add-SqlLogins $Config.OdsDbConnectionInfo $Config.WebApplicationName
             Add-SqlLogins $Config.MasterDbConnectionInfo $Config.WebApplicationName
         }

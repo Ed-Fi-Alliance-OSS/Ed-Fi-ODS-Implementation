@@ -128,24 +128,6 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = 'Deploy Security Database to SQLServer'
-        Script = {
-            $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Security
-            $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
-            $params = @{
-                engine           = $sqlServerSettings.ApiSettings.engine
-                csb              = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
-                database         = $databaseType
-                filePaths        = $sqlServerSettings.ApiSettings.FilePaths
-                subTypeNames     = $sqlServerSettings.ApiSettings.SubTypes
-                dropDatabase     = $true
-                standardVersion  = $StandardVersion
-                extensionVersion = $ExtensionVersion
-            }
-            Initialize-EdFiDatabaseWithDbDeploy @params
-        }
-    }
-    @{
         Name   = 'Deploy Empty Template Database to SQLServer'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Ods
@@ -217,24 +199,6 @@ $deploymentTasks = @(
                 dropDatabase        = $true
                 standardVersion     = $StandardVersion
                 extensionVersion    = $ExtensionVersion
-            }
-            Initialize-EdFiDatabaseWithDbDeploy @params
-        }
-    }
-    @{
-        Name   = 'Deploy Security Database to PostgreSQL'
-        Script = {
-            $databaseType = $postgresSettings.ApiSettings.DatabaseTypes.Security
-            $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
-            $params = @{
-                engine            = $postgresSettings.ApiSettings.engine
-                csb               = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
-                database          = $databaseType
-                filePaths         = $postgresSettings.ApiSettings.FilePaths
-                subTypeNames      = $postgresSettings.ApiSettings.SubTypes
-                dropDatabase      = $true
-                standardVersion   = $StandardVersion
-                extensionVersion  = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -315,23 +279,6 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = 'Export Security Database from SQLServer as .bak'
-        Script = {
-            $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Security
-            $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
-            $csb = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
-            $params = @{
-                databaseConnectionString = $csb
-                databaseBackupName       = $csb['Database']
-                backupDirectory          = $artifactPath
-                multipleBackups          = $true
-                engine                   = $sqlServerSettings.ApiSettings.Engine
-            }
-            Write-FlatHashtable $params
-            Backup-DatabaseTemplate $params
-        }
-    }
-    @{
         Name   = 'Export Empty Template Database from SQLServer as .bak'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Ods
@@ -398,21 +345,6 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = 'Export Security Database from SQLServer as .bacpac'
-        Script = {
-            $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Security
-            $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
-            $csb = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
-            $databaseName = $csb['Database']
-            $params = @{
-                sqlPackagePath = $sqlPackagePath
-                database       = $databaseName
-                artifactOutput = (Join-Path $artifactPath 'EdFi_Security.bacpac')
-            }
-            Export-BacPac @params
-        }
-    }
-    @{
         Name   = 'Export Empty Template Database from SQLServer as .bacpac'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Ods
@@ -461,23 +393,6 @@ $deploymentTasks = @(
         Name   = 'Export Admin Database from PostgreSQL as .sql'
         Script = {
             $databaseType = $postgresSettings.ApiSettings.DatabaseTypes.Admin
-            $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
-            $csb = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
-            $params = @{
-                databaseConnectionString = $csb
-                databaseBackupName       = $csb['Database']
-                backupDirectory          = $artifactPath
-                multipleBackups          = $true
-                engine                   = $postgresSettings.ApiSettings.Engine
-            }
-            Write-FlatHashtable $params
-            Backup-DatabaseTemplate $params
-        }
-    }
-    @{
-        Name   = 'Export Security Database from PostgreSQL as .sql'
-        Script = {
-            $databaseType = $postgresSettings.ApiSettings.DatabaseTypes.Security
             $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $csb = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
             $params = @{

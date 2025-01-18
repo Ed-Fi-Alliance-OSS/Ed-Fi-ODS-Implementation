@@ -11,7 +11,6 @@ function Get-DatabaseIds {
     return @{
         master   = @{ database = 'Master'; connectionStringKey = 'EdFi_Master' }
         admin    = @{ database = 'Admin'; connectionStringKey = 'EdFi_Admin' }
-        security = @{ database = 'Security'; connectionStringKey = 'EdFi_Security' }
         ods      = @{ database = 'Ods'; connectionStringKey = 'EdFi_Ods' }
     }
 }

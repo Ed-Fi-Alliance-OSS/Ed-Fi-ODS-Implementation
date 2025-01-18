@@ -76,11 +76,6 @@ function Invoke-SeparateConnectionInfo {
             Server="localhost"
             UseIntegratedSecurity=$true
         }
-        SecurityDbConnectionInfo = @{
-            Engine="SqlServer"
-            Server="localhost"
-            UseIntegratedSecurity=$true
-        }
     }
     Install-EdFiOdsWebApi @p
 }
@@ -109,11 +104,9 @@ function Invoke-MultiTenantCommonConnectionInfo {
         Tenants = @{
             Tenant1 = @{
                 AdminDatabaseName = "EdFi_Admin_Tenant1"
-                SecurityDatabaseName = "EdFi_Security_Tenant1"
             }
             Tenant2 = @{
                 AdminDatabaseName = "EdFi_Admin_Tenant2"
-                SecurityDatabaseName = "EdFi_Security_Tenant2"
             }
         }
     }
@@ -132,24 +125,12 @@ function Invoke-MultiTenantSeparateConnectionInfo {
                     DatabaseName = "EdFi_Admin_Tenant1"
                     UseIntegratedSecurity = $true
                 }
-                SecurityDbConnectionInfo = @{
-                    Engine = "SqlServer"
-                    Server = "localhost"
-                    DatabaseName = "EdFi_Security_Tenant1"
-                    UseIntegratedSecurity = $true
-                }
             }
             Tenant2 = @{
                 AdminDbConnectionInfo = @{
                     Engine = "SqlServer"
                     Server = "localhost"
                     DatabaseName = "EdFi_Admin_Tenant2"
-                    UseIntegratedSecurity = $true
-                }
-                SecurityDbConnectionInfo = @{
-                    Engine = "SqlServer"
-                    Server = "localhost"
-                    DatabaseName = "EdFi_Security_Tenant2"
                     UseIntegratedSecurity = $true
                 }
             }
@@ -162,11 +143,6 @@ function Invoke-FeatureOverride {
     $p = @{
         ToolsPath = "../../tools"
         AdminDbConnectionInfo = @{
-            Engine="SqlServer"
-            Server="localhost"
-            UseIntegratedSecurity=$true
-        }
-        SecurityDbConnectionInfo = @{
             Engine="SqlServer"
             Server="localhost"
             UseIntegratedSecurity=$true

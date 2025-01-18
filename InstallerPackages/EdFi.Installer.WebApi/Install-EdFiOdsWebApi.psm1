@@ -93,11 +93,6 @@ function Install-EdFiOdsWebApi {
                 Server="edfi-auth.my-sql-server.example"
                 UseIntegratedSecurity=$true
             }
-            SecurityDbConnectionInfo = @{
-                Engine="SqlServer"
-                Server="edfi-auth.my-sql-server.example"
-                UseIntegratedSecurity=$true
-            }
         }
         PS c:/> Install-EdFiOdsWebApi @parameters
 
@@ -223,11 +218,6 @@ function Install-EdFiOdsWebApi {
         [Parameter(ParameterSetName="SharedCredentials")]
         $AdminDatabaseName = "EdFi_Admin",
 
-        # Name for the Security database. Default: EdFi_Security.
-        [string]
-        [Parameter(ParameterSetName="SharedCredentials")]
-        $SecurityDatabaseName = "EdFi_Security",
-
         # Shared database connectivity information.
         #
         # The hashtable must include: Server, Engine (SqlServer or PostgreSQL), and
@@ -248,16 +238,6 @@ function Install-EdFiOdsWebApi {
         [hashtable]
         [Parameter(Mandatory=$true, ParameterSetName="SeparateCredentials")]
         $AdminDbConnectionInfo,
-
-        # Database connectivity only for the security database.
-        #
-        # The hashtable must include: Server, Engine (SqlServer or PostgreSQL), and
-        # either UseIntegratedSecurity or Username and Password (Password can be skipped
-        # for PostgreSQL when using pgconf file). Optionally can include Port and
-        # DatabaseName.
-        [hashtable]
-        [Parameter(Mandatory=$true, ParameterSetName="SeparateCredentials")]
-        $SecurityDbConnectionInfo,
 
         # Optional overrides for features and settings in the web.config.
         #
@@ -298,8 +278,8 @@ function Install-EdFiOdsWebApi {
         # List of Tenants with information required by the Tenants section in appsettings.json
         #
         # Each tenant hashtable can include: 
-        #   - AdminDatabaseName and SecurityDatabaseName when used with DbConnectionInfo.
-        #   - AdminDbConnectionInfo and SecurityDbConnectionInfo when DbConnectionInfo is not used.
+        #   - AdminDatabaseName when used with DbConnectionInfo.
+        #   - AdminDbConnectionInfo when DbConnectionInfo is not used.
         [hashtable]
         [Parameter(Mandatory=$true, ParameterSetName="MultiTenant")]
         $Tenants,
@@ -341,10 +321,8 @@ function Install-EdFiOdsWebApi {
         WebApplicationName = $WebApplicationName
         IsSandbox = $IsSandbox
         AdminDatabaseName = $AdminDatabaseName
-        SecurityDatabaseName = $SecurityDatabaseName
         DbConnectionInfo = $DbConnectionInfo
         AdminDbConnectionInfo = $AdminDbConnectionInfo
-        SecurityDbConnectionInfo = $SecurityDbConnectionInfo
         WebApiFeatures = $WebApiFeatures
         NoDuration = $NoDuration
         CreateSqlLogin  = $CreateSqlLogin
@@ -416,13 +394,10 @@ function Initialize-Configuration {
             if ($Config.IsMultiTenant) {
                 foreach ($tenantKey in $Config.Tenants.Keys) {
                     Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.Tenants[$tenantKey].AdminDbConnectionInfo -RequireDatabaseName
-                    Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.Tenants[$tenantKey].SecurityDbConnectionInfo -RequireDatabaseName
                 }
             } else {
                 Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.AdminDbConnectionInfo
-                Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.SecurityDbConnectionInfo
                 $Config.AdminDbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
-                $Config.SecurityDbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
                 $Config.engine = $Config.AdminDbConnectionInfo.Engine
             }
         }
@@ -550,18 +525,11 @@ function Invoke-TransformWebConfigConnectionStrings {
             
             $Config.AdminDbConnectionInfo = $Config.DbConnectionInfo.Clone()
             $Config.AdminDbConnectionInfo.DatabaseName = $Config.AdminDatabaseName
-
-            $Config.SecurityDbConnectionInfo = $Config.DbConnectionInfo.Clone()
-            $Config.SecurityDbConnectionInfo.DatabaseName = $Config.SecurityDatabaseName
         }
         else {
             # Inject default database names if not provided
             if (-not $Config.AdminDbConnectionInfo.DatabaseName) {
                 $Config.AdminDbConnectionInfo.DatabaseName = "EdFi_Admin"
-            }
-
-            if (-not $Config.SecurityDbConnectionInfo.DatabaseName) {
-                $Config.SecurityDbConnectionInfo.DatabaseName = "EdFi_Security"
             }
         }
 
@@ -571,17 +539,14 @@ function Invoke-TransformWebConfigConnectionStrings {
         Write-Host "Setting database connections in $($Config.WebConfigLocation)"
 
         $adminconnString = New-ConnectionString -ConnectionInfo $Config.AdminDbConnectionInfo -SspiUsername $Config.WebApplicationName
-        $securityConnString = New-ConnectionString -ConnectionInfo $Config.SecurityDbConnectionInfo -SspiUsername $Config.WebApplicationName
 
         if ($Config.UnEncryptedConnection) {
             $adminconnString += ";Encrypt=false"
-            $securityConnString += ";Encrypt=false"
         }
         
         $connectionstrings = @{
             ConnectionStrings = @{
                 EdFi_Admin = $adminconnString
-                EdFi_Security = $securityConnString 
             }
         }
 
@@ -613,24 +578,18 @@ function Invoke-TransformWebConfigMultiTenantConnectionStrings {
             if ($Config.usingSharedCredentials) {
                 $Config.Tenants[$tenantKey].AdminDbConnectionInfo = $Config.DbConnectionInfo.Clone()
                 $Config.Tenants[$tenantKey].AdminDbConnectionInfo.DatabaseName = $Config.Tenants[$tenantKey].AdminDatabaseName
-
-                $Config.Tenants[$tenantKey].SecurityDbConnectionInfo = $Config.DbConnectionInfo.Clone()
-                $Config.Tenants[$tenantKey].SecurityDbConnectionInfo.DatabaseName = $Config.Tenants[$tenantKey].SecurityDatabaseName
             }
             
             $adminconnString = New-ConnectionString -ConnectionInfo $Config.Tenants[$tenantKey].AdminDbConnectionInfo -SspiUsername $Config.WebApplicationName
-            $securityConnString = New-ConnectionString -ConnectionInfo $Config.Tenants[$tenantKey].SecurityDbConnectionInfo -SspiUsername $Config.WebApplicationName
 
             if ($Config.UnEncryptedConnection) {
                 $adminconnString += ";Encrypt=false"
-                $securityConnString += ";Encrypt=false"
             }
 
             $newSettings.Tenants += @{
                 $tenantKey = @{
                     ConnectionStrings = @{
                         EdFi_Admin = $adminconnString
-                        EdFi_Security = $securityConnString 
                     }
                 }
             }
@@ -687,16 +646,10 @@ function New-SqlLogins {
                 foreach ($tenantKey in $Config.Tenants.Keys) {
                     if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Admin DB:"; }
                     Add-SqlLogins $Config.Tenants[$tenantKey].AdminDbConnectionInfo $Config.WebApplicationName
-
-                    if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Security DB:"; }
-                    Add-SqlLogins $Config.Tenants[$tenantKey].SecurityDbConnectionInfo $Config.WebApplicationName
                 }
             } else {
                 if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Admin DB:"; }
                 Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName
-                
-                if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Security DB:"; }
-                Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName
             }
         }
     }
