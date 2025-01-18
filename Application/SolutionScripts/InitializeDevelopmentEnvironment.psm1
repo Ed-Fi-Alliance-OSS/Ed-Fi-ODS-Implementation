@@ -247,7 +247,6 @@ function Initialize-DevelopmentEnvironment {
 
         $script:result += Install-DbDeploy
         $script:result += Reset-TestAdminDatabase
-        $script:result += Reset-TestSecurityDatabase
 
         if (-not ($NoDeploy)) {
             $script:result += Reset-TestPopulatedTemplateDatabase
@@ -403,22 +402,6 @@ function Reset-TestAdminDatabase {
         $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
         $databaseType = $settings.ApiSettings.DatabaseTypes.Admin
-        $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
-        $databaseName = $databaseType
-        $replacementTokens = @("$($databaseName)_Test")
-        if ($settings.InstallType -eq 'MultiTenant') { $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "${databaseName}_$($_)_Test" } }
-        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
-        foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb }
-    }
-}
-
-function Reset-TestSecurityDatabase {
-    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $settings = Get-DeploymentSettings
-        # turn on all available features for the test database to ensure all the schema components are available
-        $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
-        $settings.ApiSettings.DropDatabases = $true
-        $databaseType = $settings.ApiSettings.DatabaseTypes.Security
         $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
         $databaseName = $databaseType
         $replacementTokens = @("$($databaseName)_Test")

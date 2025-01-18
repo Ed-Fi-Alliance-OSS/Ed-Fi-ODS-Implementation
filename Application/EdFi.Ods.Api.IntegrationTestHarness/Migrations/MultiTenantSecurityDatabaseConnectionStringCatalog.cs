@@ -12,7 +12,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness.Migrations;
 
 /// <summary>
 /// Implements an <see cref="ISecurityDatabaseConnectionStringCatalog" /> that returns a connection string
-/// for each of the tenant-specific EdFi_Security databases in a multitenant deployment.
+/// for each of the tenant-specific EdFi_Admin databases for security metadata in a multitenant deployment.
 /// </summary>
 public class MultiTenantSecurityDatabaseConnectionStringCatalog : ISecurityDatabaseConnectionStringCatalog
 {
@@ -31,7 +31,7 @@ public class MultiTenantSecurityDatabaseConnectionStringCatalog : ISecurityDatab
     }
 
     /// <summary>
-    /// Gets a connection string for each of the tenant-specific EdFi_Security databases in a multitenant deployment.
+    /// Gets a connection string for each of the tenant-specific security metadata in the EdFi_Admin databases in a multitenant deployment.
     /// </summary>
     /// <returns></returns>
     public string[] GetConnectionStrings()

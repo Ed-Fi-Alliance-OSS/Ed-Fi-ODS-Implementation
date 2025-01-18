@@ -152,7 +152,6 @@ function Initialize-DeploymentEnvironment {
         if ($null -eq (Get-DotNetTool $env:toolsPath "EdFi.Db.Deploy").Version) { $script:result += Install-DbDeploy }
 
         $script:result += Reset-AdminDatabase
-        $script:result += Reset-SecurityDatabase
 
         if ($settings.InstallType -ne 'Sandbox') {
             $script:result += Reset-OdsDatabase
@@ -254,7 +253,6 @@ function Get-DeploymentSettings {
 function Install-Plugins { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Install-DbDeploy { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-AdminDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
-function Reset-SecurityDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-OdsDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Remove-SandboxDatabases { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-MinimalTemplateDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
@@ -289,23 +287,6 @@ $deploymentTasks = @{
         $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
         $databaseName = $databaseType
         $replacementTokens = @($databaseName)
-        if ($settings.InstallType -eq 'MultiTenant') {
-            foreach ($tenantKey in $settings.Tenants.keys) {
-                $csb = New-Object System.Data.Common.DbConnectionStringBuilder
-                $csb.set_ConnectionString($settings.Tenants[$tenantKey].ConnectionStrings[$connectionStringKey])
-                write-host $csb
-                Initialize-EdFiDatabase $settings $databaseType $csb
-            }
-        } else {
-            $csb = $settings.ApiSettings.csbs[$connectionStringKey]
-            Initialize-EdFiDatabase $settings $databaseType $csb
-        }
-    }
-    'Reset-SecurityDatabase'          = {
-        $settings = Get-DeploymentSettings
-        $databaseType = $settings.ApiSettings.DatabaseTypes.Security
-        $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
-        $databaseName = $databaseType
         if ($settings.InstallType -eq 'MultiTenant') {
             foreach ($tenantKey in $settings.Tenants.keys) {
                 $csb = New-Object System.Data.Common.DbConnectionStringBuilder

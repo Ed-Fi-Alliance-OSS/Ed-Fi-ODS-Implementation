@@ -6,13 +6,14 @@
 namespace EdFi.Ods.Api.IntegrationTestHarness.Migrations;
 
 /// <summary>
-/// Defines a method for obtaining connection strings for all the EdFi_Security databases available in the deployment environment. 
+/// Defines a method for obtaining connection strings for all the security metadata in the EdFi_Admin databases available in
+/// the deployment environment. 
 /// </summary>
 public interface ISecurityDatabaseConnectionStringCatalog
 {
     /// <summary>
-    /// Gets the connection strings for all the EdFi_Security databases available in the deployment environment.
+    /// Gets the connection strings for all the security metadata EdFi_Admin databases available in the deployment environment.
     /// </summary>
-    /// <returns>The connection strings for EdFi_Security databases.</returns>
+    /// <returns>The connection strings for EdFi_Admin databases.</returns>
     string[] GetConnectionStrings();
 }
