@@ -30,7 +30,7 @@ using Microsoft.FeatureManagement;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Formatting = Newtonsoft.Json.Formatting;
-using TenantConfiguration = EdFi.Ods.Api.Middleware.TenantConfiguration;
+using TenantConfiguration = EdFi.Ods.Common.Configuration.TenantConfiguration;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
