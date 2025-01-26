@@ -56,7 +56,7 @@ jobs:
 
     steps:
     - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           fetch-depth: 0
     
@@ -182,7 +182,7 @@ jobs:
  
     - name: Upload repositories.json as an artifact
       if: success() 
-      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
         name: repositories-json
         path: ${{ github.workspace }}/repositories.json
@@ -203,7 +203,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.CodeGen workflow
       if: ${{ env.NoNewCommitsInAllThreeRepositories == 'false' || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.EdFi.Ods.CodeGen_package_alreadyupdated == 'false') }}
-      uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_codegen
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -256,7 +256,7 @@ jobs:
         git status        
 
     - name: Commit and push updated EdFi.Ods.CodeGen package reference
-      uses: planetscale/ghcommit-action@4131649dbf2fdf1eb34421702972a5af7b0a8731 #v0.1.18
+      uses: planetscale/ghcommit-action@d4176bfacef926cc2db351eab20398dfc2f593b5 #v0.2.0
       with:
         commit_message: "Updating for new CodeGen version"
         repo: ${{ github.repository }}
@@ -327,7 +327,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Profiles.Sample workflow
       if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Profiles_sample_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
-      uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_profiles_sample
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -339,7 +339,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Extensions.Homograph workflow
       if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Homograph_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
-      uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_homograph
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -351,7 +351,7 @@ jobs:
 
     - name: Dispatch  EdFi.Ods.Extensions.Sample workflow
       if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Sample_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
-      uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_sample
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -363,7 +363,7 @@ jobs:
 
     - name: Dispatch  EdFi.Ods.Extensions.TPDM worflow
       if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.TPDM_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
-      uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_TPDM
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -539,7 +539,7 @@ jobs:
         git status        
 
     - name: Commit and push updated Extensions- TPDM, Sample, Homograph,Profiles.Sample package references
-      uses: planetscale/ghcommit-action@4131649dbf2fdf1eb34421702972a5af7b0a8731 #v0.1.18
+      uses: planetscale/ghcommit-action@d4176bfacef926cc2db351eab20398dfc2f593b5 #v0.2.0
       with:
         commit_message: "Updating for new Extensions- TPDM, Sample, Homograph,Profiles.Sample package version"
         repo: ${{ github.repository }}
@@ -608,7 +608,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Populated.Template workflow
       if: ${{ ((env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.populated_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
-      uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_populated_template
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -620,7 +620,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Populated.Template.PostgreSQL workflow
       if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.populated_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
-      uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_populated_template_postgresql
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -632,7 +632,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Minimal.Template  workflow
       if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.minimal_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
-      uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_minimal_template
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -644,7 +644,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Minimal.Template.PostgreSQL  workflow
       if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.minimal_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
-      uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_minimal_template_postgresql
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -833,7 +833,7 @@ jobs:
         git status 
 
     - name: Commit and push updated EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL new package version
-      uses: planetscale/ghcommit-action@4131649dbf2fdf1eb34421702972a5af7b0a8731 #v0.1.18
+      uses: planetscale/ghcommit-action@d4176bfacef926cc2db351eab20398dfc2f593b5 #v0.2.0
       with:
         commit_message: "Updating for new EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL package version"
         repo: ${{ github.repository }}
@@ -846,7 +846,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Populated.Template.TPDM  workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_populated_template_TPDM
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -858,7 +858,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Populated.Template.TPDM.PostgreSQL workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_populated_template_TPDM_postgresql
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -870,7 +870,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Minimal.Template.TPDM  workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_minimal_template_TPDM
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -882,7 +882,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Minimal.Template.TPDM.PostgreSQL  workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_minimal_template_TPDM_postgresql
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -1027,7 +1027,7 @@ jobs:
         git status 
 
     - name: Commit and push updated EdFi.Ods.Minimal.Template.TPDM , EdFi.Ods.Minimal.Template.TPDM.PostgreSQL ,EdFi.Ods.Populated.Template.TPDM ,EdFi.Ods.Populated.Template.TPDM.PostgreSQL new package version
-      uses: planetscale/ghcommit-action@4131649dbf2fdf1eb34421702972a5af7b0a8731 #v0.1.18
+      uses: planetscale/ghcommit-action@d4176bfacef926cc2db351eab20398dfc2f593b5 #v0.2.0
       with:
         commit_message: "Updating for new EdFi.Ods.Minimal.Template.TPDM , EdFi.Ods.Minimal.Template.TPDM.PostgreSQL ,EdFi.Ods.Populated.Template.TPDM ,EdFi.Ods.Populated.Template.TPDM.PostgreSQL  package version"
         repo: ${{ github.repository }}
@@ -1038,7 +1038,7 @@ jobs:
 
     - name: Upload NugetPackages created using Rebuild Database Templates worfklow
       if: success() 
-      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
         name: NugetPackages.Artifacts
         path: |
