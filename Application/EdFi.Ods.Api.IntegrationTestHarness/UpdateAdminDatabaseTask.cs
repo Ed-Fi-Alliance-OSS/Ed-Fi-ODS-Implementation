@@ -23,7 +23,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Formatting = Newtonsoft.Json.Formatting;
-using TenantConfiguration = EdFi.Ods.Api.Middleware.TenantConfiguration;
+using TenantConfiguration = EdFi.Ods.Common.Configuration.TenantConfiguration;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
@@ -183,6 +183,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                 });
 
             // Add Profiles
+<<<<<<< HEAD:Application/EdFi.Ods.Api.IntegrationTestHarness/UpdateAdminDatabaseTask.cs
             var _allDocs = new XmlDocument();
             string profilesPath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory).FullName, "Profiles.xml");
             _allDocs.Load(profilesPath);
@@ -190,6 +191,18 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             var profiles = new List<Profile>();
             var profileDefinitions = _allDocs.SelectNodes("/Profiles/Profile");
             foreach (XmlNode profileName in profileDefinitions)
+=======
+            string[] profileFilenames = Directory.GetFiles(Directory.GetParent(AppContext.BaseDirectory).FullName, $"*Profiles.xml");
+
+            if(!string.IsNullOrEmpty(tenantIdentifier))
+            {
+                profileFilenames = profileFilenames.Union(Directory.GetFiles(Directory.GetParent(AppContext.BaseDirectory).FullName, $"*Profiles{tenantIdentifier}.xml")).ToArray();
+            }
+            
+            var profileDefinitionByName = new Dictionary<string, XmlNode>(StringComparer.OrdinalIgnoreCase);
+
+            foreach (var profileFilename in profileFilenames)
+>>>>>>> f688905 ([ODS-6602] API only allows tenant1's profiles when different profiles are set up for different tenants (#1209)):Application/EdFi.Ods.Api.IntegrationTestHarness/UpdateAdminDatabaseStartupCommand.cs
             {
                 profiles.Add(new Profile()
                 { ProfileDefinition = profileName.OuterXml, ProfileName = profileName.Attributes["name"].Value });
