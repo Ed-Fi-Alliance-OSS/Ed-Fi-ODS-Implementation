@@ -182,32 +182,37 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                     ConnectionString = odsConnectionString,
                 });
 
-            // Add Profiles
-<<<<<<< HEAD:Application/EdFi.Ods.Api.IntegrationTestHarness/UpdateAdminDatabaseTask.cs
-            var _allDocs = new XmlDocument();
-            string profilesPath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory).FullName, "Profiles.xml");
-            _allDocs.Load(profilesPath);
 
-            var profiles = new List<Profile>();
-            var profileDefinitions = _allDocs.SelectNodes("/Profiles/Profile");
-            foreach (XmlNode profileName in profileDefinitions)
-=======
             string[] profileFilenames = Directory.GetFiles(Directory.GetParent(AppContext.BaseDirectory).FullName, $"*Profiles.xml");
 
             if(!string.IsNullOrEmpty(tenantIdentifier))
             {
                 profileFilenames = profileFilenames.Union(Directory.GetFiles(Directory.GetParent(AppContext.BaseDirectory).FullName, $"*Profiles{tenantIdentifier}.xml")).ToArray();
             }
-            
             var profileDefinitionByName = new Dictionary<string, XmlNode>(StringComparer.OrdinalIgnoreCase);
 
             foreach (var profileFilename in profileFilenames)
->>>>>>> f688905 ([ODS-6602] API only allows tenant1's profiles when different profiles are set up for different tenants (#1209)):Application/EdFi.Ods.Api.IntegrationTestHarness/UpdateAdminDatabaseStartupCommand.cs
             {
-                profiles.Add(new Profile()
-                { ProfileDefinition = profileName.OuterXml, ProfileName = profileName.Attributes["name"].Value });
+                var _allDocs = new XmlDocument();
+                _allDocs.Load(profileFilename);
+
+                var profiles = new List<Profile>();
+                var profileDefinitions = _allDocs.SelectNodes("/Profiles/Profile");
+                foreach (XmlNode profileDefinition in profileDefinitions)
+                {
+                    string profileName = profileDefinition.Attributes["name"].Value;
+
+                    profiles.Add(
+                        new Profile()
+                        {
+                            ProfileDefinition = profileDefinition.OuterXml,
+                            ProfileName = profileName
+                        });
+
+                    profileDefinitionByName.Add(profileName, profileDefinition);
+                }
+                _clientAppRepo.CreateProfilesWithProfileDefinition(profiles);
             }
-            _clientAppRepo.CreateProfilesWithProfileDefinition(profiles);
 
             foreach (var vendor in _testHarnessConfiguration.Vendors.Where(x =>
                 string.IsNullOrEmpty(tenantIdentifier) ||
@@ -290,7 +295,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         var _profiles = new List<Profile>();
                         foreach (var profileName in app.Profiles)
                         {
-                            var profileDefinition = _allDocs.SelectNodes(String.Format("/Profiles/Profile[@name='{0}']", profileName))[0].OuterXml;
+                            var profileDefinition = profileDefinitionByName[profileName].OuterXml;
                             _profiles.Add(new Profile() { ProfileDefinition = profileDefinition, ProfileName = profileName });
                         }
                         _clientAppRepo.AddProfilesToApplication(_profiles, application.ApplicationId);
