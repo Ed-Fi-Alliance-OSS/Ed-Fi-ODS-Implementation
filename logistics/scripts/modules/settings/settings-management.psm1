@@ -206,7 +206,6 @@ function Get-DatabaseTypes {
     return @{
         Ods      = 'Ods'
         Admin    = 'Admin'
-        Security = 'Security'
         Master   = 'Master'
     }
 }
@@ -215,7 +214,6 @@ function Get-ConnectionStringKeyByDatabaseTypes {
     return @{
         (Get-DatabaseTypes).Ods      = 'EdFi_Ods'
         (Get-DatabaseTypes).Admin    = 'EdFi_Admin'
-        (Get-DatabaseTypes).Security = 'EdFi_Security'
         (Get-DatabaseTypes).Master   = 'EdFi_Master'
     }
 }
@@ -226,7 +224,6 @@ function Get-DefaultConnectionStringsByEngine {
             ConnectionStrings = @{
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Ods])      = "Server=(local); Trusted_Connection=True; Database=EdFi_{0};"
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Admin])    = "Server=(local); Trusted_Connection=True; Database=EdFi_Admin;"
-                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security]) = "Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True;"
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Master])   = "Server=(local); Trusted_Connection=True; Database=master;"
             }
         }
@@ -234,7 +231,6 @@ function Get-DefaultConnectionStringsByEngine {
             ConnectionStrings = @{
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Ods])      = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_{0}; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50;"
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Admin])    = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50;"
-                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security]) = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50;"
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Master])   = "Host=localhost; Port=5432; Username=postgres; Database=postgres; Pooling=false;"
             }
         }
@@ -587,7 +583,6 @@ function Add-TestSpecificAppSettings([hashtable] $Settings = @{ }, [string] $Pro
     $databaseName = @{
         ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Ods])      = "EdFi_Ods_Populated_Template_Test"
         ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Admin])    = "EdFi_Admin_Test"
-        ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security]) = "EdFi_Security_Test"
     }
 
     $newSettings = @{
@@ -619,7 +614,6 @@ function Add-MultiTenantSettings([hashtable] $Settings = @{ }, [string] $Project
             $tenant = @{
                 ConnectionStrings = @{
                     EdFi_Admin = "$(Get-DbConnectionStringBuilderFromTemplate -templateCSB $csbs[((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Admin])] -replacementTokens "Admin_$($tenant)")"
-                    EdFi_Security = "$(Get-DbConnectionStringBuilderFromTemplate -templateCSB $csbs[((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security])] -replacementTokens "Security_$($tenant)")"
                 }
             }
         }
@@ -684,7 +678,6 @@ function Add-MultiTenantTestHarnessSettings([hashtable] $Settings = @{ }, [strin
             $tenant = @{
                 ConnectionStrings = @{
                     EdFi_Admin = "$(Get-DbConnectionStringBuilderFromTemplate -templateCSB $csbs[((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Admin])] -replacementTokens "Admin_$($tenant)_Test")"
-                    EdFi_Security = "$(Get-DbConnectionStringBuilderFromTemplate -templateCSB $csbs[((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security])] -replacementTokens "Security_$($tenant)_Test")"
                 }
             }
         }
