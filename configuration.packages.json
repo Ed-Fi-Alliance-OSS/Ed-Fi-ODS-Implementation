@@ -142,7 +142,7 @@
     },
     "EdFi.Ods.WebApi": {
       "PackageName": "EdFi.Suite3.Ods.WebApi.Standard.{StandardVersion}",
-      "PackageVersion": "7.2.2539",
+      "PackageVersion": "7.2.2682",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.RestApi.Databases": {
@@ -157,12 +157,12 @@
     },
     "EdFi.Ods.Common": {
       "PackageName": "EdFi.Suite3.Ods.Common",
-      "PackageVersion": "7.2.905",
+      "PackageVersion": "7.2.954",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.Api": {
       "PackageName": "EdFi.Suite3.Ods.Api",
-      "PackageVersion": "7.2.897",
+      "PackageVersion": "7.2.944",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.Standard": {
