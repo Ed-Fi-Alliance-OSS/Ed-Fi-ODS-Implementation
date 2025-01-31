@@ -139,7 +139,7 @@ jobs:
       shell: pwsh
     - name: Upload initdev logs
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6
       with:
         name: MultiTenant Initdev logs
         path: |
@@ -168,7 +168,7 @@ jobs:
       shell: pwsh
     - name: Upload MultiTenancy Smoke Tests Logs
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6
       with:
         name: MultiTenant Smoke Tests Logs
         path: |
@@ -188,7 +188,7 @@ jobs:
         ./logistics/scripts/Invoke-PostmanIntegrationTests.ps1 -isMultiTenancy -configurationFile "./logistics/scripts/modules/postmanTestHarnessConfiguration-Multitenancy.json"
       shell: pwsh
     - name: Postman MultiTenancy Test Report
-      uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
+      uses: dorny/test-reporter@31a54ee7ebcacc03a09ea97a7e5465a47b84aea5 # v1.9.1
       if: success() || failure()
       with:
         name: MultiTenant Postman Tests
