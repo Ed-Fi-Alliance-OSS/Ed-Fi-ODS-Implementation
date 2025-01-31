@@ -199,17 +199,3 @@ jobs:
       with:
         name: NugetPackages.Artifacts-${{ matrix.StandardVersion }}
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
-    - name: Install-credential-handler
-      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
-      shell: powershell 
-    - name: Publish to Azure Artifacts
-      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        Get-ChildItem "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/" -Filter *.nupkg | 
-        Foreach-Object {
-            Write-Host "nupkg full path is " $_.FullName
-            $packagePath = $_.FullName
-            dotnet nuget push $packagePath --api-key ${{ env.AZURE_ARTIFACT_NUGET_KEY }} --source ${{env.AZURE_ARTIFACT_URL}} --skip-duplicate
-        }
-      shell: powershell
