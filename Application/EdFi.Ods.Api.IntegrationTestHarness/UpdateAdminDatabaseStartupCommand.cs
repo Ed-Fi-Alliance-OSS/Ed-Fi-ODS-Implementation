@@ -27,7 +27,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Formatting = Newtonsoft.Json.Formatting;
-using TenantConfiguration = EdFi.Ods.Api.Middleware.TenantConfiguration;
+using TenantConfiguration = EdFi.Ods.Common.Configuration.TenantConfiguration;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
@@ -212,8 +212,13 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                 });
 
             // Add Profiles
-            var profileFilenames = Directory.GetFiles(Directory.GetParent(AppContext.BaseDirectory).FullName, "*Profiles.xml");
+            string[] profileFilenames = Directory.GetFiles(Directory.GetParent(AppContext.BaseDirectory).FullName, $"*Profiles.xml");
 
+            if(!string.IsNullOrEmpty(tenantIdentifier))
+            {
+                profileFilenames = profileFilenames.Union(Directory.GetFiles(Directory.GetParent(AppContext.BaseDirectory).FullName, $"*Profiles{tenantIdentifier}.xml")).ToArray();
+            }
+            
             var profileDefinitionByName = new Dictionary<string, XmlNode>(StringComparer.OrdinalIgnoreCase);
 
             foreach (var profileFilename in profileFilenames)

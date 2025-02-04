@@ -99,7 +99,7 @@ jobs:
               
     - name: Download repositories.json from last run
       if: ${{ env.failed_buildexists == 'true' }}
-      uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
+      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43  #v7
       with:
         workflow: Rebuild Database Templates.yml
         name: repositories-json
@@ -225,7 +225,7 @@ jobs:
         
     - name: Download Codegen artifact using Run Id ${{ steps.return_dispatch_codegen.outputs.run_id }}
       if: ${{ env.NoNewCommitsInAllThreeRepositories == 'false' || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.EdFi.Ods.CodeGen_package_alreadyupdated == 'false') }}
-      uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
+      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43  #v7
       with:
         workflow: Pkg EdFi.Ods.CodeGen.yml
         workflow_conclusion: success
@@ -380,7 +380,7 @@ jobs:
        
     - name: Download EdFi.Ods.Extensions.Homograph artifact using Run Id ${{ steps.return_dispatch_homograph.outputs.run_id }}
       if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Homograph_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}            
-      uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
+      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43  #v7
       with:
         workflow: Pkg EdFi.Ods.Extensions.Homograph.yml
         workflow_conclusion: success
@@ -392,7 +392,7 @@ jobs:
 
     - name: Download EdFi.Ods.Extensions.Sample artifact using Run Id ${{ steps.return_dispatch_sample.outputs.run_id }}
       if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Sample_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}            
-      uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
+      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43  #v7
       with:
         workflow: Pkg EdFi.Ods.Extensions.Sample.yml
         workflow_conclusion: success
@@ -404,7 +404,7 @@ jobs:
 
     - name: Download EdFi.Ods.Extensions.TPDM artifact using Run Id ${{ steps.return_dispatch_TPDM.outputs.run_id }}
       if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.TPDM_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}      
-      uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
+      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43  #v7
       with:
         workflow: Pkg EdFi.Ods.Extensions.TPDM.yml
         workflow_conclusion: success
@@ -638,7 +638,7 @@ jobs:
 
     - name: Download EdFi.Ods.Minimal.Template artifact using Run Id ${{ steps.return_dispatch_minimal_template.outputs.run_id }}
       if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.minimal_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
-      uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
+      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43  #v7
       with:
         workflow: Pkg EdFi.Ods.Minimal.Template.yml
         workflow_conclusion: success
@@ -650,7 +650,7 @@ jobs:
 
     - name: Download EdFi.Ods.Minimal.Template.PostgreSQL artifact using Run Id ${{ steps.return_dispatch_minimal_template_postgresql.outputs.run_id }}
       if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.minimal_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
-      uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
+      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43  #v7
       with:
         workflow: Pkg EdFi.Ods.Minimal.Template.PostgreSQL.yml
         workflow_conclusion: success
@@ -662,7 +662,7 @@ jobs:
 
     - name: Download EdFi.Ods.Populated.Template artifact using Run Id ${{ steps.return_dispatch_populated_template.outputs.run_id }}
       if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.populated_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
-      uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
+      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43  #v7
       with:
         workflow: Pkg EdFi.Ods.Populated.Template.yml
         workflow_conclusion: success
@@ -674,7 +674,7 @@ jobs:
 
     - name: Download EdFi.Ods.Populated.Template.PostgreSQL artifact using Run Id ${{ steps.return_dispatch_populated_template_postgresql.outputs.run_id }}
       if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.populated_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
-      uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
+      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43  #v7
       with:
         workflow: Pkg EdFi.Ods.Populated.Template.PostgreSQL.yml
         workflow_conclusion: success
@@ -876,7 +876,7 @@ jobs:
 
     - name: Download EdFi.Ods.Minimal.Template.TPDM artifact using Run Id ${{ steps.return_dispatch_minimal_template_TPDM.outputs.run_id }}
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
+      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43  #v7
       with:
         workflow: Pkg EdFi.Ods.Minimal.Template.TPDM.yml
         workflow_conclusion: success
@@ -888,7 +888,7 @@ jobs:
 
     - name: Download EdFi.Ods.Minimal.Template.TPDM.PostgreSQL artifact using Run Id ${{ steps.return_dispatch_minimal_template_TPDM_postgresql.outputs.run_id }}
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
+      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43  #v7
       with:
         workflow: Pkg EdFi.Ods.Minimal.Template.TPDM.PostgreSQL.yml
         workflow_conclusion: success
@@ -900,7 +900,7 @@ jobs:
 
     - name: Download EdFi.Ods.Populated.Template.TPDM artifact using Run Id ${{ steps.return_dispatch_populated_template_TPDM.outputs.run_id }}
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
+      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43  #v7
       with:
         workflow: Pkg EdFi.Ods.Populated.Template.TPDM.yml
         workflow_conclusion: success
@@ -912,7 +912,7 @@ jobs:
 
     - name: Download EdFi.Ods.Populated.Template.TPDM.PostgreSQL artifact using Run Id ${{ steps.return_dispatch_populated_template_TPDM_postgresql.outputs.run_id }}
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
+      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43  #v7
       with:
         workflow: Pkg EdFi.Ods.Populated.Template.TPDM.PostgreSQL.yml
         workflow_conclusion: success
