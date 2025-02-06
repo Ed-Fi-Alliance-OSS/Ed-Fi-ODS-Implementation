@@ -27,7 +27,6 @@ function Invoke-CreatePackage {
             Publish = $true
             Source = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
             ApiKey = $env:azureArtifacts.apiKey
-            ToolsPath = "tools"
         }
         Invoke-CreatePackage @parameters
     #>
@@ -64,13 +63,9 @@ function Invoke-CreatePackage {
         [string]
         $ApiKey,
 
-        # Path to download and store nuget.exe if not already present in the path.
+        # Additional Properties to pass when packaging
         [string]
-        $ToolsPath,
-
-        # Additional Properties to pass to nuget.exe
-        [string[]]
-        $Properties = @("copyright=Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors"),
+        $Properties = "copyright=Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors;version=$Version",
 
         [string]
         $AdditionalParameters
@@ -78,14 +73,11 @@ function Invoke-CreatePackage {
 
     $verbose = $PSCmdlet.MyInvocation.BoundParameters["Verbose"]
 
-    $nuget = Install-NuGetCli -ToolsPath $ToolsPath
-
     # Build release
     $parameters = @{
         PackageDefinitionFile = $PackageDefinitionFile
         Version               = $Version
         OutputDirectory       = $OutputDirectory
-        NuGet                 = $nuget
         Verbose               = $verbose
         Properties            = $Properties
     }
@@ -109,7 +101,6 @@ function Invoke-CreatePackage {
             PackageFile = (Get-ChildItem "$OutputDirectory/$packageId*.$Version.nupkg").FullName
             Source      = $Source
             ApiKey      = $ApiKey
-            NuGet       = $nuget
             Verbose     = $verbose
         }
         Publish-PrereleasePackage @parameters
@@ -140,40 +131,87 @@ function New-Package {
         $OutputDirectory,
 
         [string]
-        [Parameter(Mandatory = $true)]
-        $NuGet
+        $ProjectFile,
+
+        [string]
+        $BuildConfiguration = 'Debug'
     )
 
-    $parameters = @(
-        "pack", $PackageDefinitionFile,
-        "-Version", $Version,
-        "-OutputDirectory", $OutputDirectory
-        "-NoDefaultExcludes" # Include .nupkg files in the package
-    )
+        $parameters = @()
 
-    if ($Suffix) {
-        $parameters += "-Suffix"
-        $parameters += $Suffix
-    }
+        $parameters += "-p:NuspecFile=$($PackageDefinitionFile)"
+        $parameters += "-p:NoDefaultExcludes=true" # Include .nupkg files in the package
+        $parameters += "--output"
+        $parameters += $OutputDirectory
+        $parameters += "--no-build"
+        
 
-    if ($Properties.Count -gt 0) {
-        $parameters += "-Properties"
-        $parameters += $Properties -join ';'
-    }
+        if ($Suffix) {
+            $parameters += "--version-suffix"
+            $parameters += $Suffix
+        }
 
-    if ($Verbose) {
-        $parameters += "-Verbosity"
-        $parameters += "detailed"
-    }
+        if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { 
+            $BuildConfiguration = $env:msbuild_buildConfiguration 
+        }
 
-    Write-Host $NuGet @parameters -ForegroundColor Magenta
-    if(Get-isWindows){
-        & $NuGet @parameters
-    }else {
-        mono $NuGet @parameters
-    }
+        $parameters += "--configuration"
+        $parameters += $BuildConfiguration
+
+        $nuspecProperties = "-p:NuspecProperties=""version=$($Version)"
+
+
+        foreach ($prop in $Properties) {
+            $nuspecProperties += ";$prop"
+        }
+
+        $nuspecProperties += """"
+
+        $parameters += $nuspecProperties
+
+        if ($Verbose) {
+            $parameters += "--verbosity"
+            $parameters += "detailed"
+        }
+
+        # 'dotnet pack' requires a project or solution be specified,
+        # even if it's contents are not used in the package.
+        # Therefore, when creating a package defined by a .nuspec file,
+        # we must create an empty project and then delete it after packing is complete
+
+        $temporaryProjectDirectory = "./temporary-project"
+        $temporaryProjectFileName = "temporary-project.csproj"
+        $temporaryProjectFileContents = 
+@"
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    </PropertyGroup>
+</Project>
+"@
+
+        If(!(Test-Path -PathType container $temporaryProjectDirectory))
+        {
+        New-Item -ItemType Directory -Path $temporaryProjectDirectory | Out-Null
+        }
+
+        If(!(test-path -PathType container $OutputDirectory))
+        {
+        New-Item -ItemType Directory -Path $OutputDirectory | Out-Null
+        }
+
+        $temporaryProjectFileContents | Out-File -FilePath "$temporaryProjectDirectory/$temporaryProjectFileName" | Out-Null
+
+        $parameters = @("pack") + @($ProjectFile) + $parameters
+
+        Write-Host -ForegroundColor Magenta "& dotnet $parameters"
+        & dotnet $parameters | Out-Host
+
+        try {
+            Remove-Item -Path $temporaryProjectDirectory -Recurse -Force | Out-Null 
+        } catch { }
+
 }
-
 
 function Publish-PrereleasePackage {
     param (
@@ -185,29 +223,20 @@ function Publish-PrereleasePackage {
         $Source,
 
         [string]
-        $ApiKey,
-
-        [string]
-        [Parameter(Mandatory = $true)]
-        $NuGet
+        $ApiKey
     )
     $parameters = @(
         "push", $PackageFile,
-        "-Source", $Source,
-        "-ApiKey", $ApiKey
+        "--source", $Source,
+        "--api-key", $ApiKey
     )
 
     if ($Verbose) {
-        $parameters += "-Verbosity"
+        $parameters += "--verbosity"
         $parameters += "detailed"
     }
 
-    Write-Host $NuGet @parameters -ForegroundColor Magenta
-    if(Get-isWindows){
-        & $NuGet @parameters
-    }else {
-        mono $NuGet @parameters
-    }
+    & dotnet nuget @parameters
 }
 
 Export-ModuleMember -Function Invoke-CreatePackage, New-Package

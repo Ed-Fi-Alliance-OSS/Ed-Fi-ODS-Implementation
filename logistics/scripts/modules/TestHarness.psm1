@@ -80,7 +80,7 @@ function Invoke-SdkGenConsole {
 
     )
     
-    $sdkGenConsoleFolder = (Get-RepositoryResolvedPath "/Utilities/SdkGen/EdFi.SdkGen.Console")
+    $sdkGenConsoleFolder = (Get-RepositoryResolvedPath "/Utilities/SdkGen/EdFi.SdkGen.Console" | Select-Object -ExpandProperty Path)
     $sdkGenConsoleExecutableFolderFullPath = (Get-SdkGenExecutable $buildConfiguration)
     $argumentList = @('-m', $apiMetadataUrl) + $arguments
     Start-Process $sdkGenConsoleExecutableFolderFullPath -ArgumentList $argumentList -WorkingDirectory $sdkGenConsoleFolder -NoNewWindow -Wait | Out-Host
