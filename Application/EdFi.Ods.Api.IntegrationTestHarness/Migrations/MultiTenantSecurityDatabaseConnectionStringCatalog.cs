@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Security.DataAccess.Providers;
 
