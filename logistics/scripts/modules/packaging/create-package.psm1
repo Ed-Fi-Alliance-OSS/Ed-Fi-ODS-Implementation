@@ -137,8 +137,33 @@ function New-Package {
         $BuildConfiguration = 'Debug'
     )
 
+        # 'dotnet install' requires a project or solution be specified,
+        # even if it's contents are not used.
+        # Therefore, when creating a package defined by a .nuspec file,
+        # we must create an empty project and then delete it after packing is complete
+
+        $temporaryProjectDirectory = "./temporary-project"
+        $temporaryProjectName = "temporary-project"
+        
+        $parameters = @(
+            "new", "classlib"
+            "--name", $temporaryProjectName
+            "--output", $temporaryProjectDirectory
+        )
+
+        Write-Host -ForegroundColor Magenta "& dotnet $parameters"
+        & dotnet $parameters | Out-Null
+
+        $parameters = @(
+            "build", $temporaryProjectDirectory
+        )
+
+        Write-Host -ForegroundColor Magenta "& dotnet $parameters"
+        & dotnet $parameters | Out-Null
+
         $parameters = @()
 
+        $parameters += "./temporary-project/temporary-project.csproj"
         $parameters += "-p:NuspecFile=$($PackageDefinitionFile)"
         $parameters += "-p:NoDefaultExcludes=true" # Include .nupkg files in the package
         $parameters += "--output"
@@ -173,34 +198,6 @@ function New-Package {
             $parameters += "--verbosity"
             $parameters += "detailed"
         }
-
-        # 'dotnet pack' requires a project or solution be specified,
-        # even if it's contents are not used in the package.
-        # Therefore, when creating a package defined by a .nuspec file,
-        # we must create an empty project and then delete it after packing is complete
-
-        $temporaryProjectDirectory = "./temporary-project"
-        $temporaryProjectFileName = "temporary-project.csproj"
-        $temporaryProjectFileContents = 
-@"
-<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    </PropertyGroup>
-</Project>
-"@
-
-        If(!(Test-Path -PathType container $temporaryProjectDirectory))
-        {
-        New-Item -ItemType Directory -Path $temporaryProjectDirectory | Out-Null
-        }
-
-        If(!(test-path -PathType container $OutputDirectory))
-        {
-        New-Item -ItemType Directory -Path $OutputDirectory | Out-Null
-        }
-
-        $temporaryProjectFileContents | Out-File -FilePath "$temporaryProjectDirectory/$temporaryProjectFileName" | Out-Null
 
         $parameters = @("pack") + @($ProjectFile) + $parameters
 

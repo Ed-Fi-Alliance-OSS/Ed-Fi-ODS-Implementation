@@ -50,49 +50,47 @@ function Get-NuGetPackage {
         $ExcludeVersion
     )
 
+    # 'dotnet add' requires a project or solution be specified,
+    # even if it's contents are not used.
+    # Therefore, when creating a package defined by a .nuspec file,
+    # we must create an empty project and then delete it after packing is complete
+
+    $temporaryProjectDirectory = "./temporary-project"
+    $temporaryProjectName = "temporary-project"
+    
+    $parameters = @(
+        "new", "classlib"
+        "--name", $temporaryProjectName
+        "--output", $temporaryProjectDirectory
+    )
+
+    Write-Host -ForegroundColor Magenta "& dotnet $parameters"
+    & dotnet $parameters | Out-Null
+
+    $packageDestinationPath = "$OutputDirectory/$PackageName.$PackageVersion/"
+
     $parameters = @(
         "install", $PackageName,
         "-source", $PackageSource,
         "-outputDirectory", $OutputDirectory
     )
-    if ($ExcludeVersion) {
-        $parameters += "-ExcludeVersion"
-    }
+
     if ($PackageVersion) {
         $parameters += "-version"
         $parameters += $PackageVersion
     }
 
-    # 'dotnet pack' requires a project or solution be specified,
-    # even if it's contents are not used in the package.
-    # Therefore, when creating a package defined by a .nuspec file,
-    # we must create an empty project and then delete it after packing is complete
-
-    $temporaryProjectDirectory = "./temporary-project"
-    $temporaryProjectFileName = "temporary-project.csproj"
-    $temporaryProjectFileContents = 
-@"
-<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    </PropertyGroup>
-</Project>
-"@
-
-    If(!(Test-Path -PathType container $temporaryProjectDirectory))
-    {
-        New-Item -ItemType Directory -Path $temporaryProjectDirectory | Out-Null
+    if ($ExcludeVersion) {
+         $packageDestinationPath = "$OutputDirectory/$PackageName/"
     }
 
-    If(!(test-path -PathType container $OutputDirectory))
+    If(-not (test-path -PathType container $OutputDirectory))
     {
         New-Item -ItemType Directory -Path $OutputDirectory | Out-Null
     }
 
-    $temporaryProjectFileContents | Out-File -FilePath "$temporaryProjectDirectory/$temporaryProjectFileName" | Out-Null
-
     $parameters = @(
-        "add", "$temporaryProjectDirectory/$temporaryProjectFileName"
+        "add", $temporaryProjectDirectory
         "package", $PackageName
         "-s", $PackageSource
         "-v", $PackageVersion
@@ -100,21 +98,29 @@ function Get-NuGetPackage {
     )
 
     Write-Host -ForegroundColor Magenta "& dotnet $parameters"
-    & dotnet $parameters
+    & dotnet $parameters | Out-Null
 
-    try {
-        Remove-Item -Path $temporaryProjectDirectory -Recurse -Force | Out-Null 
-    } catch { }
-
-    if ($ExcludeVersion) {
-        return Resolve-Path "$outputDirectory/$PackageName*" | Select-Object -Last 1
+    if (-not (Test-Path "$OutputDirectory/$PackageName.$PackageVersion-temp/")) {
+        New-Item -Path "$OutputDirectory/$PackageName.$PackageVersion-temp/" -ItemType Directory | Out-Null
     }
 
-    return Resolve-Path "$outputDirectory/$PackageName.$PackageVersion*" | Select-Object -Last 1
+    if (-not (Test-Path $packageDestinationPath)) {
+        New-Item -Path $packageDestinationPath -ItemType Directory | Out-Null
+    }
+
+    Move-Item -Force -Path "$OutputDirectory/$PackageName/$PackageVersion/*" -Destination "$OutputDirectory/$PackageName.$PackageVersion-temp"
+    Move-Item -Force -Path "$OutputDirectory/$PackageName.$PackageVersion-temp/*" -Destination $packageDestinationPath
+    Remove-Item -Recurse -Force "$OutputDirectory/$PackageName.$PackageVersion-temp/" | Out-Null
+    Remove-Item -Recurse -Force "$OutputDirectory/$PackageName/$PackageVersion" | Out-Null
+
+    if(Test-Path $temporaryProjectDirectory) {
+        Remove-Item -Path $temporaryProjectDirectory -Recurse -Force | Out-Null 
+    } 
+        
+    return $packageDestinationPath
 }
 
 $exports = @(
-    "Install-NuGetCli"
     "Get-NuGetPackage"
 )
 
