@@ -55,7 +55,7 @@ function Get-NuGetPackage {
     # Therefore, when creating a package defined by a .nuspec file,
     # we must create an empty project and then delete it after packing is complete
 
-    $temporaryProjectDirectory = "./temporary-project"
+    $temporaryProjectDirectory = "$(Get-RepositoryResolvedPath)temporary-project"
     $temporaryProjectName = "temporary-project"
     
     $parameters = @(
