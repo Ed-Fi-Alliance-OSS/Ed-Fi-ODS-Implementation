@@ -69,33 +69,26 @@ function Get-NuGetPackage {
 
     $packageDestinationPath = "$OutputDirectory/$PackageName.$PackageVersion/"
 
-    $parameters = @(
-        "install", $PackageName,
-        "-source", $PackageSource,
-        "-outputDirectory", $OutputDirectory
-    )
-
-    if ($PackageVersion) {
-        $parameters += "-version"
-        $parameters += $PackageVersion
-    }
-
     if ($ExcludeVersion) {
-         $packageDestinationPath = "$OutputDirectory/$PackageName/"
-    }
-
-    If(-not (test-path -PathType container $OutputDirectory))
-    {
-        New-Item -ItemType Directory -Path $OutputDirectory | Out-Null
+        $packageDestinationPath = "$OutputDirectory/$PackageName/"
     }
 
     $parameters = @(
         "add", $temporaryProjectDirectory
         "package", $PackageName
         "-s", $PackageSource
-        "-v", $PackageVersion
         "--package-directory", $OutputDirectory
     )
+
+    if ($PackageVersion) {
+        $parameters += "-v"
+        $parameters += $PackageVersion
+    }
+
+    If(-not (test-path -PathType container $OutputDirectory))
+    {
+        New-Item -ItemType Directory -Path $OutputDirectory | Out-Null
+    }
 
     Write-Host -ForegroundColor Magenta "& dotnet $parameters"
     & dotnet $parameters | Out-Null
