@@ -131,9 +131,6 @@ function New-Package {
         $OutputDirectory,
 
         [string]
-        $ProjectFile,
-
-        [string]
         $BuildConfiguration = 'Debug'
     )
 
@@ -199,7 +196,7 @@ function New-Package {
             $parameters += "detailed"
         }
 
-        $parameters = @("pack") + @($ProjectFile) + $parameters
+        $parameters = @("pack") + $parameters
 
         Write-Host -ForegroundColor Magenta "& dotnet $parameters"
         & dotnet $parameters | Out-Host
