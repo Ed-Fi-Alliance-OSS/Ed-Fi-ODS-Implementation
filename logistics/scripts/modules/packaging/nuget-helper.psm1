@@ -101,11 +101,10 @@ function Get-NuGetPackage {
         New-Item -Path $packageDestinationPath -ItemType Directory | Out-Null
     }
 
-    Move-Item -Force -Path "$OutputDirectory/$PackageName/$PackageVersion/*" -Destination "$OutputDirectory/$PackageName.$PackageVersion-temp"
+    Move-Item -Force -Path "$OutputDirectory/$($PackageName.ToLower())/$PackageVersion/*" -Destination "$OutputDirectory/$PackageName.$PackageVersion-temp"
     Move-Item -Force -Path "$OutputDirectory/$PackageName.$PackageVersion-temp/*" -Destination $packageDestinationPath
     Remove-Item -Recurse -Force "$OutputDirectory/$PackageName.$PackageVersion-temp/" | Out-Null
-    Remove-Item -Recurse -Force "$OutputDirectory/$PackageName/$PackageVersion" | Out-Null
-
+    
     if(Test-Path $temporaryProjectDirectory) {
         Remove-Item -Path $temporaryProjectDirectory -Recurse -Force | Out-Null 
     } 
