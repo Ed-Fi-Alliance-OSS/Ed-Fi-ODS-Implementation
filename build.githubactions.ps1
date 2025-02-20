@@ -152,7 +152,19 @@ function Pack {
         }
     }
     if ($NuspecFilePath -Like "*.nuspec" -and $null -ne $PackageName ){
-       nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties configuration=$Configuration -Properties id=$PackageName -NoPackageAnalysis -NoDefaultExcludes
+        $params = @{
+            PackageDefinitionFile = $NuspecFilePath
+            Version               = $version
+            Properties            = @{
+                configuration = $Configuration
+                id = $PackageName
+            }
+            OutputDirectory       = $packageOutput
+        }
+
+        & "$PSScriptRoot/Initialize-PowershellForDevelopment.ps1"
+
+        New-Package @params | Out-Host
     }
     if ([string]::IsNullOrWhiteSpace($NuspecFilePath) -and $null -ne $PackageName){
         Invoke-Execute {
