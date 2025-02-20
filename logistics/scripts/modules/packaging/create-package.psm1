@@ -142,7 +142,7 @@ function New-Package {
         # Therefore, when creating a package defined by a .nuspec file,
         # we must create an empty project and then delete it after packing is complete
 
-        $temporaryProjectDirectory = "./temporary-project"
+        $temporaryProjectDirectory = "$(Get-RepositoryResolvedPath)temporary-project"
         $temporaryProjectName = "temporary-project"
         
         $parameters = @(
@@ -163,7 +163,7 @@ function New-Package {
 
         $parameters = @()
 
-        $parameters += "./temporary-project/temporary-project.csproj"
+        $parameters += "$temporaryProjectDirectory/temporary-project.csproj"
         $parameters += "-p:NuspecFile=$($PackageDefinitionFile)"
         $parameters += "-p:NoDefaultExcludes=true" # Include .nupkg files in the package
         $parameters += "--output"
