@@ -101,7 +101,7 @@ function Get-Plugins([hashtable] $Settings) {
             $extensionPath = Invoke-PluginScript $scriptPath
 
             Copy-Item -Path $tempconfig -Destination $filePath
-            Remove-Item $tempconfig
+            Remove-Item $tempconfig | Out-Null
         }
         else {
             $extensionPath = Invoke-PluginScript $scriptPath
@@ -120,7 +120,7 @@ function Get-Plugins([hashtable] $Settings) {
         $sourcePath = Join-Path $folder $newExtensionFolderName
         
         if (Test-Path $sourcePath) {
-            Remove-Item $sourcePath -Recurse 
+            Remove-Item $sourcePath -Recurse -Force | Out-Null
         }
 
         Rename-Item -Path $extensionPath -NewName $newExtensionFolderName -Force
@@ -130,8 +130,7 @@ function Get-Plugins([hashtable] $Settings) {
             $standardVersion = ($extensionFolder -split '\.Standard\.')[1]
 
             if (Test-Path "$sourcePath\$extensionVersion\") {
-                Remove-Item "$sourcePath\$extensionVersion\" -Recurse 
-
+                Remove-Item "$sourcePath\$extensionVersion\" -Recurse | Out-Null
             }
 
             if (-not (Test-Path "$sourcePath\$extensionVersion\")) {
@@ -149,13 +148,13 @@ function Get-Plugins([hashtable] $Settings) {
             $destinationPath = "$sourcePath\$extensionVersion\Standard\$standardVersion\"
             Write-Host "$destinationPath" $destinationPath
 
-            Move-Item -Path "$sourcePath\Artifacts\" -Destination $destinationPath
+            Move-Item -Force -Path "$sourcePath\Artifacts\" -Destination $destinationPath
 
             $files = Get-ChildItem -Path $sourcePath -File
 
             foreach ($file in $files) {
                 $destination = $file.FullName.Replace($sourcePath, $destinationPath)
-                Move-Item -Path $file.FullName -Destination $destination
+                Move-Item -Force -Path $file.FullName -Destination $destination
             }
             Write-Host "New Extension path" $destinationPath -ForegroundColor Green
         }
@@ -186,7 +185,7 @@ function Remove-Plugins([hashtable] $Settings) {
     if (-not (Test-Path $folder)) { return }
 
     Write-Host $folder
-    Get-ChildItem -Path $folder -Directory -Recurse | Remove-Item -Recurse
+    Get-ChildItem -Path $folder -Directory -Recurse | Remove-Item -Recurse -Force | Out-Null
 }
 
 function Get-PluginScriptsForPackaging([hashtable] $Settings) {
