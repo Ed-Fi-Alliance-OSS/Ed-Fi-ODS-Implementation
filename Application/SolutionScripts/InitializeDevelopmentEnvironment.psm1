@@ -614,7 +614,7 @@ function Invoke-DotnetTest {
 }
 
 function Get-DefaultNuGetProperties {
-    $buildConfiguration = 'debug'
+    $buildConfiguration = 'Debug'
     if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
 
     return @(
@@ -649,15 +649,12 @@ function New-DatabasesPackage {
         & "$ProjectPath/prep-package.ps1" $PackageId $StandardVersion
         Write-Host
 
-        $nuget = Install-NuGetCli -ToolsPath $ToolsPath
-
         $params = @{
             PackageDefinitionFile = (Get-ChildItem "$ProjectPath/$PackageId.nuspec")
             PackageId             = $PackageId
             Version               = $Version
             Properties            = $Properties
             OutputDirectory       = $OutputDirectory
-            NuGet                 = $nuget
         }
         New-Package @params | Out-Host
     }
@@ -684,7 +681,7 @@ function New-WebPackage {
 
     Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectPath -Leaf))" -task {
 
-        $buildConfiguration = 'debug'
+        $buildConfiguration = 'Debug'
         if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
 
         $params = @(
@@ -705,14 +702,11 @@ function New-WebPackage {
             $xml.Save($PackageDefinitionFile)
         }
 
-        $nuget = Install-NuGetCli -ToolsPath $ToolsPath
-
         $params = @{
             PackageDefinitionFile = $PackageDefinitionFile
             Version               = $Version
             Properties            = $Properties
             OutputDirectory       = $OutputDirectory
-            NuGet                 = $nuget
         }
 
         New-Package @params | Out-Host

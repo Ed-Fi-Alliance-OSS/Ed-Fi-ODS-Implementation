@@ -34,7 +34,7 @@ env:
   REF_NAME:  ${{ GITHUB.REF_NAME }}
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   EDFI_SUITE_NUMBER: "Suite3"
-  msbuild_buildConfiguration: "release"
+  msbuild_buildConfiguration: "Release"
   DB_PASS: ${{ secrets.BUILD_DB_PASS }}
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
@@ -108,10 +108,6 @@ jobs:
                 echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
             }
       shell: pwsh
-    # This step shall be removed in ODS-6572
-    - name: Install Mono and Nuget
-      working-directory: ./Ed-Fi-ODS-Implementation/.github/workflows
-      run: sudo ./install-mono.sh
     - name: Cache Nuget packages   
       uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
       with:

@@ -6,59 +6,6 @@
 & "$PSScriptRoot/../../../../logistics/scripts/modules/load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/cross-platform.psm1")
 
-function Install-NuGetCli {
-    <#
-    .SYNOPSIS
-        Installs the latest version of the NuGet command line executable
-
-    .DESCRIPTION
-        Installs the latest version of the NuGet command line executable
-
-    .PARAMETER toolsPath
-        The path to store nuget.exe to
-
-    .PARAMETER sourceNuGetExe
-        Web location to the nuget file. Defaulted to the version 5.3.1.0 of nuget.exe.
-    #>
-    [CmdletBinding()]
-    Param(
-        [Parameter(Mandatory = $true)]
-        [string] $ToolsPath,
-
-        [string] $sourceNuGetExe = "https://dist.nuget.org/win-x86-commandline/v5.3.1/nuget.exe"
-    )
-
-    if (!(Get-IsWindows)) {
-        EnsureCommandIsAvailable "mono"
-    }
-
-    if (-not $(Test-Path $ToolsPath)) {
-        mkdir $ToolsPath | Out-Null
-    }
-
-    $nuget = (Join-Path $ToolsPath "nuget.exe")
-
-    if (-not $(Test-Path $nuget)) {
-        Write-Host "Downloading nuget.exe official distribution from " $sourceNuGetExe
-        Invoke-WebRequest $sourceNuGetExe -OutFile $nuget
-    }
-    else {
-        $info = Get-Command $nuget
-
-        if ("5.3.1.0" -ne $info.Version.ToString()) {
-            Write-Host "Updating nuget.exe official distribution from " $sourceNuGetExe
-            Invoke-WebRequest $sourceNuGetExe -OutFile $nuget
-        }
-    }
-
-    # Add the tools directory to the path if not already there
-    if (-not ($ENV:PATH.Contains($ToolsPath))) {
-        $ENV:PATH = "$ToolsPath$([IO.Path]::PathSeparator)$ENV:PATH"
-    }
-
-    return $nuget
-}
-
 function Get-NuGetPackage {
     <#
     .SYNOPSIS
@@ -72,8 +19,6 @@ function Get-NuGetPackage {
     .PARAMETER packageVersion
         Package version number. Can include pre-release information. Optional. If not
         specified, installs the most recent full release version.
-    .PARAMETER toolsPath
-        The path in which to find the NuGet command line client.
     .PARAMETER outputDirectory
         The path into which the package is unzipped. Defaults to "./downloads".
     .PARAMETER packageSource
@@ -82,7 +27,6 @@ function Get-NuGetPackage {
         $parameters = @{
             packageName = "EdFi.Suite3.Ods.WebApi"
             packageVersion = "5.2.0-b11661"
-            toolsPath = "./tools"
         }
         Get-NuGetPackage @parameters
     #>
@@ -97,10 +41,6 @@ function Get-NuGetPackage {
         $PackageVersion,
 
         [string]
-        [Parameter(Mandatory = $true)]
-        $ToolsPath,
-
-        [string]
         $OutputDirectory = './downloads',
 
         [string]
@@ -110,37 +50,75 @@ function Get-NuGetPackage {
         $ExcludeVersion
     )
 
-    $nuget = Install-NuGetCli $ToolsPath
+    # 'dotnet add' requires a project or solution be specified,
+    # even if it's contents are not used.
+    # Therefore, when creating a package defined by a .nuspec file,
+    # we must create an empty project and then delete it after packing is complete
+
+    $temporaryProjectDirectory = "$(Get-RepositoryResolvedPath)temporary-project"
+    $temporaryProjectName = "temporary-project"
+    
     $parameters = @(
-        "install", $PackageName,
-        "-source", $PackageSource,
-        "-outputDirectory", $OutputDirectory
+        "new", "classlib"
+        "--name", $temporaryProjectName
+        "--output", $temporaryProjectDirectory
     )
+
+    Write-Host -ForegroundColor Magenta "& dotnet $parameters"
+    & dotnet $parameters | Out-Null
+
+    $packageDestinationPath = "$OutputDirectory/$PackageName.$PackageVersion/"
+
     if ($ExcludeVersion) {
-        $parameters += "-ExcludeVersion"
+        $packageDestinationPath = "$OutputDirectory/$PackageName/"
     }
+
+    $parameters = @(
+        "add", $temporaryProjectDirectory
+        "package", $PackageName
+        "-s", $PackageSource
+        "--package-directory", $OutputDirectory
+    )
+
     if ($PackageVersion) {
-        $parameters += "-version"
+        $parameters += "-v"
         $parameters += $PackageVersion
     }
 
-    if(Get-IsWindows){
-        Write-Host -ForegroundColor Magenta "$ToolsPath/nuget $parameters"
-        & "$ToolsPath/nuget" $parameters | Out-Null
-    }else {
-        Write-Host -ForegroundColor Magenta "mono $ToolsPath/nuget.exe $parameters"
-        & mono "$ToolsPath/nuget.exe" $parameters | Out-Null
+    If(-not (test-path -PathType container $OutputDirectory))
+    {
+        New-Item -ItemType Directory -Path $OutputDirectory | Out-Null
     }
+
+    Write-Host -ForegroundColor Magenta "& dotnet $parameters"
+    & dotnet $parameters | Out-Null
+
+    if (-not (Test-Path "$OutputDirectory/$PackageName.$PackageVersion-temp/")) {
+        New-Item -Path "$OutputDirectory/$PackageName.$PackageVersion-temp/" -ItemType Directory | Out-Null
+    }
+
+    if (-not (Test-Path $packageDestinationPath)) {
+        New-Item -Path $packageDestinationPath -ItemType Directory | Out-Null
+    }
+
+    Move-Item -Force -Path "$OutputDirectory/$($PackageName.ToLower())/$PackageVersion/*" -Destination "$OutputDirectory/$PackageName.$PackageVersion-temp"
+    Move-Item -Force -Path "$OutputDirectory/$PackageName.$PackageVersion-temp/*" -Destination $packageDestinationPath
+    Remove-Item -Recurse -Force "$OutputDirectory/$PackageName.$PackageVersion-temp/" | Out-Null
 
     if ($ExcludeVersion) {
-        return Resolve-Path "$outputDirectory/$PackageName*" | Select-Object -Last 1
+        Remove-Item -Recurse -Force "$OutputDirectory/$($PackageName.ToLower())/$PackageVersion" | Out-Null
+    } else {
+        Remove-Item -Recurse -Force "$OutputDirectory/$($PackageName.ToLower())" | Out-Null
     }
 
-    return Resolve-Path "$outputDirectory/$PackageName.$PackageVersion*" | Select-Object -Last 1
+    if(Test-Path $temporaryProjectDirectory) {
+        Remove-Item -Path $temporaryProjectDirectory -Recurse -Force | Out-Null 
+    } 
+        
+    return $packageDestinationPath
 }
 
 $exports = @(
-    "Install-NuGetCli"
     "Get-NuGetPackage"
 )
 
