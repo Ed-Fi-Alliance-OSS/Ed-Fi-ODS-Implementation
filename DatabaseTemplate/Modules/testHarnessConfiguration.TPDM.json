@@ -1,4 +1,5 @@
 {
+  "ApplyOdsDatabaseMigrations": false,
   "Vendors": [
     {
       "Email": "test@tpdm.ed-fi.org",

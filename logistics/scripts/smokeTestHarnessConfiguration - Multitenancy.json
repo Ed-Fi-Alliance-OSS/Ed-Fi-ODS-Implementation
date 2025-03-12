@@ -1,4 +1,5 @@
 {
+  "ApplyOdsDatabaseMigrations": true,
   "Vendors": [
     {
       "TenantIdentifier": "Tenant1",

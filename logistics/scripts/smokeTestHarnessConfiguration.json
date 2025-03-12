@@ -1,4 +1,5 @@
 {
+  "ApplyOdsDatabaseMigrations": true,
   "Vendors": [
     {
       "Email": "test@ed-fi.org",
