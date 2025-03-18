@@ -11,6 +11,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
     {
         public List<Vendor> Vendors { get; set; }
         public bool EnableOwnershipBasedAuthorization { get; set; }
+        public bool ApplyOdsDatabaseMigrations { get; set; }
     }
 
     public class Vendor
