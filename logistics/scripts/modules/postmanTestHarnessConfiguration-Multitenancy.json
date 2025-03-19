@@ -1,4 +1,5 @@
 {
+  "ApplyOdsDatabaseMigrations": true,
   "EnableOwnershipBasedAuthorization": true,
   "Vendors": [
     {
