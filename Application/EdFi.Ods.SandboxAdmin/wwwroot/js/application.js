@@ -109,7 +109,7 @@ var addApplicationDialog = function () {
         },
         pattern: {
             message: 'Please enter a valid number with at least six digits of educationOrganizationId',
-            params: /^\d{6,}$/
+            params: /^(?:\s*\d{6,18},?)+$/
         }
     });
     self.vendorList = ko.observableArray();
@@ -273,12 +273,12 @@ function ApplicationsViewModel() {
     self.doAddApplication = function (onComplete) {
         self.error("");
         var applicationName = self.addApplicationDialog.applicationName();
-        var educationOrganizationId = parseInt(self.addApplicationDialog.educationOrganizationId());
+        var educationOrganizationId = self.addApplicationDialog.educationOrganizationId();
         var vendorId = self.addApplicationDialog.selectedVendor().Id();
 
         $.ajax({
             type: "POST",
-            data: { "ApplicationName": applicationName, "EducationOrganizationId": educationOrganizationId, "VendorId": vendorId },
+            data: { "ApplicationName": applicationName, "EducationOrganizationIdsString": educationOrganizationId, "VendorId": vendorId },
             url: EdFiAdmin.Urls.application,
             dataType: 'json',
             success: function (data, textStatus, jqXHR) {
