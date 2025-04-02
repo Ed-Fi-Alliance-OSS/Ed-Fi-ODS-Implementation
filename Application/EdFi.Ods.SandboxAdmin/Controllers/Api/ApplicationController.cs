@@ -65,12 +65,13 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
                 var message = $"The Application {applicationCreateModel.ApplicationName} already exists!";
                 return BadRequest(message);
             }
-            var vendor = _clientAppRepo.GetVendors().Where(a => a.VendorId == applicationCreateModel.VendorId).FirstOrDefault();
+            var vendor = _clientAppRepo.GetVendors().FirstOrDefault(a => a.VendorId == applicationCreateModel.VendorId);
             if (vendor == null)
             {
                 return NotFound();
             }
-            var newApplication = _clientAppRepo.CreateOrGetApplication(vendor.VendorId, applicationCreateModel.ApplicationName, applicationCreateModel.EducationOrganizationId, "Ed-Fi Sandbox", "uri://ed-fi-api-host.org");
+        
+            var newApplication = _clientAppRepo.CreateOrGetApplication(vendor.VendorId, applicationCreateModel.ApplicationName, applicationCreateModel.EducationOrganizationIds, "Ed-Fi Sandbox", "uri://ed-fi-api-host.org");
             return Ok(ToApplicationIndexViewModel(newApplication));
 
 
@@ -81,7 +82,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
             ApplicationIndexViewModel viewModel = new ApplicationIndexViewModel
             {
                 ApplicationName =application.ApplicationName,
-                EducationOrganizationId = application.ApplicationEducationOrganizations.Select(a=>a.EducationOrganizationId).FirstOrDefault(),
+                EducationOrganizationId = string.Join(", ", application.ApplicationEducationOrganizations.Select(a=>a.EducationOrganizationId).ToArray()),
                 VendorName = application.Vendor.VendorName,
                 Id=application.ApplicationId,
                 IsDefaultVendor = application.Vendor.VendorName.Trim() == "Test Admin" ? true : false
