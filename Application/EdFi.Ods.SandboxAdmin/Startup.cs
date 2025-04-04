@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Dapper;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Sandbox.Admin.Contexts;
@@ -18,6 +19,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -177,12 +179,20 @@ namespace EdFi.Ods.SandboxAdmin
 
             if (ApiSettings.GetDatabaseEngine() == DatabaseEngine.SqlServer)
             {
-                _logger.Debug($"Adding support for SqlServer");
-                builder.RegisterModule(new SqlServerModule());
+                if (IsAzureSqlServer())
+                {
+                    _logger.Debug("Adding support for Azure SQL");
+                    builder.RegisterModule(new AzureSqlServerModule());
+                }
+                else
+                {
+                    _logger.Debug("Adding support for SqlServer");
+                    builder.RegisterModule(new SqlServerModule());
+                }
             }
             else
             {
-                _logger.Debug($"Adding support for PostgreSQL");
+                _logger.Debug("Adding support for PostgreSQL");
                 builder.RegisterModule(new PostgresModule());
             }
         }
@@ -233,6 +243,17 @@ namespace EdFi.Ods.SandboxAdmin
 
                 endpoints.MapHealthChecks("/health");
             });
+        }
+
+        /// <summary>
+        /// Probes the 'EdFi_Master' DB to know the MSSQL edition.
+        /// </summary>
+        /// <returns>true when running on SQL Azure, false when running on-premises.</returns>
+        private bool IsAzureSqlServer()
+        {
+            using var conn = new SqlConnection(Configuration.GetConnectionString("EdFi_Master"));
+            var sqlServerEdition = conn.QuerySingle<string>("SELECT SERVERPROPERTY('edition')");
+            return sqlServerEdition == "SQL Azure";
         }
     }
 }
