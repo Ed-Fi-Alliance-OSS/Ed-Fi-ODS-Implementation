@@ -6,12 +6,12 @@
 Domain Entity BusRoute
     deprecated "Expect removal of this element in a future release."
     documentation "This is an example of a new domain entity."
+    domain entity Bus
+        documentation "The designated bus for the bus route."
+        is part of identity
     integer BusRouteNumber
         deprecated "Expect removal of this element in a future release."
         documentation "A unique identifier for the bus route."
-        is part of identity
-    shared string EdFi.IdentificationCode named BusId
-        documentation "The unique identifier for the bus assigned to the bus route."
         is part of identity
     string BusRouteDirection
         documentation "The direction of the bus route."
@@ -64,7 +64,3 @@ Domain Entity BusRoute
     association EdFi.StaffEducationOrganizationAssignmentAssociation
         documentation "The staff member (and associated assignment) responsible for assistance loading students on the bus."
         is optional
-    domain entity Bus
-        documentation "The designated bus for the bus route."
-        is required
-        merge Bus.BusId with BusId
