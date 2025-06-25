@@ -9,7 +9,21 @@ namespace EdFi.Ods.SandboxAdmin.Services.Models.Vendor
     {
         public string VendorName { get; set; }
 
-        public string NamespacePrefix { get; set; }
+        public string NamespacePrefixesString { get; set; }
+        
+        public string[] NamespacePrefixes { 
+            get
+            {
+                if (string.IsNullOrWhiteSpace(NamespacePrefixesString))
+                {
+                    return [];
+                }
+                
+                // Split the string by comma, trim each value
+                return NamespacePrefixesString?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(x => x.Trim()).ToArray();
+            }
+        }
 
         public string ContactName { get; set; }
 

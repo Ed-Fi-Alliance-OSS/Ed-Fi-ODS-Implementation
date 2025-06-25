@@ -11,7 +11,7 @@ namespace EdFi.Ods.SandboxAdmin.Services.Models.Application
 
         public string ApplicationName { get; set; }
 
-        public long EducationOrganizationId { get; set; }
+        public string EducationOrganizationId { get; set; }
 
         public string VendorName { get; set; }
 

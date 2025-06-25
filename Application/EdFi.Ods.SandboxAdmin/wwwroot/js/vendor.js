@@ -237,7 +237,7 @@ function VendorsViewModel() {
         var contactEmailAddress = self.addVendorDialog.contactEmailAddress();
         $.ajax({
             type: "POST",
-            data: { "VendorName": vendorName, "NamespacePrefix": namespacePrefix, "ContactName": contactName, "ContactEmailAddress": contactEmailAddress },
+            data: { "VendorName": vendorName, "NamespacePrefixesString": namespacePrefix, "ContactName": contactName, "ContactEmailAddress": contactEmailAddress },
             url: EdFiAdmin.Urls.vendor,
             dataType: 'json',
             success: function (data, textStatus, jqXHR) {
