@@ -569,7 +569,7 @@ function Initialize-EdFiDatabaseWithDbDeploy {
 
         [Int] $databaseTimeoutInSeconds = 60,
         
-        [ValidateSet('4.0.0', '5.2.0')]
+        [ValidateSet('4.0.0', '5.2.0', '6.0.0')]
         [String] $standardVersion,
 
         [ValidateScript({

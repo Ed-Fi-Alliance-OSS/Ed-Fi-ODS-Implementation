@@ -57,7 +57,7 @@ param(
     [string]
     $RelativeRepoPath,
 
-    [ValidateSet('4.0.0', '5.2.0')]
+    [ValidateSet('4.0.0', '5.2.0', '6.0.0')]
     [string]  $StandardVersion,
 
     [string]$Url,
