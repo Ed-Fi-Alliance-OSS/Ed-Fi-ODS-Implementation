@@ -423,7 +423,7 @@ jobs:
       with:
         workflow: Pkg EdFi.Ods.Profiles.Sample.yml
         workflow_conclusion: success
-        name: EdFi.Ods.Profiles.Sample.Artifacts
+        name: EdFi.Ods.Profiles.Sample.Artifacts-${{  env.standard_version  }}
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
         run_id: ${{ steps.return_dispatch_profiles_sample.outputs.run_id }}
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
