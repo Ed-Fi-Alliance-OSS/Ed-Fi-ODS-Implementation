@@ -344,6 +344,21 @@ $deploymentTasks = @{
     }
     'Reset-MinimalTemplateDatabase'   = {
         $settings = Get-DeploymentSettings
+        # Adjust template scripts for StandardVersion 6.0.0
+        if ($settings.ApiSettings.StandardVersion -eq "6.0.0") {
+            switch ($settings.ApiSettings.Engine) {
+                "SQLServer" {
+                    Write-Host "Overriding template scripts for StandardVersion 6.0.0 and Engine SQLServer"
+                    $settings.ApiSettings.MinimalTemplateScript = "EdFiMinimalTemplate"
+                    $settings.ApiSettings.PopulatedTemplateScript = "GrandBend"
+                }
+                "PostgreSql" {
+                    Write-Host "Overriding template scripts for StandardVersion 6.0.0 and Engine PostgreSql"
+                    $settings.ApiSettings.MinimalTemplateScript = "PostgreSqlMinimalTemplate"
+                    $settings.ApiSettings.PopulatedTemplateScript = "PostgreSqlPopulatedTemplate"
+                }
+            }
+        }
         $settings.ApiSettings.DropDatabases = $true
         $databaseType = $settings.ApiSettings.DatabaseTypes.Ods
         $csb = (Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$databaseType]] -replacementTokens $settings.ApiSettings.minimalTemplateSuffix)
