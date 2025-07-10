@@ -433,18 +433,38 @@ Set-Alias -Scope Global Reset-TestPopulatedTemplate Reset-TestPopulatedTemplateD
 function Reset-TestPopulatedTemplateDatabase {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
+        Write-Host "`$settings:" ($settings | ConvertTo-Json -Depth 10)
+
         $replacementTokens = @("$($settings.ApiSettings.populatedTemplateSuffix)_Test")
-        # turn on all available features for the test database to ensure all the schema components are available
+        Write-Host "`$replacementTokens:" $replacementTokens
+
         $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
+
         $databaseType = $settings.ApiSettings.DatabaseTypes.Ods
+        Write-Host "`$databaseType:" $databaseType
+
         $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
-        if ($settings.InstallType -eq 'MultiTenant') { $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "$($settings.ApiSettings.populatedTemplateSuffix)_$($_)_Test" } }
+        Write-Host "`$connectionStringKey:" $connectionStringKey
+
+        if ($settings.InstallType -eq 'MultiTenant') {
+            $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "$($settings.ApiSettings.populatedTemplateSuffix)_$($_)_Test" }
+            Write-Host "`$replacementTokens (multi-tenant):" $replacementTokens
+        }
+
         $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
+        Write-Host "`$csbs:" ($csbs | Out-String)
+
         $createByRestoringBackup = Get-PopulatedTemplateBackupPathFromSettings $settings
-        foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb $createByRestoringBackup }
+        Write-Host "`$createByRestoringBackup:" $createByRestoringBackup
+
+        foreach ($csb in $csbs) {
+            Write-Host "Initializing DB for connection string builder:" $csb
+            Initialize-EdFiDatabase $settings $databaseType $csb $createByRestoringBackup
+        }
     }
 }
+
 
 Set-Alias -Scope Global Run-CodeGen Invoke-CodeGen
 function Invoke-CodeGen {
