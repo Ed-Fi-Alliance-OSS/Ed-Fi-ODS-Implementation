@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+﻿# SPDX-License-Identifier: Apache-2.0
 # Licensed to the Ed-Fi Alliance under one or more agreements.
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
@@ -433,6 +433,23 @@ Set-Alias -Scope Global Reset-TestPopulatedTemplate Reset-TestPopulatedTemplateD
 function Reset-TestPopulatedTemplateDatabase {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
+
+        # Adjust template scripts for StandardVersion 6.0.0
+        if ($settings.ApiSettings.StandardVersion -eq "6.0.0") {
+            switch ($settings.ApiSettings.Engine) {
+                "SQLServer" {
+                    Write-Host "Overriding template scripts for StandardVersion 6.0.0 and Engine SQLServer"
+                    $settings.ApiSettings.MinimalTemplateScript = "EdFiMinimalTemplate"
+                    $settings.ApiSettings.PopulatedTemplateScript = "GrandBend"
+                }
+                "PostgreSql" {
+                    Write-Host "Overriding template scripts for StandardVersion 6.0.0 and Engine PostgreSql"
+                    $settings.ApiSettings.MinimalTemplateScript = "PostgreSqlMinimalTemplate"
+                    $settings.ApiSettings.PopulatedTemplateScript = "PostgreSqlPopulatedTemplate"
+                }
+            }
+        }  
+
         Write-Host "`$settings:" ($settings | ConvertTo-Json -Depth 10)
 
         $replacementTokens = @("$($settings.ApiSettings.populatedTemplateSuffix)_Test")
