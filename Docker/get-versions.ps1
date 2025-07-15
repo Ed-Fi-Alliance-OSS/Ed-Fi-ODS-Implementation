@@ -43,7 +43,7 @@
 #>
 param(
     [string]
-    $PackageVersion = "7.4",
+    $PackageVersion = "7.3",
 
     [string]
     [ValidateSet('4.0.0', '5.2.0')]
