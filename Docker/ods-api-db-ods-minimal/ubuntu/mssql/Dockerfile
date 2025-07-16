@@ -5,6 +5,8 @@
 
 # Base image with additional packages
 FROM mcr.microsoft.com/mssql/server:2022-CU15-ubuntu-22.04@sha256:804e527187b16fe05c4321b58d76850966cbaf73e31942416ce0bbefe1b0eb63 AS base
+ENV ACCEPT_EULA=Y
+
 USER root
 RUN apt-get update && \
     apt-get upgrade -y && \

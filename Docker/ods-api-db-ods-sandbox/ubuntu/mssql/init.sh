@@ -9,7 +9,6 @@ set +x
 
 # Export default values
 export MSSQL_SA_PASSWORD=$SQLSERVER_PASSWORD
-export ACCEPT_EULA=Y
 
 /app/setup-db.sh &
 
