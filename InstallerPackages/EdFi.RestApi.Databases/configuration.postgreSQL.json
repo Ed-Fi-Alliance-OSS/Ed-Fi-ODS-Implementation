@@ -24,7 +24,7 @@
   "ApiSettings": {
     "Engine": "PostgreSQL",
     "ExtensionVersion": "1.1.0",
-    "StandardVersion": "5.2.0",
+    "StandardVersion": "6.0.0",
     "PopulatedTemplateDBTimeOutInSeconds": "600",
     "OdsTokens": [],
     "ExcludedExtensions": [],

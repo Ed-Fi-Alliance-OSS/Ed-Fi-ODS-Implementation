@@ -169,8 +169,8 @@ function Initialize-DevelopmentEnvironment {
         [string] $DbServerBackupDirectory,
 
         [Parameter(Mandatory=$false)]
-        [ValidateSet('4.0.0', '5.2.0')]
-        [String] $StandardVersion = '5.2.0',
+        [ValidateSet('4.0.0', '5.2.0', '6.0.0')]
+        [String] $StandardVersion = '6.0.0',
 
         [Parameter(Mandatory=$false)]
         [ValidateScript({
@@ -337,7 +337,7 @@ Function Invoke-RebuildSolution {
         [string] $verbosity = "minimal",
         [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln"),
         [Boolean] $noRestore = $false,
-        [ValidateSet('4.0.0', '5.2.0')]
+        [ValidateSet('4.0.0', '5.2.0', '6.0.0')]
         [string]  $standardVersion
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
@@ -470,7 +470,7 @@ function Invoke-CodeGen {
         
         [String] $RepositoryRoot,
         
-        [ValidateSet('4.0.0', '5.2.0')]
+        [ValidateSet('4.0.0', '5.2.0', '6.0.0')]
         [Parameter(Mandatory=$true)]
         [string] $StandardVersion,
         
@@ -592,7 +592,7 @@ function Invoke-SdkGen {
         [Boolean] $GenerateTestSdkPackage,
         [string] $PackageVersion,
         [Boolean] $NoRestore,
-        [ValidateSet('4.0.0', '5.2.0')]
+        [ValidateSet('4.0.0', '5.2.0', '6.0.0')]
         [String] $StandardVersion,
 		[String] $JavaPath
     )
@@ -637,7 +637,7 @@ function New-DatabasesPackage {
 
         [string] $OutputDirectory,
 
-        [ValidateSet('4.0.0', '5.2.0')]
+        [ValidateSet('4.0.0', '5.2.0', '6.0.0')]
         [string] $StandardVersion
 
     )
@@ -663,7 +663,7 @@ function New-DatabasesPackage {
 function New-WebPackage {
     param(
 
-        [ValidateSet('4.0.0', '5.2.0')]
+        [ValidateSet('4.0.0', '5.2.0', '6.0.0')]
         [string] $StandardVersion,
 
         [string] $ProjectPath,
