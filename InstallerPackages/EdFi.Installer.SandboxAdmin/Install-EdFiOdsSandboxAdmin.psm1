@@ -129,11 +129,11 @@ function Install-EdFiOdsSandboxAdmin {
 
     .EXAMPLE
         PS c:/> $parameters = @{
-            PackageVersion     = '5.2.0'
+            PackageVersion     = '6.0.0'
             WebSitePath        = 'c:\inetpub\Ed-Fi'
             WebSitePort        = 8765
             WebApplicationPath = 'SandboxAdmin'
-            WebApplicationName = 'SandboxAdmin5.2.0'
+            WebApplicationName = 'SandboxAdmin6.0.0'
             Settings           = @{
                 OAuthUrl                     = 'https://localhost/EdFiOdsWebApi'
                 DefaultApplicationName       = 'My Sandbox Administrator'

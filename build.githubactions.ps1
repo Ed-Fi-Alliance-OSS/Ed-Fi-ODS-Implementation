@@ -57,7 +57,7 @@ param(
     [string]
     $RelativeRepoPath,
 
-    [ValidateSet('4.0.0', '5.2.0')]
+    [ValidateSet('4.0.0', '5.2.0', '6.0.0')]
     [string]  $StandardVersion,
 
     [string]$Url,
@@ -254,56 +254,28 @@ function Get-IsWindows {
     return $IsWindows
 }
 function InstallCredentialHandler {
-    if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") {
-         Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
-         Write-Host "Installed 7Zip4Powershell."
-    }
-    $userProfilePath = [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::UserProfile);
-    if ($userProfilePath -ne '') {
-        $profilePath = $userProfilePath
-    } else {
-        $profilePath = $env:UserProfile
-    }
 
-    $tempPath = [System.IO.Path]::GetTempPath()
+    # Does the same as: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) }"
+    # but this brings support for installing the provider on Linux.
+    # Additionally, it's less likely to hit GitHub rate limits because this downloads it directly, instead of making a
+    # request to https://api.github.com/repos/Microsoft/artifacts-credprovider/releases/latest to infer the latest version.
 
-    $pluginLocation = [System.IO.Path]::Combine($profilePath, ".nuget", "plugins");
-    $tempZipLocation = [System.IO.Path]::Combine($tempPath, "CredProviderZip");
-    $localNetcoreCredProviderPath = [System.IO.Path]::Combine("netcore", "CredentialProvider.Microsoft");
-    $fullNetcoreCredProviderPath = [System.IO.Path]::Combine($pluginLocation, $localNetcoreCredProviderPath)    
-    $sourceUrl = 'https://github.com/microsoft/artifacts-credprovider/releases/download/v1.1.1/Microsoft.Net6.NuGet.CredentialProvider.zip'
-    $zipFile = 'Microsoft.Net6.NuGet.CredentialProvider.zip'
-    $pluginZip = Join-Path ([IO.Path]::GetTempPath()) $zipFile
-    Write-Host "Downloading $sourceUrl to $pluginZip"
-    try {
-        $client = New-Object System.Net.WebClient
-        $client.DownloadFile($sourceUrl, $pluginZip)
-    } catch {
-        Write-Error "Unable to download $sourceUrl to the location $pluginZip"
-    }
+    $downloadPath = Join-Path ([IO.Path]::GetTempPath()) 'cred-provider.zip'
+    
+    $credProviderUrl = 'https://github.com/microsoft/artifacts-credprovider/releases/download/v1.4.1/Microsoft.Net6.NuGet.CredentialProvider.zip'
+    Write-Host "Downloading artifacts-credprovider from $credProviderUrl ..."
+    $webClient = New-Object System.Net.WebClient
+    $webClient.DownloadFile($credProviderUrl, $downloadPath)
     Write-Host "Download complete." 
-    if (-not (Test-Path $pluginZip)) {
-        Write-Warning "Microsoft.Net6.NuGet.CredentialProvider file '$zipFile' not found."
-        return
-    }
-    $tempZipLocation = Join-Path ([IO.Path]::GetTempPath()) 'CredProviderZip'
-    if ($zipFile.EndsWith('.zip')) {
-        Write-Host "Extracting $zipFile..."
-        if (Test-Path $pluginZip) {
-            Expand-Archive -Force -Path $pluginZip -DestinationPath $tempZipLocation
-        }
-        $tempNetcorePath = Join-Path $tempZipLocation 'plugins' $localNetcoreCredProviderPath
-        Write-Verbose "Copying Credential Provider from $tempNetcorePath to $fullNetcoreCredProviderPath"
-        if (Test-Path $tempNetcorePath) {
-            Copy-Item $tempNetcorePath -Destination $fullNetcoreCredProviderPath -Force -Recurse
-        } else {
-            Write-Error "The Credential Provider was not found at $tempNetcorePath."
-        }
 
-        # Remove $tempZipLocation directory
-        Write-Verbose "Removing the Credential Provider temp directory $tempZipLocation"
-        Remove-Item $tempZipLocation -Force -Recurse
+    if (-not (Test-Path $downloadPath)) {
+        throw "'$downloadPath' not found."
     }
+
+    # The provider should be installed in the path: ~/.nuget/plugins/netcore/CredentialProvider.Microsoft/<binaries>
+    Write-Host "Extracting $downloadPath ..."
+    Expand-Archive -Force -Path $downloadPath -DestinationPath '~/.nuget/'
+    Write-Host "The artifacts-credprovider was successfully installed" -ForegroundColor Green
 }
 
 
