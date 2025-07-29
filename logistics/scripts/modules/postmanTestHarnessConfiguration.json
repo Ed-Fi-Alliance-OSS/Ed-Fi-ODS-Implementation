@@ -36,7 +36,7 @@
           ]
         }
       ],
-      "NamespacePrefixes": ["uri://ed-fi.org"]
+      "NamespacePrefixes": ["uri://ed-fi.org", "uri://sample.ed-fi.org"]
     },
     {
       "Email": "test2@other.org",
