@@ -36,6 +36,25 @@
           ]
         }
       ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
+    },
+    {
+      "Email": "test1b@ed-fi.org",
+      "VendorName": "sample.ed-fi.org",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "255901_sampleextension",
+              "LocalEducationOrganizations": [255901],
+              "OwnershipToken": "OwnershipToken_255901_sampleextension",
+              "ApiClientOwnershipTokens": [ "OwnershipToken_255901_sampleextension" ]
+            }
+          ]
+        }
+      ],
       "NamespacePrefixes": ["uri://ed-fi.org", "uri://sample.ed-fi.org"]
     },
     {
