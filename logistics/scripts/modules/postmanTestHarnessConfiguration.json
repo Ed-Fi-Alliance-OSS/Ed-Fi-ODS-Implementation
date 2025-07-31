@@ -39,6 +39,23 @@
       "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
+      "Email": "test1b@ed-fi.org",
+      "VendorName": "sample.ed-fi.org",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "255901_sampleextension",
+              "LocalEducationOrganizations": [255901]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org", "uri://sample.ed-fi.org"]
+    },
+    {
       "Email": "test2@other.org",
       "VendorName": "other.org",
       "Applications": [
