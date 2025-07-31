@@ -48,9 +48,7 @@
           "ApiClients": [
             {
               "ApiClientName": "255901_sampleextension",
-              "LocalEducationOrganizations": [255901],
-              "OwnershipToken": "OwnershipToken_255901_sampleextension",
-              "ApiClientOwnershipTokens": [ "OwnershipToken_255901_sampleextension" ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
