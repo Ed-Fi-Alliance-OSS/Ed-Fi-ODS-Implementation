@@ -536,6 +536,7 @@ function Add-DeploymentSpecificSettings([hashtable] $Settings = @{ }) {
 function Update-DefaultDatabaseTemplate([hashtable] $Settings = @{ }) {
 
     $engine = $Settings.ApiSettings.Engine
+    $standardVersion = [Version]$Settings.ApiSettings.StandardVersion
     $defaultTemplateSettings = Get-DefaultTemplateSettingsByEngine
     $defaultTPDMTemplateSettings = Get-DefaultTPDMTemplateSettingsByEngine
     $defaultMinimalTemplates = @(
@@ -551,7 +552,8 @@ function Update-DefaultDatabaseTemplate([hashtable] $Settings = @{ }) {
         $defaultTPDMTemplateSettings.PostgreSQL.ApiSettings.PopulatedTemplateScript
     )
 
-    if ($Settings.Plugin.Scripts -notcontains "tpdm") {
+    # tpdm is embedded in the Ed-Fi ODS / API 6.0+ and is not a plugin anymore
+    if ($Settings.Plugin.Scripts -notcontains "tpdm" -or $standardVersion -ge [Version]::new(6, 0, 0)) {
         if ($defaultMinimalTemplates -contains $Settings.ApiSettings.MinimalTemplateScript) {
             $Settings.ApiSettings.MinimalTemplateScript = $defaultTemplateSettings[$engine].ApiSettings.MinimalTemplateScript
         }
