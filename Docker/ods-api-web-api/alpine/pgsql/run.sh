@@ -7,7 +7,23 @@
 set -e
 set +x
 
-if [[ "$TPDM_ENABLED" != true ]]; then
+is_semver_higher() {
+  local version1="$1"
+  local version2="$2"
+
+  # Check if version1 is the first in a version-sorted list of both versions
+  # If it is, and they are not equal, then version2 must be higher.
+  # If version2 is the first, then version1 is higher or equal.
+  # We want to know if version1 is strictly higher.
+  if [ "$(printf '%s\n%s\n' "$version1" "$version2" | sort -V | head -n1)" = "$version2" ] && \
+     [ "$version1" != "$version2" ]; then
+    return 1 # version1 is NOT higher than version2
+  else
+    return 0 # version1 IS higher than version2 (or equal, if strict higher check is not needed)
+  fi
+}
+
+if [[ "$TPDM_ENABLED" != "true" ]] || $(is_semver_higher "$STANDARD_VERSION" "6.0.0"); then
     export Plugin__Folder="./Plugin_Disabled"
 fi
 
