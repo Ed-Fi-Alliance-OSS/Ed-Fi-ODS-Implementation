@@ -10,7 +10,8 @@ ENV ACCEPT_EULA=Y
 USER root
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get -y install --no-install-recommends unzip=6.0-26ubuntu3 dos2unix=7.4.2-2 &&\
+    apt-get -y install --no-install-recommends unzip=6.0-26ubuntu3 dos2unix=7.4.2-2 nodejs npm &&\
+    npm install -g semver &&\
     rm -rf /var/lib/apt/lists/* &&\
     # These steps are needed in order to mount the database to a host volume
     mkdir -p /var/opt/mssql/data /var/opt/mssql/log &&\
@@ -45,19 +46,23 @@ RUN umask 0077 && \
     unzip -p ./backups/OdsPopulatedDatabase.zip EdFi.Ods.Populated.Template.bak >> ./backups/EdFi_Ods_Populated_Template.bak && \
     wget -q -O ./backups/OdsMinimalDatabase.zip ${ODS_MINIMAL_URL} && \
     unzip -p ./backups/OdsMinimalDatabase.zip EdFi.Ods.Minimal.Template.bak >> ./backups/EdFi_Ods_Minimal_Template.bak && \
-    # # Download and extract Minimal and Populated Templates for Teacher Prep Data Model (TPDM)
-    wget -q -O ./backups/TPDMOdsPopulatedDatabase.zip ${TPDM_POPULATED_URL} && \
-    unzip -p ./backups/TPDMOdsPopulatedDatabase.zip EdFi.Ods.Populated.Template.TPDM.Core.bak > ./backups/EdFi_Ods_Populated_Template_TPDM_Core.bak && \
-    wget -q -O ./backups/TPDMOdsMinimalDatabase.zip ${TPDM_MINIMAL_URL} && \
-    unzip -p ./backups/TPDMOdsMinimalDatabase.zip EdFi.Ods.Minimal.Template.TPDM.Core.bak > ./backups/EdFi_Ods_Minimal_Template_TPDM_Core.bak && \
+    # Download and extract Minimal Template for Teacher Prep Data Model (TPDM) when the data standard version is less than 6.0.0
+    if semver -r "<6.0.0" "$STANDARD_VERSION"; then \
+        wget -q -O ./backups/TPDMOdsPopulatedDatabase.zip ${TPDM_POPULATED_URL} && \
+        unzip -p ./backups/TPDMOdsPopulatedDatabase.zip EdFi.Ods.Populated.Template.TPDM.Core.bak > ./backups/EdFi_Ods_Populated_Template_TPDM_Core.bak && \
+        wget -q -O ./backups/TPDMOdsMinimalDatabase.zip ${TPDM_MINIMAL_URL} && \
+        unzip -p ./backups/TPDMOdsMinimalDatabase.zip EdFi.Ods.Minimal.Template.TPDM.Core.bak > ./backups/EdFi_Ods_Minimal_Template_TPDM_Core.bak; \
+    fi && \
     rm -f ./backups/*.zip && \
-    apt-get --purge autoremove unzip -y
+    apt-get --purge autoremove unzip nodejs npm -y &&\
+    apt-get clean
 
 COPY --chmod=500 ./*.sh .
 
 RUN dos2unix ./*.sh && \
     chown -R mssql . && \ 
-    apt-get --purge autoremove dos2unix -y
+    apt-get --purge autoremove dos2unix -y &&\
+    apt-get clean
 
 EXPOSE 1433
 USER mssql

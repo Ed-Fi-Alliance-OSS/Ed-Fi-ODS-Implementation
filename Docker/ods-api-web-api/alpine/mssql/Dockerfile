@@ -29,6 +29,7 @@ RUN apk --upgrade --no-cache add gnupg=~2.4 && \
 FROM base AS build
 ARG API_VERSION
 ARG STANDARD_VERSION
+ENV STANDARD_VERSION=${STANDARD_VERSION}
 
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
