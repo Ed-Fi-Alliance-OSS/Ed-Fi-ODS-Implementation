@@ -5,7 +5,7 @@
 
 # Base image with additional packages
 FROM postgres:16.9-alpine3.21@sha256:36e8aabaa6fa6037537cff64011fa45a200fe2ba202141b9aca48cff3df7ad42 AS base
-RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 nodejs=~18 npm=~9 && \
+RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 nodejs=~22 npm=~10 && \
     npm install -g semver@7
 
 # Workaround to fix false positive CVEs using gosu
@@ -14,8 +14,8 @@ ENV GOSU_VERSION=1.17
 WORKDIR /go/src/github.com/tianon
 RUN git clone https://github.com/tianon/gosu.git --branch $GOSU_VERSION
 WORKDIR /go/src/github.com/tianon/gosu
-RUN go mod download
-RUN go build
+RUN go mod download; go build
+
 
 # Start a new layer so that the above layers can be cached
 FROM base AS build

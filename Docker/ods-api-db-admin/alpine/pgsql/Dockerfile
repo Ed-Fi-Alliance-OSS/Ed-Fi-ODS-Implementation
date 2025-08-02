@@ -13,8 +13,7 @@ ENV GOSU_VERSION=1.17
 WORKDIR /go/src/github.com/tianon
 RUN git clone https://github.com/tianon/gosu.git --branch $GOSU_VERSION
 WORKDIR /go/src/github.com/tianon/gosu
-RUN go mod download
-RUN go build
+RUN go mod download; go build
 
 # Start a new layer so that the above layer can be cached
 FROM base AS build
