@@ -9,8 +9,8 @@ ENV ACCEPT_EULA=Y
 
 USER root
 RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get -y install --no-install-recommends unzip=6.0-26ubuntu3 dos2unix=7.4.2-2 nodejs=18.* npm=9.* &&\
+    apt-get upgrade -y &&\
+    apt-get -y install --no-install-recommends unzip=6.0-26ubuntu3 dos2unix=7.4.2-2 nodejs=12.* npm=8.* &&\
     npm install -g semver@7 &&\
     rm -rf /var/lib/apt/lists/* &&\
     # These steps are needed in order to mount the database to a host volume
