@@ -2,7 +2,7 @@
 
 Provides a Docker image of the Ed-Fi ODS database's "populated template",
 containing a small set of sample (fake) school and student data, running on
-PostgreSQL 13.
+PostgreSQL 16.
 
 > [!WARNING]
 > This image is not recommended for a production environment.
@@ -10,7 +10,7 @@ PostgreSQL 13.
 ## Image Variants
 
 The only supported image at this time is an Alpine-based implementation using
-[PostgreSQL 13](https://hub.docker.com/_/postgres).
+[PostgreSQL 16](https://hub.docker.com/_/postgres).
 
 `edfialliance/ods-api-db-ods-populated:<version>`
 

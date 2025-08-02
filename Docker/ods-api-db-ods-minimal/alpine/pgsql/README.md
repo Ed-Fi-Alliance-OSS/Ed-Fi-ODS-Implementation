@@ -2,7 +2,7 @@
 
 Provides a Docker image of the Ed-Fi ODS database's "minimal template",
 containing a small set of sample (fake) school and student data, running
-on PostgreSQL 13.
+on PostgreSQL 16.
 
 SA user is disabled after initial setup.
 
@@ -12,7 +12,7 @@ SA user is disabled after initial setup.
 ## Image Variants
 
 The only supported image at this time is an Alpine-based implementation using
-[PostgreSQL 13](https://hub.docker.com/_/postgres).
+[PostgreSQL 16](https://hub.docker.com/_/postgres).
 
 `edfialliance/ods-api-db-ods-minimal:<version>`
 

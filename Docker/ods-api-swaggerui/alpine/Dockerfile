@@ -4,8 +4,8 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 # Base image with additional packages
-FROM mcr.microsoft.com/dotnet/aspnet:8.0.10-alpine3.20@sha256:09bd97b2f28a084168e6d4e2f1c32385753cd7166c8d87af71a0dba2919d7aa2 AS base
-RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 icu=~74 busybox=~1.36 && \
+FROM mcr.microsoft.com/dotnet/aspnet:8.0.18-alpine3.21@sha256:d600a99dbc2076ceadc60c4ba60afc294e7916a652cffd88a0f62630d1b3c1fa AS base
+RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 icu=~74 && \
     addgroup -S edfi && adduser -S edfi -G edfi
 
 # Start a new layer so that the above layer can be cached

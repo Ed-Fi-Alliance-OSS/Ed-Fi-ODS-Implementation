@@ -4,10 +4,20 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 # Base image with additional packages
-FROM postgres:16.4-alpine3.20@sha256:ad47523c5154f587f0be492539c76c6c3394e8a7b02f2d86f7b8b32297a862a6 AS base
-RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 busybox=~1.36 openssl~=3.3.4-r0 libxml2=~2
+FROM postgres:16.9-alpine3.21@sha256:36e8aabaa6fa6037537cff64011fa45a200fe2ba202141b9aca48cff3df7ad42 AS base
+RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 nodejs=~22 npm=~10 && \
+    npm install -g semver@7
 
-# Start a new layer so that the above layer can be cached
+# Workaround to fix false positive CVEs using gosu
+FROM golang:1.24 AS gosubuilder
+ENV GOSU_VERSION=1.17
+WORKDIR /go/src/github.com/tianon
+RUN git clone https://github.com/tianon/gosu.git --branch $GOSU_VERSION
+WORKDIR /go/src/github.com/tianon/gosu
+RUN go mod download; go build
+
+
+# Start a new layer so that the above layers can be cached
 FROM base AS build
 ARG ODS_VERSION
 ARG TPDM_VERSION
@@ -21,19 +31,24 @@ LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 # These variables can be overwritten at runtime
 ENV POSTGRES_DB=postgres
 
+# Override provided gosu with the one built from source with updated go version
+COPY --from=gosubuilder /go/src/github.com/tianon/gosu/gosu /usr/local/bin/gosu
+
 COPY init-database.sh /docker-entrypoint-initdb.d/init-database.sh
 
 RUN \
     # Download and extract Minimal Template for core Ed-Fi Data Model
     wget -q -O /tmp/OdsMinimalDatabase.zip ${ODS_URL} && \
     unzip -p /tmp/OdsMinimalDatabase.zip EdFi.Ods.Minimal.Template.sql > /tmp/EdFi_Ods_Minimal_Template.sql && \
-    # Download and extract Minimal Template for Teacher Prep Data Model (TPDM)
-    wget -q -O /tmp/TPDMOdsMinimalDatabase.zip ${TPDM_URL} && \
-    unzip -p /tmp/TPDMOdsMinimalDatabase.zip EdFi.Ods.Minimal.Template.TPDM.Core.sql > /tmp/EdFi_Ods_Minimal_Template_TPDM_Core.sql && \
+    # Download and extract Minimal Template for Teacher Prep Data Model (TPDM) when the data standard version is less than 6.0.0
+    if semver -r "<6.0.0" "$STANDARD_VERSION"; then \
+        wget -q -O /tmp/TPDMOdsMinimalDatabase.zip ${TPDM_URL} && \
+        unzip -p /tmp/TPDMOdsMinimalDatabase.zip EdFi.Ods.Minimal.Template.TPDM.Core.sql > /tmp/EdFi_Ods_Minimal_Template_TPDM_Core.sql; \
+    fi && \
     rm -f /tmp/*.zip && \
     dos2unix /docker-entrypoint-initdb.d/init-database.sh && \
     dos2unix /tmp/*.sql && \
-    apk del unzip dos2unix
+    apk del unzip dos2unix nodejs npm
 
 EXPOSE 5432
 USER postgres
