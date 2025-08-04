@@ -307,6 +307,7 @@ Describe 'Update-DefaultDatabaseTemplate' {
                 Engine = 'SQLServer'
                 MinimalTemplateScript   = 'EdFiMinimalTemplate'
                 PopulatedTemplateScript = 'GrandBend'
+                StandardVersion = '5.2.0'
             }
             Plugin = @{
                 Folder  = "../../Plugin"
@@ -326,6 +327,7 @@ Describe 'Update-DefaultDatabaseTemplate' {
                 Engine = 'PostgreSQL'
                 MinimalTemplateScript   = 'EdFiMinimalTemplate'
                 PopulatedTemplateScript = 'GrandBend'
+                StandardVersion = '5.2.0'
             }
             Plugin = @{
                 Folder  = "../../Plugin"
@@ -345,6 +347,7 @@ Describe 'Update-DefaultDatabaseTemplate' {
                 Engine = 'SQLServer'
                 MinimalTemplateScript   = 'PostgreSQLMinimalTemplate'
                 PopulatedTemplateScript = 'PostgreSQLPopulatedTemplate'
+                StandardVersion = '5.2.0'
             }
             Plugin = @{
                 Folder  = "../../Plugin"

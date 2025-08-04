@@ -536,7 +536,13 @@ function Add-DeploymentSpecificSettings([hashtable] $Settings = @{ }) {
 function Update-DefaultDatabaseTemplate([hashtable] $Settings = @{ }) {
 
     $engine = $Settings.ApiSettings.Engine
-    $standardVersion = [Version]$Settings.ApiSettings.StandardVersion
+    $standardVersion = $Settings.ApiSettings.StandardVersion
+    if ([string]::IsNullOrWhiteSpace($standardVersion)) {
+        $standardVersion = [Version]::new(6, 0, 0)
+    }
+    else {
+        $standardVersion = [Version]$standardVersion
+    }
     $defaultTemplateSettings = Get-DefaultTemplateSettingsByEngine
     $defaultTPDMTemplateSettings = Get-DefaultTPDMTemplateSettingsByEngine
     $defaultMinimalTemplates = @(
