@@ -19,12 +19,29 @@ Describe 'Get-PluginFolderFromSettings' {
 Describe 'Get-PluginScriptsFromSettings' {
     It "Gets plugin scripts"{
         $settings = Get-EdFiDeveloperPluginSettings
+        $settings.ApiSettings = @{ StandardVersion = "0.0.0" }
         $pfolder = Get-PluginFolderFromSettings $settings
         $pScripts = Get-PluginScriptsFromSettings $settings
         foreach($pScript in $pScripts){
             $sPath = Join-Path $pfolder "$($pScript).ps1"
             Test-Path $sPath | Should -Be $true
         }
+    }
+
+    It "Gets plugin scripts without tpdm if standard version is 6.0 or higher"{
+        $settings = Get-EdFiDeveloperPluginSettings
+        $settings.ApiSettings = @{ StandardVersion = "6.0.0" }
+        $pScripts = Get-PluginScriptsFromSettings $settings
+        
+        $pScripts.Contains('tpdm') | Should -Be $false
+    }
+
+    It "Gets plugin scripts with tpdm if standard version is lower than 6.0"{
+        $settings = Get-EdFiDeveloperPluginSettings
+        $settings.ApiSettings = @{ StandardVersion = "5.9.9" }
+        $pScripts = Get-PluginScriptsFromSettings $settings
+        
+        $pScripts.Contains('tpdm') | Should -Be $true
     }
 }
 

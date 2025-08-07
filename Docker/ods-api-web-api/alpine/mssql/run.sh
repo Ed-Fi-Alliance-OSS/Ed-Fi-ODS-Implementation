@@ -7,7 +7,16 @@
 set -e
 set +x
 
-if [[ "$TPDM_ENABLED" != true ]]; then
+is_semver_gte() {
+  local version1="$1"
+  local version2="$2"
+
+  # Returns success if version1 is greater than or equal to version2 using version sort.
+  # Compares two semantic version strings and determines if the first is greater than or equal to the second.
+  [ "$(printf '%s\n%s\n' "$version1" "$version2" | sort -V | head -n1)" = "$version2" ]
+}
+
+if [[ "$TPDM_ENABLED" != "true" ]] || $(is_semver_gte "$STANDARD_VERSION" "6.0.0"); then
     export Plugin__Folder="./Plugin_Disabled"
 fi
 

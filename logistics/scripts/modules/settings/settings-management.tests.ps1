@@ -307,6 +307,7 @@ Describe 'Update-DefaultDatabaseTemplate' {
                 Engine = 'SQLServer'
                 MinimalTemplateScript   = 'EdFiMinimalTemplate'
                 PopulatedTemplateScript = 'GrandBend'
+                StandardVersion = '5.2.0'
             }
             Plugin = @{
                 Folder  = "../../Plugin"
@@ -326,6 +327,7 @@ Describe 'Update-DefaultDatabaseTemplate' {
                 Engine = 'PostgreSQL'
                 MinimalTemplateScript   = 'EdFiMinimalTemplate'
                 PopulatedTemplateScript = 'GrandBend'
+                StandardVersion = '5.2.0'
             }
             Plugin = @{
                 Folder  = "../../Plugin"
@@ -345,6 +347,7 @@ Describe 'Update-DefaultDatabaseTemplate' {
                 Engine = 'SQLServer'
                 MinimalTemplateScript   = 'PostgreSQLMinimalTemplate'
                 PopulatedTemplateScript = 'PostgreSQLPopulatedTemplate'
+                StandardVersion = '5.2.0'
             }
             Plugin = @{
                 Folder  = "../../Plugin"
@@ -394,5 +397,25 @@ Describe 'Update-DefaultDatabaseTemplate' {
         $settings.ApiSettings.MinimalTemplateScript | Should -Be 'SomeMinimal'
         $settings.ApiSettings.PopulatedTemplateScript | Should -Not -BeNullOrEmpty
         $settings.ApiSettings.PopulatedTemplateScript | Should -Be 'SomePopulated'
+    }
+
+    It "should update template to grandbend when enabling tpdm and data standard is 6.0.0 or higher" {
+        $settings = Update-DefaultDatabaseTemplate @{
+            ApiSettings = @{
+                StandardVersion = '6.0.0'
+                Engine = 'SQLServer'
+                MinimalTemplateScript   = 'TPDMCoreMinimalTemplate'
+                PopulatedTemplateScript = 'TPDMCorePopulatedTemplate'
+            }
+            Plugin = @{
+                Folder  = "../../Plugin"
+                Scripts = @("tpdm")
+            }
+        }
+
+        $settings.ApiSettings.MinimalTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.MinimalTemplateScript | Should -Be 'EdFiMinimalTemplate'
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Be 'GrandBend'
     }
 }

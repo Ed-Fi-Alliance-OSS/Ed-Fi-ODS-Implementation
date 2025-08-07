@@ -28,7 +28,7 @@ echo "Configuring user..."
 
 export MINIMAL_BACKUP=EdFi_Ods_Minimal_Template.bak
 
-if [[ "$TPDM_ENABLED" = true ]]; then
+if [[ "$TPDM_ENABLED" = true && -f /app/backups/EdFi_Ods_Minimal_Template_TPDM_Core.bak ]]; then
   export MINIMAL_BACKUP=EdFi_Ods_Minimal_Template_TPDM_Core.bak
 fi
 

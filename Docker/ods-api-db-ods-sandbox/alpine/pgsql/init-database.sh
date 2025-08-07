@@ -10,7 +10,7 @@ set +x
 export MINIMAL_BACKUP=EdFi_Ods_Minimal_Template.sql
 export POPULATED_BACKUP=EdFi_Ods_Populated_Template.sql
 
-if [[ "$TPDM_ENABLED" = true ]]; then
+if [[ "$TPDM_ENABLED" = true && -f /tmp/EdFi_Ods_Minimal_Template_TPDM_Core.sql && -f /tmp/EdFi_Ods_Populated_Template_TPDM_Core.sql ]]; then
   export MINIMAL_BACKUP=EdFi_Ods_Minimal_Template_TPDM_Core.sql
   export POPULATED_BACKUP=EdFi_Ods_Populated_Template_TPDM_Core.sql
 fi
