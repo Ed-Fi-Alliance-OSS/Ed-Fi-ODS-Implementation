@@ -138,7 +138,7 @@ jobs:
       shell: pwsh
       run: |
 
-        $oneEightyDaysAgo = (Get-Date).AddDays(-180).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+        $oneEightyDaysAgo = (Get-Date).AddDays(-270).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
         Write-Host "oneeightyDaysAgo Date and Time in ISO 8601 format: $oneEightyDaysAgo"
         $branchName = "${{ env.current_branch }}"
         $sinceDate = $oneEightyDaysAgo        
