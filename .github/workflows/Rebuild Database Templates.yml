@@ -116,10 +116,10 @@ jobs:
       shell: pwsh
       run: |
 
-        $oneEightyDaysAgo = (Get-Date).AddDays(-180).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")        
-        Write-Host "oneeightyDaysAgo Date and Time in ISO 8601 format: $oneEightyDaysAgo"
+        $twoSeventyDaysAgo = (Get-Date).AddDays(-180).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")        
+        Write-Host "twoSeventyDaysAgo Date and Time in ISO 8601 format: $twoSeventyDaysAgo"
         $branchName = "${{ env.current_branch }}"
-        $sinceDate = $oneEightyDaysAgo 
+        $sinceDate = $twoSeventyDaysAgo 
         $implementationUrl = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/commits?sha=$branchName&since=$sinceDate&page=1&per_page=200"
         .\build.githubactions.ps1 'CreateOrUpdateRepositoriesJson' -Url $implementationUrl -RepoName 'Ed-Fi-ODS-Implementation'
 
@@ -127,10 +127,10 @@ jobs:
       shell: pwsh
       run: |
 
-        $oneEightyDaysAgo = (Get-Date).AddDays(-180).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
-        Write-Host "oneeightyDaysAgo Date and Time in ISO 8601 format: $oneEightyDaysAgo"
+        $twoSeventyDaysAgo = (Get-Date).AddDays(-180).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+        Write-Host "twoSeventyDaysAgo Date and Time in ISO 8601 format: $twoSeventyDaysAgo"
         $branchName = "${{ env.current_branch }}"
-        $sinceDate = $oneEightyDaysAgo 
+        $sinceDate = $twoSeventyDaysAgo 
         $odsUrl = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/commits?sha=$branchName&since=$sinceDate&page=1&per_page=200"
         .\build.githubactions.ps1  'CreateOrUpdateRepositoriesJson' -Url $odsUrl -RepoName 'Ed-Fi-ODS'
 
@@ -138,10 +138,10 @@ jobs:
       shell: pwsh
       run: |
 
-        $oneEightyDaysAgo = (Get-Date).AddDays(-180).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
-        Write-Host "oneeightyDaysAgo Date and Time in ISO 8601 format: $oneEightyDaysAgo"
+        $twoSeventyDaysAgo = (Get-Date).AddDays(-270).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+        Write-Host "twoSeventyDaysAgo Date and Time in ISO 8601 format: $twoSeventyDaysAgo"
         $branchName = "${{ env.current_branch }}"
-        $sinceDate = $oneEightyDaysAgo        
+        $sinceDate = $twoSeventyDaysAgo        
         $extensionsUrl = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions/commits?sha=$branchName&since=$sinceDate&page=1&per_page=200"
         .\build.githubactions.ps1  'CreateOrUpdateRepositoriesJson' -Url $extensionsUrl -RepoName 'Ed-Fi-Extensions'
 
