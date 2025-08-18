@@ -11,7 +11,7 @@
           "ApiClients": [
             {
               "ApiClientName": "BulkLoadClientBootstrap",
-              "LocalEducationOrganizations": []
+              "LocalEducationOrganizations": [ 255901, 5, 6, 7, 50, 60, 70 ]
             }
           ]
         },
@@ -21,7 +21,7 @@
           "ApiClients": [
             {
               "ApiClientName": "BulkLoadClientSandbox",
-              "LocalEducationOrganizations": []
+              "LocalEducationOrganizations": [ 255901, 5, 6, 7, 50, 60, 70 ]
             }
           ]
         }
