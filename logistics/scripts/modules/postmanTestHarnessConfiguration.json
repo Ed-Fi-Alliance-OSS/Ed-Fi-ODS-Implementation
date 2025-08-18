@@ -863,8 +863,8 @@
           "ClaimSetName": "Ed-Fi Sandbox",
           "ApiClients": [
             {
-              "ApiClientName": "5",
-              "LocalEducationOrganizations": [5]
+              "ApiClientName": "255901_5_datastandard6",
+              "LocalEducationOrganizations": [ 255901, 5 ]
             }
           ]
         }
@@ -880,8 +880,8 @@
           "ClaimSetName": "Ed-Fi Sandbox",
           "ApiClients": [
             {
-              "ApiClientName": "6",
-              "LocalEducationOrganizations": [6]
+              "ApiClientName": "255901_6_datastandard6",
+              "LocalEducationOrganizations": [ 255901, 6 ]
             }
           ]
         }
@@ -897,8 +897,8 @@
           "ClaimSetName": "Ed-Fi Sandbox",
           "ApiClients": [
             {
-              "ApiClientName": "7",
-              "LocalEducationOrganizations": [7]
+              "ApiClientName": "255901_7_datastandard6",
+              "LocalEducationOrganizations": [ 255901, 7 ]
             }
           ]
         }
@@ -914,8 +914,8 @@
           "ClaimSetName": "Ed-Fi Sandbox",
           "ApiClients": [
             {
-              "ApiClientName": "50",
-              "LocalEducationOrganizations": [7]
+              "ApiClientName": "255901_50_datastandard6",
+              "LocalEducationOrganizations": [ 50 ]
             }
           ]
         }
@@ -931,8 +931,8 @@
           "ClaimSetName": "Ed-Fi Sandbox",
           "ApiClients": [
             {
-              "ApiClientName": "60",
-              "LocalEducationOrganizations": [7]
+              "ApiClientName": "255901_60_datastandard6",
+              "LocalEducationOrganizations": [ 60 ]
             }
           ]
         }
