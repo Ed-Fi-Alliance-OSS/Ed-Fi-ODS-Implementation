@@ -853,6 +853,91 @@
         }
       ],
       "NamespacePrefixes": [ "uri://ed-fi.org" ]
+    },
+    {
+      "Email": "program1@ed-fi-org",
+      "VendorName": "Program1 Test",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "5",
+              "LocalEducationOrganizations": [5]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
+    },
+    {
+      "Email": "program2@ed-fi-org",
+      "VendorName": "Program2 Test",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "6",
+              "LocalEducationOrganizations": [6]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
+    },
+    {
+      "Email": "program3@ed-fi-org",
+      "VendorName": "Program3 Test",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "7",
+              "LocalEducationOrganizations": [7]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
+    },
+    {
+      "Email": "program4@ed-fi-org",
+      "VendorName": "Program4 Test",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "50",
+              "LocalEducationOrganizations": [7]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
+    },
+    {
+      "Email": "program5@ed-fi-org",
+      "VendorName": "Program5 Test",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "60",
+              "LocalEducationOrganizations": [7]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     }
   ]
 }
