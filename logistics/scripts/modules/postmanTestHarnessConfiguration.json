@@ -915,7 +915,7 @@
           "ApiClients": [
             {
               "ApiClientName": "255901_50_datastandard6",
-              "LocalEducationOrganizations": [ 50 ]
+              "LocalEducationOrganizations": [ 255901, 50 ]
             }
           ]
         }
@@ -932,7 +932,7 @@
           "ApiClients": [
             {
               "ApiClientName": "255901_60_datastandard6",
-              "LocalEducationOrganizations": [ 60 ]
+              "LocalEducationOrganizations": [ 255901, 60 ]
             }
           ]
         }

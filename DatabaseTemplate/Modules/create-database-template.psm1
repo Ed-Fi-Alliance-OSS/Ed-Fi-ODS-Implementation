@@ -51,7 +51,7 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
     $integrationTestHarnessExecutableFileName = "EdFi.Ods.Api.IntegrationTestHarness$(GetExeExtension)"
     $config.testHarnessExecutable = "$($config.outputFolder)/$integrationTestHarnessExecutableFileName"
     $config.testHarnessJsonConfig = "$PSScriptRoot/testHarnessConfiguration.json"
-    $config.testHarnessJsonConfigLEAs = @(255901)
+    $config.testHarnessJsonConfigLEAs = @(255901, 5, 6, 7, 50, 60 ,70 )
 
     $config.loadToolsSolution = (Get-RepositoryResolvedPath "Utilities/DataLoading/LoadTools.sln")
     $bulkLoadClientExecutableFileName = "EdFi.BulkLoadClient.Console$(GetExeExtension)"
