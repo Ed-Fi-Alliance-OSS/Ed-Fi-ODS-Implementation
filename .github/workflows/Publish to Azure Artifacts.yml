@@ -17,7 +17,7 @@ on:
 permissions: read-all
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.workflow_run.run_number || github.event.workflow_run.head_branch }}
   cancel-in-progress: true
 
 env:
@@ -35,12 +35,13 @@ jobs:
         with:
           timeout: 1800000
           delay: 60000
+          sha: ${{ env.INITDEV_COMMIT }}
 
   FindStandardAndExtensionVersions:
     needs: assert-all-required-workflows-succeeded
     uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
     with:
-      calling_branch: ${{ github.head_ref || github.ref_name }}
+      calling_branch: ${{ github.event.workflow_run.head_branch }}
       
   build:
 
