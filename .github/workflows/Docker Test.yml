@@ -25,7 +25,7 @@ env:
 jobs:
   docker-lint:
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         image:
@@ -47,7 +47,7 @@ jobs:
           dockerfile: Docker/${{ matrix.image }}/Dockerfile
 
   FindStandardAndExtensionVersions:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     outputs:
       StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
       ExtensionVersions: ${{ steps.Set_ExtensionVersions.outputs.ExtensionVersions }}
@@ -91,7 +91,7 @@ jobs:
   docker-build:
     if: ${{ always() }}
     needs: FindStandardAndExtensionVersions
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
