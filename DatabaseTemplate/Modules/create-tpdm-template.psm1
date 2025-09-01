@@ -95,8 +95,6 @@ function Initialize-TPDMTemplate {
         [string] $createByRestoringBackup,
         [ValidateSet('4.0.0', '5.0.0')]
         [String] $standardVersion,
-        [String] $LocalDbBackupDirectory,
-        [String] $DbServerBackupDirectory
         [ValidateSet('1.0.0', '1.1.0')]
         [string] $extensionVersion,
         [String] $LocalDbBackupDirectory,

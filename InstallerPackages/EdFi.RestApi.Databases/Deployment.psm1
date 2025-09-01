@@ -78,7 +78,7 @@ function Initialize-DeploymentEnvironment {
         [String] $StandardVersion,
 
         [ValidateSet('1.0.0', '1.1.0')]
-        [String] $ExtensionVersion
+        [String] $ExtensionVersion,
 
         [Parameter(Mandatory=$false)]
         [string] $MssqlSaPassword
