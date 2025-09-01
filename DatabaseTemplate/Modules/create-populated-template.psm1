@@ -57,7 +57,13 @@ function Initialize-PopulatedTemplate {
         Disables xml validation.
 
     .parameter Engine
-    The database engine provider, either 'SQLServer' or 'PostgreSQL'
+        The database engine provider, either 'SQLServer' or 'PostgreSQL'
+
+    .parameter LocalDbBackupDirectory
+        A locally accessable path mapped to the backup file directory used by a containerized SQLServer instance
+
+    .parameter DbServerBackupDirectory
+        A directory, within the filesystem of a containerized SQLServer instance, to which the database engine should write backup files
 
     .EXAMPLE
         PS> Initialize-PopulatedTempalate -samplePath "C:/edfi/Ed-Fi-Standard/v3.2/"
@@ -77,7 +83,9 @@ function Initialize-PopulatedTemplate {
         [ValidateSet('4.0.0', '5.0.0')]
         [String] $StandardVersion,
         [ValidateSet('1.0.0', '1.1.0')]
-        [String] $ExtensionVersion
+        [String] $ExtensionVersion,
+        [String] $LocalDbBackupDirectory,
+        [String] $DbServerBackupDirectory
     )
 
     Clear-Error
@@ -89,6 +97,8 @@ function Initialize-PopulatedTemplate {
         engine       = $engine
         standardVersion = $standardVersion
         extensionVersion = $extensionVersion
+        LocalDbBackupDirectory = $LocalDbBackupDirectory
+        DbServerBackupDirectory = $DbServerBackupDirectory
     }
 
     $config = (Get-PopulatedConfiguration $paramConfig)

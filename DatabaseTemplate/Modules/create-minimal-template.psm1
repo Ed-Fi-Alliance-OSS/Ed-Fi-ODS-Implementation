@@ -70,6 +70,12 @@ function Initialize-MinimalTemplate {
     .parameter ExtensionVersion
         Extension Version.
 
+    .parameter LocalDbBackupDirectory
+        A locally accessable path mapped to the backup file directory used by a containerized SQLServer instance
+
+    .parameter DbServerBackupDirectory
+        A directory, within the filesystem of a containerized SQLServer instance, to which the database engine should write backup files
+
     .EXAMPLE
         PS> Initialize-MinimalTempalate -samplePath "C:/edfi/Ed-Fi-Standard/v3.2/"
     #>
@@ -88,7 +94,9 @@ function Initialize-MinimalTemplate {
         [ValidateSet('4.0.0', '5.0.0')]
         [String] $StandardVersion,
         [ValidateSet('1.0.0', '1.1.0')]
-        [String] $ExtensionVersion
+        [String] $ExtensionVersion,
+        [String] $LocalDbBackupDirectory,
+        [String] $DbServerBackupDirectory
     )
 
     Clear-Error
@@ -100,6 +108,8 @@ function Initialize-MinimalTemplate {
         engine       = $engine
         standardVersion = $standardVersion
         extensionVersion = $extensionVersion
+        LocalDbBackupDirectory = $LocalDbBackupDirectory
+        DbServerBackupDirectory = $DbServerBackupDirectory
     }
 
     $config = (Get-MinimalConfiguration $paramConfig)

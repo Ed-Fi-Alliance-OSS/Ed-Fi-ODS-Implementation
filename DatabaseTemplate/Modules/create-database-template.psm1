@@ -116,6 +116,8 @@ function New-DatabaseTemplate {
             transient    = $true
             standardVersion  = $config.StandardVersion
             extensionVersion = $config.ExtensionVersion
+            DbServerBackupDirectory = $config.DbServerBackupDirectory
+            LocalDbBackupDirectory = $config.LocalDbBackupDirectory
   
     }
     if ($config.createByRestoringBackup) { $params.createByRestoringBackup = $config.createByRestoringBackup }
@@ -470,25 +472,34 @@ function Backup-DatabaseTemplate {
     if ($config.engine -eq 'PostgreSQL') { $databaseBackupName = "$databaseBackupName.sql" }
 
     if (-not $config.backupDirectory) { $backupDirectory = $global:templateDatabaseFolder }
-    else { $backupDirectory = $config.backupDirectory }
-
+    else  { $backupDirectory = $config.backupDirectory }
     if (-not $config.multipleBackups) {
         if (Test-Path $backupDirectory) { Remove-Item -Recurse -Force $backupDirectory }
     }
-
     if (-not (Test-Path $backupDirectory)) { New-Item -ItemType Directory $backupDirectory | Out-Null }
-
-    if ((Test-Path (Join-Path $backupDirectory $databaseBackupName))) { Remove-Item (Join-Path $backupDirectory $databaseBackupName) }
-
+    if (Test-Path (Join-Path $backupDirectory $databaseBackupName)) { Remove-Item (Join-Path $backupDirectory $databaseBackupName) }
     if ($config.engine -eq 'SQLServer') {
         $params = @{
             csb               = $csb
             backupDirectory   = (Resolve-Path $backupDirectory)
             overwriteExisting = $true
+            LocalDbBackupDirectory = $config.LocalDbBackupDirectory
+            DbServerBackupDirectory = $config.DbServerBackupDirectory
         }
-        Backup-Database @params | Out-Null
+        $createdBackupFilePath = Backup-Database @params
+        $createdBackupFileName = Split-Path $createdBackupFilePath -leaf
 
-        Rename-Item (Join-Path $params.backupDirectory "$($params.csb.Database).bak") $databaseBackupName
+        Write-Host "Backup created $createdBackupFilePath"
+        
+        if($config.LocalDbBackupDirectory) {
+            Write-Host "Moving from $createdBackupFilePath to $backupDirectory"
+            Move-Item -Path $createdBackupFilePath -Destination $backupDirectory
+        }
+        
+        $createdBackupFilePath = Join-Path $backupDirectory $createdBackupFileName
+        
+        Write-Host "Renaming from $createdBackupFilePath to $databaseBackupName"
+        Rename-Item $createdBackupFilePath $databaseBackupName
     }
 
     if ($config.engine -eq 'PostgreSQL') {
