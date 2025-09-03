@@ -5,15 +5,13 @@
 
 name: Publish to Docker Hub
 on:
-  pull_request:
-   branches: [b-v*-patch*]
   workflow_run:
     workflows:
       - "Docker Test"
     types:
       - completed
     branches:
-      - b-v*-patch*
+      [main, 'b-v*-patch*','feature-*']
   release:
     types: [published]
   workflow_dispatch:
@@ -32,78 +30,36 @@ env:
   PACKAGE_VERSION: "7.1"
   EVENT_NAME: ${{ GITHUB.EVENT_NAME }}
   EVENT_ACTION: ${{ GITHUB.EVENT.ACTION }}
-  HEAD_REF:  ${{ GITHUB.HEAD_REF }}
-  REF_NAME:  ${{ GITHUB.REF_NAME }}
-  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}  
 
 jobs:
 
   FindStandardAndExtensionVersions:
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-24.04
-    outputs:
-      StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
-      ExtensionVersions: ${{ steps.Set_ExtensionVersions.outputs.ExtensionVersions }}
-    steps:
-    
-      - name: Checkout Ed-Fi-ODS-Implementation
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
-        with:
-                repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-                path: Ed-Fi-ODS-Implementation/
-
-      - name: Checkout Ed-Fi-ODS
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
-        with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-          path: Ed-Fi-ODS/
-
-      - name: Checkout Ed-Fi-Extensions
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
-        with:
-            repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
-            path: Ed-Fi-Extensions/
-
-      - name: Is pull request branch exists in Ed-Fi-Extensions
-        working-directory: ./Ed-Fi-ODS-Implementation/
-        shell: pwsh
-        run: |
-          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
-
-      - name: Is pull request branch exists in Ed-Fi-ODS
-        working-directory: ./Ed-Fi-ODS-Implementation/
-        shell: pwsh
-        run: |
-            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"          
-
-      - name: Set StandardVersions
-        id: Set_StandardVersions
-        working-directory: ./Ed-Fi-ODS/
-        run: |
-          $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
-          Add-Content -Path $env:GITHUB_OUTPUT -Value "StandardVersions=$output"
-          Write-host "StandardVersions is  $output"
-        shell: pwsh
-
-      - name: Set ExtensionVersions
-        id: Set_ExtensionVersions
-        working-directory: ./Ed-Fi-Extensions/
-        run: |
-          $output = .\build.githubactions.ps1 ExtensionVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj"
-          Add-Content -Path $env:GITHUB_OUTPUT -Value "ExtensionVersions=$output"
-          Write-host "ExtensionVersions is  $output"
-        shell: pwsh
+    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
+    with:
+      calling_branch: ${{ github.head_ref || github.ref_name }}
 
   docker-publish:
     if: (needs.FindStandardAndExtensionVersions.outputs.StandardVersions != '' &&
         needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions != '')
     needs: FindStandardAndExtensionVersions
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
-    name: Publish to Docker Hub (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})
+        dockerfile:
+          [
+            { name: "ods-api-bulk-load-console", path: "alpine" },
+            { name: "ods-api-db-admin", path: "alpine/pgsql" },
+            { name: "ods-api-db-ods-minimal", path: "alpine/pgsql" },
+            { name: "ods-api-db-ods-sandbox", path: "alpine/pgsql" },
+            { name: "ods-api-swaggerui", path: "alpine" },
+            { name: "ods-api-web-api", path: "alpine/pgsql" },
+            { name: "ods-api-web-api", path: "alpine/mssql" },            
+            { name: "ods-api-web-sandbox-admin", path: "alpine/pgsql" },
+            { name: "ods-api-web-sandbox-admin", path: "alpine/mssql" }            
+          ]        
+    name: ${{ matrix.dockerfile.name }}/${{ matrix.dockerfile.path }} Image for (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})     
     steps:
       - name: Check for Docker Hub Token
         if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.DOCKER_HUB_TOKEN == '' }}
@@ -128,7 +84,7 @@ jobs:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ env.DOCKER_HUB_TOKEN }}
 
-      - name: Build and Push
+      - name: Build  ${{ matrix.dockerfile.name }} image in path ${{ matrix.dockerfile.path }} and Push
         if: ${{ env.DOCKER_HUB_TOKEN != '' }}
         run: |
           # Note: all images will receive the same version number for this Docker release
@@ -140,14 +96,13 @@ jobs:
             }
 
             ./get-versions.ps1 -PackageVersion $package_version -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
-            ./build-images.ps1 -Push -PackageVersion $package_version -Patch ${{ github.run_number }}
+            ./Invoke-Build.ps1 -Push -PackageVersion $package_version -Patch ${{ github.run_number }}  -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
             Write-Host "This step is triggered manually or by a published release."
           }
           else
           {
             ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease
-            ./build-images.ps1 -Push -PackageVersion ${{ env.PACKAGE_VERSION }} -Patch ${{ github.run_number }} -PreRelease
-            Write-Host "This is for ${{ env.PACKAGE_VERSION }} Pre Release."
+            ./Invoke-Build.ps1 -Push -PackageVersion ${{ env.PACKAGE_VERSION }} -Patch ${{ github.run_number }} -PreRelease  -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
           }
         working-directory: Docker
         shell: pwsh

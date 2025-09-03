@@ -21,6 +21,10 @@ on:
   repository_dispatch:
     types: [triggered-from-ods-repo]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 env:
   INFORMATIONAL_VERSION: "7.1"
   BUILD_INCREMENTER: "-757"
@@ -30,64 +34,27 @@ env:
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   EDFI_SUITE_NUMBER: "Suite3"
   msbuild_buildConfiguration: "release"
-  DB_PASS: ${{ secrets.BUILD_DB_PASS }}
 
 jobs:
   FindStandardAndExtensionVersions:
-     runs-on: ubuntu-latest
-     outputs:
-       StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
-       ExtensionVersions: ${{ steps.Set_ExtensionVersions.outputs.ExtensionVersions }}
-     steps:
-     - name: Checkout Ed-Fi-ODS
-       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
-       with:
-           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-           path: Ed-Fi-ODS/
-     - name: Checkout Ed-Fi-Extensions
-       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
-       with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
-          path: Ed-Fi-Extensions/
-     - name: Is pull request branch exists in Ed-Fi-Extensions
-       working-directory: ./Ed-Fi-ODS/
-       shell: pwsh
-       run: |
-         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
-     - name: Set StandardVersions
-       id: Set_StandardVersions
-       working-directory: ./Ed-Fi-ODS/
-       run: |
-         $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
-         Add-Content -Path $env:GITHUB_OUTPUT -Value "StandardVersions=$output"
-         Write-host "StandardVersions is  $output"
-       shell: pwsh
-     - name: Set ExtensionVersions
-       id: Set_ExtensionVersions
-       working-directory: ./Ed-Fi-Extensions/
-       run: |
-         $output = .\build.githubactions.ps1 ExtensionVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj"
-         Add-Content -Path $env:GITHUB_OUTPUT -Value "ExtensionVersions=$output"
-         Write-host "ExtensionVersions is  $output"
-       shell: pwsh
+    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
+    with:
+      calling_branch: ${{ github.head_ref || github.ref_name }}
 
   build:
     if: ${{ always() }}
     needs: FindStandardAndExtensionVersions
     runs-on: windows-latest
     strategy:
+      fail-fast: false     
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
-    name: build (Standard Version ${{ matrix.StandardVersion }})) 
+    name: build (Standard Version ${{ matrix.StandardVersion }}) 
 
     steps:
     - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
       run:  echo "${{ github.event.inputs.distinct_id }}"
-    - name: Setup .NET
-      uses: actions/setup-dotnet@87b7050bc53ea08284295505d98d2aa94301e852 # v4.2
-      with:
-        dotnet-version: 6.0.x
     - name: Support longpaths
       run: git config --system core.longpaths true
     - name: Checkout Ed-Fi-ODS-Implementation
@@ -110,10 +77,14 @@ jobs:
       shell: powershell
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
-    # This step shall be removed in ODS-6572
-    - name: Install Mono and Nuget
-      working-directory: ./Ed-Fi-ODS-Implementation/.github/workflows
-      run: sudo ./install-mono.sh
+    - name: update BUILD_INCREMENTER 
+      run: |      
+            $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
+            if ($newRevision -lt 0) {
+                $newRevision = 1
+                echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
+            }
+      shell: powershell
     - name: Cache Nuget packages   
       uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
       with:
@@ -144,7 +115,7 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.INFORMATIONAL_VERSION}}"+ "."+ $newRevision.ToString()
-        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateTestSdkPackage -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages" -NoPackaging -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
+        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateTestSdkPackage -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages" -NoPackaging -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -JavaPath $env:JAVA_HOME_11_X64\bin\java.exe
       shell: powershell
     - name: Upload initdev logs
       if: success() || failure()
@@ -152,7 +123,6 @@ jobs:
       with:
         name: Initdev logs-${{ matrix.StandardVersion }}
         path: |
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
     - name: Run Unit tests for EdFi.LoadTools 
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -177,13 +147,13 @@ jobs:
         }
         Initialize-DeploymentEnvironment @params
 
-        if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish) {
-          Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish -Recurse
+        if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish) {
+          Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish -Recurse
         }
        
         $params = @{
                 testSets                 = @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk")
-                smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net6.0/EdFi.OdsApi.Sdk.dll"
+                smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net8.0/EdFi.OdsApi.Sdk.dll"
                 testHarnessLogNamePrefix = "SmokeTestSandbox"
         }
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 @params
