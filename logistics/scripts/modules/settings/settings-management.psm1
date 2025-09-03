@@ -189,7 +189,7 @@ function Get-EdFiDeveloperPluginSettings {
     return @{
         Plugin = @{
             Folder  = "../../Plugin"
-            Scripts = @("sample", "homograph", "tpdm", "profiles.sample")
+            Scripts = @("sample", "homograph", "tpdm", "profiles.sample", "studentTranscript.sample")
         }
     }
 }
