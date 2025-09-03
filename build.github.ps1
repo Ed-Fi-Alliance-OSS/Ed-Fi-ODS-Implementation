@@ -53,11 +53,21 @@ param(
     [String] $WebApiId  = 'EdFi.Suite3.Ods.WebApi',
     
     [String] $DatabasesId = 'EdFi.Suite3.RestApi.Databases',
+
+	[String] $JavaPath = 'java',
     
+    [Parameter(Mandatory=$true)]    
     [ValidateSet('4.0.0', '5.0.0')]
     [String] $StandardVersion,
-    
-    [ValidateSet('1.0.0', '1.1.0')]
+
+    [Parameter(Mandatory=$true)]
+    [ValidateScript({
+                if ($_ -match '^(?!0\.0\.0)\d+\.\d+\.\d+?$') {
+                    $true
+                } else {
+                    throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
+                }
+    })]
     [String] $ExtensionVersion
 )
 
@@ -88,6 +98,7 @@ $params = @{
     RepositoryRoot         = $RepositoryRoot
     StandardVersion        = $StandardVersion
     ExtensionVersion       = $ExtensionVersion
+	JavaPath               = $JavaPath
 }
 
 Write-FlatHashtable $params
