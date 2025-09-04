@@ -12,7 +12,7 @@ on:
     workflows: ["InitDev, Smoke Tests", "InitDev, Unit tests, Integration tests, Package", "InitDev, MultiTenancy"]
     types:
       - completed
-    branches: [main, 'b-v*-patch*','feature-*']
+    branches: [main, 'b-v*-patch*','feature-*', 'ODS-6673']
 
 permissions: read-all
 
@@ -41,10 +41,9 @@ jobs:
     needs: assert-all-required-workflows-succeeded
     uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
     with:
-      calling_branch: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }}
+      calling_branch: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }} # match the branch for InitDev workflow run that triggered this action
       
-  build:
-
+  PublishToAzureArtifacts:
     runs-on: ubuntu-24.04    
     needs: FindStandardAndExtensionVersions
 
@@ -59,6 +58,8 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
+          ref: ${{ env.INITDEV_COMMIT }}. # checkout the same commit as InitDev workflow run that triggered this action
+
     - name: Check for Azure token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
       run: | 
@@ -92,7 +93,8 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/      
       run: |      
         .\build.githubactions.ps1 InstallCredentialHandler
-      shell: pwsh 
+      shell: pwsh
+
     - name: Publish to Azure Artifacts
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -104,3 +106,17 @@ jobs:
             dotnet nuget push $packagePath --api-key ${{ env.AZURE_ARTIFACT_NUGET_KEY }} --source ${{env.AZURE_ARTIFACT_URL}} --skip-duplicate
         }
       shell: pwsh
+
+  DockerTest:
+    needs: PublishToAzureArtifacts
+    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/.github/workflows/Docker Test.yml@2bad8210fcfda467f7ac69017cce5a142d914916
+    with:
+      initdev_commit: ${{ github.event.workflow_run.head_sha || github.head_ref || github.ref_name }}
+      initdev_head_branch: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }}
+      
+  PublishToDockerHub:
+    needs: DockerTest
+    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/.github/workflows/Publish to Docker Hub.yml@2bad8210fcfda467f7ac69017cce5a142d914916
+    with:
+      initdev_commit: ${{ github.event.workflow_run.head_sha || github.head_ref || github.ref_name }}
+      initdev_head_branch: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }}
