@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  CURRENT_STANDARD_VERSION: "5.2.0"
+  CURRENT_STANDARD_VERSION: "5.0.0"
   PACKAGE_VERSION: "7.3"
   DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
   DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}  
