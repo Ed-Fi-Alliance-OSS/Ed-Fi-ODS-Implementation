@@ -122,8 +122,7 @@ function New-DbConnectionStringBuilder {
             $newDbCSB["Uid"] = $tmpUser
             $newDbCSB["Pwd"] = $tmpPass
             $newDbCSB.Remove("Trusted_Connection") | Out-Null
-        }
-        else {
+        } else {
             $newDbCSB["Uid"] = $null
             $newDbCSB["Pwd"] = $null
             $newDbCSB["Trusted_Connection"] = "yes"
@@ -193,6 +192,8 @@ NOTE: This must be a path local to the SQL server, not (necessarily) to the mach
 .parameter overwriteExisting
 If passed, run the backup WITH INIT and WITH FORMAT, which will overwrite any existing "backup set" on the "media". In other words, if the backup file already exists, passing this option will overwrite any existing data in that backup file. Without this option, on the other hand, we attempt to append a new backup set, leaving any existing data in the backup file alone.
 Useful in a circumstance where a backup has been taken with compression disabled, and then this function (which enables compression) attempts to write a backup to the same location. If this option is not passed, the backup will fail.
+.parameter DbServerBackupDirectory
+A path accessable to the database server in which to save the backup file
 .outputs
 Return the file path of the newly created backup file
 #>
@@ -224,7 +225,17 @@ Function Backup-Database {
         [Parameter(Position = 6, Mandatory = $false, ParameterSetName = "legacy")]
         [Parameter(Position = 3, Mandatory = $false, ParameterSetName = "csb")]
         [Microsoft.SqlServer.Management.Smo.BackupActionType]
-        $backupActionType = "Database"
+        $backupActionType = "Database",
+
+        [Parameter(Position = 7, Mandatory = $false, ParameterSetName = "legacy")]
+        [Parameter(Position = 4, Mandatory = $false, ParameterSetName = "csb")]
+        [string]
+        $LocalDbBackupDirectory,
+
+        [Parameter(Position = 8, Mandatory = $false, ParameterSetName = "legacy")]
+        [Parameter(Position = 5, Mandatory = $false, ParameterSetName = "csb")]
+        [string]
+        $DbServerBackupDirectory
     )
 
     Use-SqlServerModule
@@ -247,21 +258,27 @@ Function Backup-Database {
     $server = Get-Server -csb $csb
     $local = @("localhost", "127.0.0.1", [Environment]::MachineName)
 
-    if (-not $backupDirectory) { $backupDirectory = $server.Settings.BackupDirectory }
+    if(-not $backupDirectory) { $backupDirectory = $server.Settings.BackupDirectory }
+
+    if($DbServerBackupDirectory) { $backupDirectory = $DbServerBackupDirectory }
+
+    $localBakDirectory = if ($LocalDbBackupDirectory) { $LocalDbBackupDirectory } else { $backupDirectory }
 
     if (Test-DatabaseExists -csb $csb) {
         if ($backupActionType -eq "log") {
-            $bakFilePath = "$backupDirectory/$databaseName_log.bak"
+            $dbServerBakFilePath = "$backupDirectory/$databaseName_log.bak"
+            $bakFilePath = "$localBakDirectory/$databaseName_log.bak"
         }
         else {
-            $bakFilePath = "$backupDirectory/$databaseName.bak"
+            $dbServerBakFilePath = "$backupDirectory/$databaseName.bak"
+            $bakFilePath = "$localBakDirectory/$databaseName.bak"
         }
-        $bakFilePath = [System.IO.Path]::GetFullPath("$bakFilePath")
+        $localBakFileDirectory = [System.IO.Path]::GetFullPath("$bakFilePath")
 
         #Run setup/clean up if the sql server is the machine runing the script, or if it is a remote path.
-        if ($local -contains $csb.DataSource -or ($backupDirectory.StartsWith("\\") -and (Test-Path "$([Io.Path]::GetPathRoot($backupDirectory))"))) {
+        if ($local -contains $csb.DataSource -or ($localBakFileDirectory.StartsWith("\\") -and (Test-Path "$([Io.Path]::GetPathRoot($localBakFileDirectory))"))) {
             # Make sure the backup folder exists
-            [IO.Directory]::CreateDirectory($backupDirectory) | Out-Null
+            [IO.Directory]::CreateDirectory($localBakFileDirectory) | Out-Null
 
             # Delete the existing backup file
             if (Test-Path $bakFilePath) {
@@ -281,7 +298,7 @@ Function Backup-Database {
         $smoBackup.CompressionOption = "On"
         $smoBackup.Database = $databaseName
         $smoBackup.MediaDescription = "Disk"
-        $smoBackup.Devices.AddDevice($bakFilePath, "File")
+        $smoBackup.Devices.AddDevice($dbServerBakFilePath, "File")
 
         # Wipe any existing backup sets in the file (if the file exists)
         # NOTE: Because $bakFilePath is a path on the SQL Server, not necessarily the machine running this function, we cannot run `Remove-Item $bakFilePath`
@@ -352,14 +369,22 @@ Function Get-Server {
 
     Use-SqlServerModule
 
+
     if ($PsCmdlet.ParameterSetName -eq "csb") {
         $sql_server = $csb.DataSource
-        $username = $csb.UserID
-        if ([string]::IsNullOrWhitespace($csb.Password)) {
-            $password = $null
+        $username = $csb['user id']
+        if([string]::IsNullOrWhitespace($username)) {
+            $username = $csb['uid']
         }
-        else {
-            $password = ConvertTo-SecureString $csb.Password -AsPlainText -force
+
+        $passwordString = $csb.Password
+        if([string]::IsNullOrWhitespace($passwordString)) {
+            $passwordString = $csb['Pwd']
+        }
+
+
+        if ($null -ne $passwordString) {
+            $secureStringPassword = ConvertTo-SecureString $passwordString -AsPlainText -force
         }
     }
 
@@ -371,7 +396,7 @@ Function Get-Server {
         $s = New-Object ('Microsoft.SqlServer.Management.Smo.Server') $sql_server
         $s.ConnectionContext.LoginSecure = $false
         $s.ConnectionContext.Login = $username
-        $s.ConnectionContext.SecurePassword = $password
+        $s.ConnectionContext.SecurePassword = $secureStringPassword
     }
     else {
         # Initialize Server instance using integrated security
@@ -689,7 +714,7 @@ Function Remove-Database {
         [Parameter(Position = 3, ParameterSetName = "legacy")]
         [AllowNull()] [System.Security.SecureString] $password = $null,
 
-        [Parameter(Position = 1, ParameterSetName = "csb")]
+        [Parameter(Position = 2, ParameterSetName = "csb")]
         [Parameter(Position = 4, ParameterSetName = "legacy")]
         [switch] $safe
     )
@@ -704,6 +729,12 @@ Function Remove-Database {
     }
     $databaseName = $csb['Database']
     $masterCSB = New-DbConnectionStringBuilder -existingCSB $csb -property @{'Database' = 'master' }
+    if (-not [string]::IsNullOrWhitespace($settings.MssqlSaPassword)) {
+        $masterCSB["Uid"] = 'sa'
+        $masterCSB["Pwd"] = $Settings.MssqlSaPassword
+        $masterCSB["Trusted_Connection"] = "no"
+    }
+
     $masterConnStr = Get-SqlConnectionString -dbCSB $masterCSB
 
     Write-Host "Starting removal of database $databaseName..."
@@ -973,9 +1004,15 @@ Function Restore-Database {
     }
 
     # set the db_owner of the database
-    $user = if ($csb.UserID) { $csb.UserID } else { [System.Security.Principal.WindowsIdentity]::GetCurrent().Name }
+    $user = if (-not [string]::IsNullOrWhitespace($csb['user id'])) { 
+        $csb['user id'] 
+    } elseif (-not [string]::IsNullOrWhitespace($csb['uid'])){
+        $csb['uid'] 
+    } else { 
+        [System.Security.Principal.WindowsIdentity]::GetCurrent().Name 
+    }
     Write-Host "Setting db_owner: $user"
-    if ($user -ne $null) {
+    if ([string]::IsNullOrWhitespace($user)) {
         $databaseName = $csb["Database"]
         $query = "USE [$databaseName]; DECLARE @owner_sid  AS VARCHAR(100);
         SELECT @owner_sid=suser_sname(owner_sid) FROM SYS.DATABASES WHERE name = `'$databaseName`';"
@@ -995,7 +1032,13 @@ Function Test-DatabaseExists {
 
     Use-SqlServerModule
 
-    if ($PsCmdlet.ParameterSetName -match "csb") {        
+    if ($PsCmdlet.ParameterSetName -match "csb") {  
+        if (-not [string]::IsNullOrWhitespace($settings.MssqlSaPassword)) {
+            $csb["Uid"] = 'sa'
+            $csb["Pwd"] = $Settings.MssqlSaPassword
+            $csb["Trusted_Connection"] = "no"
+        }
+
         $server = Get-Server -csb $csb
         $databaseName = $csb["Database"]
     }

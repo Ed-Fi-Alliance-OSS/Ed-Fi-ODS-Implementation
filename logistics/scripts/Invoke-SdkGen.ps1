@@ -26,7 +26,8 @@ param(
     [Boolean] $generateTestSdkPackage = $false,
     [string] $packageVersion,
     [Boolean] $noRestore = $false,
-    [String] $standardVersion
+    [String] $standardVersion,
+	[String] $javaPath 
 )
 
 $ErrorActionPreference = 'Stop'
@@ -59,8 +60,8 @@ function Invoke-SdkGen {
                 $script:result += Invoke-Task "Clean-SdkGen-Console-Output" { Invoke-Clean-SdkGen-Output }
                 $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal"  $sdkGenSolution $noRestore $standardVersion }
                 $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath $null "EdFiOdsApiSdk" }
-                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '6.6.0'
-                $arguments = @("-v",$sdkCliVersion,"--core-only")
+                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '7.9.0'
+                $arguments = @("-v",$sdkCliVersion,"--core-only","-j","""$javaPath""")
                 $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration $arguments }
             }
             finally {
@@ -78,7 +79,7 @@ function Invoke-SdkGen {
                 $_.replace("<id>EdFi.OdsApi.Sdk</id>","<id>EdFi$suffix.OdsApi.Sdk.Standard.$standardVersion</id>").replace("<title>EdFi.OdsApi.Sdk</title>","<title>EdFi$suffix.OdsApi.Sdk.Standard.$standardVersion</title>")
             } | Set-Content -Path $nuspecFile
 
-            $script:result += Invoke-Task "Pack-ApiSdk" { Invoke-Pack-ApiSdk $buildConfiguration $teamCityParameters $version }
+            $script:result += Invoke-Task "Pack-ApiSdk" { Invoke-Pack-ApiSdk -OutputDirectory -ProjectPath (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/" | Select-Object -ExpandProperty Path) -BuildConfiguration $buildConfiguration -TeamCityParameters $teamCityParameters -Version $version -StandardVersion $standardVersion }
         }
 
         if($generateTestSdkPackage) {
@@ -86,8 +87,8 @@ function Invoke-SdkGen {
                 $script:result += Invoke-Task "Clean-SdkGen-Console-Output" { Invoke-Clean-SdkGen-Output }
                 $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal" $sdkGenSolution $noRestore $standardVersion }
                 $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath $null "EdFiOdsApiSdk" }
-                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '6.6.0'
-                $arguments = @("-v",$sdkCliVersion,"-c","-i","-p")
+                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '7.9.0'
+                $arguments = @("-v",$sdkCliVersion,"-c","-i","-p","-j","""$javaPath""")
                 $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration $arguments }
             }
             finally {
@@ -105,7 +106,7 @@ function Invoke-SdkGen {
                 $_.replace("<id>EdFi.OdsApi.Sdk</id>","<id>EdFi$suffix.OdsApi.TestSdk.Standard.$standardVersion</id>").replace("<title>EdFi.OdsApi.Sdk</title>","<title>EdFi$suffix.OdsApi.TestSdk.Standard.$standardVersion</title>").replace("<id>EdFi$suffix.OdsApi.Sdk.Standard.$standardVersion</id>","<id>EdFi$suffix.OdsApi.TestSdk.Standard.$standardVersion</id>").replace("<title>EdFi$suffix.OdsApi.Sdk.Standard.$standardVersion</title>","<title>EdFi$suffix.OdsApi.TestSdk.Standard.$standardVersion</title>")
             } | Set-Content -Path $nuspecFile
 
-            $script:result += Invoke-Task "Pack-TestSdk" { Invoke-Pack-ApiSdk $buildConfiguration $teamCityParameters $version }
+            $script:result += Invoke-Task "Pack-TestSdk" { Invoke-Pack-ApiSdk -ProjectPath (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/" | Select-Object -ExpandProperty Path) -BuildConfiguration $buildConfiguration -TeamCityParameters $teamCityParameters -Version $version }
         }
     }
 
@@ -120,35 +121,67 @@ function Invoke-Restore-ApiSdk-Packages {
     param (
         [string] $sdkSolutionFile
     )
-    $toolsPath = (Join-Path (Get-RepositoryRoot "Ed-Fi-ODS-Implementation") 'tools')
 
     $params = @{
         SolutionPath = $sdkSolutionFile
-        ToolsPath = $toolsPath
     }
     Restore-Packages @params
 }
 
 function Invoke-Pack-ApiSdk {
-    param (
-        [string] $buildConfiguration = "Debug",
-        [string[]] $teamCityParameters = @(),
-        [string] $version = "0.0.0"
+    param(
+        [string] $BuildConfiguration = "Debug",
 
+        [string[]] $TeamCityParameters = @(),
+
+        [ValidateSet('4.0.0', '5.0.0')]
+        [string] $StandardVersion,
+
+        [string] $ProjectPath = "$ProjectPath/csharp",
+
+        [string] $PackageDefinitionFile = "$ProjectPath/EdFi.OdsApi.Sdk.nuspec",
+
+        [string] $PackageId,
+
+        [string] $Version = "0.0.0",
+
+        [string[]] $Properties = @()
     )
 
-    $nugetOutput = Get-ValueOrDefault $teamCityParameters['nuget.pack.output'] 'NugetPackages'
+    Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectPath -Leaf))" -task {
 
-    $parameters = @{
-        PackageDefinitionFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/EdFi.OdsApi.Sdk.nuspec")
-        Version               = $version
-        OutputDirectory       = $nugetOutput
-        Publish               = $false
-        ToolsPath             = "../../../tools"
-        Properties            = @("configuration=$buildConfiguration","authors=Ed-Fi Alliance","owners=Ed-Fi Alliance","copyright=Copyright © $((Get-Date).year) Ed-Fi Alliance, LLC and Contributors" )
+        if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $BuildConfiguration = $env:msbuild_buildConfiguration }
+
+        $nugetOutput = Get-ValueOrDefault $teamCityParameters['nuget.pack.output'] 'NugetPackages'
+
+        $params = @(
+            "build", $ProjectPath,
+            "--configuration", $BuildConfiguration,
+            "--no-restore",
+            "-p:StandardVersion=$StandardVersion"
+        )
+
+        $Properties += @("configuration=$BuildConfiguration")
+
+        Write-Host -ForegroundColor Magenta "& dotnet $params"
+        & dotnet $params | Out-Host
+
+        $PackageDefinitionFile = (Get-ChildItem $PackageDefinitionFile)
+        if (-not [string]::IsNullOrWhiteSpace($PackageId)) {
+            [xml] $xml = Get-Content $PackageDefinitionFile
+            $xml.package.metadata.id = $PackageId
+            $xml.Save($PackageDefinitionFile)
+        }
+
+        $params = @{
+            PackageDefinitionFile = $PackageDefinitionFile
+            Version               = $Version
+            Properties            = $Properties
+            OutputDirectory       = $nugetOutput
+        }
+
+        New-Package @params | Out-Host
     }
-    
-    Invoke-CreatePackage @parameters -Verbose:$verbose
 }
 
 function Invoke-Clean-SdkGen-Output {

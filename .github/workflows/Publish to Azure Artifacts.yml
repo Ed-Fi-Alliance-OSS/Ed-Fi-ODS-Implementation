@@ -21,7 +21,7 @@ on:
     workflows: ["InitDev, Smoke Tests", "InitDev, Unit tests, Integration tests, Package", "InitDev, MultiTenancy"]
     types:
       - completed
-    branches: [main, b-v*-patch*]
+    branches: [main, 'b-v*-patch*','feature-*']
 env:
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
@@ -30,13 +30,28 @@ env:
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
 
 jobs:
+  FindStandardAndExtensionVersions:
+    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
+    with:
+      calling_branch: ${{ github.head_ref || github.ref_name }}
+      
   build:
 
-    runs-on: ubuntu-22.04
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-24.04    
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    needs: FindStandardAndExtensionVersions
 
+    strategy:
+      fail-fast: false    
+      matrix:
+        StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
+        ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
     steps:
-    - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+    - name: Checkout Ed-Fi-ODS-Implementation
+      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+          path: Ed-Fi-ODS-Implementation/
     - name: Wait for  ["InitDev, Smoke Tests", "InitDev, Unit tests, Integration tests, Package", "InitDev, MultiTenancy"] workflows to Complete
       uses: ahmadnassri/action-workflow-run-wait@2aa3d9e1a12ecaaa9908e368eaf2123bb084323e #v1.4.4 
       with:
@@ -49,31 +64,33 @@ jobs:
         exit 1
 
     - name: Download SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
-      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43 #v7
+      uses: dawidd6/action-download-artifact@ac66b43f0e6a346234dd65d4d0c8fbb31cb316e5 #v11
       with:
         workflow: InitDev, Unit tests, Integration tests, Package.yml
         workflow_conclusion: success
-        name: NugetPackages.Artifacts
+        name: NugetPackages.Artifacts-${{ matrix.StandardVersion }}
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
         commit: ${{ env.INITDEV_COMMIT }}
         check_artifacts: true
         if_no_artifact_found: fail
 
     - name: EdFi.Ods.Api.TestSdk NugetPackage
-      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43 #v7
+      uses: dawidd6/action-download-artifact@ac66b43f0e6a346234dd65d4d0c8fbb31cb316e5 #v11
       with:
         workflow: InitDev, Smoke Tests.yml
         workflow_conclusion: success
-        name: NugetPackages.Artifacts
+        name: NugetPackages.Artifacts-${{ matrix.StandardVersion }}
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
         commit: ${{ env.INITDEV_COMMIT }}
         check_artifacts: true
         if_no_artifact_found: fail
 
     - name: Install-credential-handler
-      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
-      shell: pwsh
-      
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
+      working-directory: ./Ed-Fi-ODS-Implementation/      
+      run: |      
+        .\build.githubactions.ps1 InstallCredentialHandler
+      shell: pwsh 
     - name: Publish to Azure Artifacts
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS-Implementation/

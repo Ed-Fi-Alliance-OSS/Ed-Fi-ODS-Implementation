@@ -9,9 +9,9 @@ run-name: ${{github.event.client_payload.branch}}
 
 on:
   pull_request:
-   branches: [main, b-v*-patch*]
+   branches: [main, 'b-v*-patch*','feature-*']
   push:
-   branches: [main, b-v*-patch*]
+   branches: [main, 'b-v*-patch*','feature-*']
   workflow_dispatch:
     inputs:
       distinct_id:
@@ -21,6 +21,10 @@ on:
   repository_dispatch:
     types: [triggered-from-ods-repo]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 env:
   INFORMATIONAL_VERSION: "7.1"
   BUILD_INCREMENTER: "1"
@@ -29,45 +33,26 @@ env:
   REF_NAME:  ${{ GITHUB.REF_NAME }}
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   EDFI_SUITE_NUMBER: "Suite3"
-  msbuild_buildConfiguration: "release"
+  msbuild_buildConfiguration: "Release"
   LANG: "en_US.utf8"
 
 jobs:
-  FindStandardVersions:
-    runs-on: ubuntu-22.04    
-    outputs:
-      StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
-    steps:
-    - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
-      with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-          path: Ed-Fi-ODS-Implementation/    
-    - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
-      with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-          path: Ed-Fi-ODS/
-    - name: Is pull request branch exists in Ed-Fi-ODS
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
-      run: |
-           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"          
-    - name: Set StandardVersions
-      id: Set_StandardVersions
-      working-directory: ./Ed-Fi-ODS/
-      run: |
-        $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj" | Out-String
-        echo "StandardVersions=$output" >> $env:GITHUB_OUTPUT
-        Write-host "StandardVersions is  $output"
-      shell: pwsh
+  FindStandardAndExtensionVersions:
+    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
+    with:
+      calling_branch: ${{ github.head_ref || github.ref_name }}
+
   build:
     if: ${{ always() }}
-    needs: FindStandardVersions
-    runs-on: ubuntu-22.04
+    needs: FindStandardAndExtensionVersions
+    runs-on: ubuntu-24.04
+    permissions: 
+      checks: write
     strategy:
+      fail-fast: false     
       matrix:
-        StandardVersion: ${{ fromJson(needs.FindStandardVersions.outputs.StandardVersions) }}
+        StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
+        ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
     name: build (Standard Version ${{ matrix.StandardVersion }}) 
 
     services:
@@ -87,10 +72,6 @@ jobs:
     steps:
     - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
       run:  echo "${{ github.event.inputs.distinct_id }}"
-    - name: Setup .NET
-      uses: actions/setup-dotnet@87b7050bc53ea08284295505d98d2aa94301e852 # v4.2
-      with:
-        dotnet-version: 6.0.x
     - name: Checkout Ed-Fi-ODS-Implementation
       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
@@ -111,8 +92,12 @@ jobs:
       shell: pwsh
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
+    # This step shall be removed in ODS-6572
+    - name: Install Mono and Nuget
+      working-directory: ./Ed-Fi-ODS-Implementation/.github/workflows
+      run: sudo ./install-mono.sh
     - name: Cache Nuget packages   
-      uses: actions/cache@ab5e6d0c87105b4c9c2047343972218f562e4319  #v4.0.1
+      uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
@@ -135,7 +120,7 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.INFORMATIONAL_VERSION}}"+  "." + $newRevision.ToString()
-        .\build.github.ps1 -Engine PostgreSQL -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateTestSdkPackage -NoPackaging -NoRestore -StandardVersion ${{ matrix.StandardVersion }}
+        .\build.github.ps1 -Engine PostgreSQL -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateTestSdkPackage -NoPackaging -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -JavaPath $env:JAVA_HOME_11_X64/bin/java
       shell: pwsh
     - name: Upload initdev logs
       if: success() || failure()
@@ -143,7 +128,6 @@ jobs:
       with:
         name: MultiTenant Initdev logs-${{ matrix.StandardVersion }}
         path: |
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
     - name: ODS/API MultiTenancy Smoke Tests
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -151,15 +135,15 @@ jobs:
         $ErrorActionPreference = 'Stop'
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
 
-        .\build.github.ps1 -Engine PostgreSQL -InstallType MultiTenant -Tenants "Tenant1;Tenant2" -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -NoPackaging -NoRestore -StandardVersion ${{ matrix.StandardVersion }}
+        .\build.github.ps1 -Engine PostgreSQL -InstallType MultiTenant -Tenants "Tenant1;Tenant2" -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -NoPackaging -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -JavaPath $env:JAVA_HOME_11_X64\bin\java
 
-        if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish) {
-          Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish -Recurse
+        if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish) {
+          Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish -Recurse
         }
        
         $params = @{
                 testSets                 = @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk")
-                smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net6.0/EdFi.OdsApi.Sdk.dll"
+                smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net8.0/EdFi.OdsApi.Sdk.dll"
                 testHarnessLogNamePrefix = "SmokeTestSandbox"
                 apiUrl = "http://localhost:8765/Tenant1"
                 isMultiTenancy = $true
@@ -196,3 +180,12 @@ jobs:
         path-replace-backslashes: 'true'
         working-directory: ${{ github.workspace }}/Ed-Fi-ODS-Implementation
         reporter: java-junit
+    - name: Upload MultiTenancy Postman Tests Logs
+      if: success() || failure()
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+      with:
+        name: MultiTenant Postman Tests Logs-${{ matrix.StandardVersion }}
+        path: |
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessRequestResponseDetailsLog.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.html

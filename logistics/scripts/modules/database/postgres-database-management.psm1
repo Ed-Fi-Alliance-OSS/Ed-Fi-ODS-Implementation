@@ -54,7 +54,6 @@ function Install-PostgreSQLBinaries {
         packageVersion  = $script:packageVersion
         packageSource   = $script:packageSource
         outputDirectory = $script:toolsPath
-        toolsPath       = $script:toolsPath
     }
 
     Write-Host "Installing $script:packageName version $script:packageVersion to $script:toolsPath"

@@ -267,11 +267,12 @@ function Invoke-DbDeploy {
 
         [Int] $DatabaseTimeoutInSeconds = 600,
 
-        [String]
-        $StandardVersion = '5.0.0',
+        [ValidateSet('4.0.0', '5.0.0')]
+        [String] $StandardVersion,
 
         [String]
-        $ExtensionVersion = '1.1.0'
+        [ValidateSet('1.0.0', '1.1.0')]
+        $ExtensionVersion
     )
 
     $databaseIdLookup = @{
