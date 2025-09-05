@@ -33,7 +33,7 @@ env:
   REF_NAME:  ${{ GITHUB.REF_NAME }}
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   EDFI_SUITE_NUMBER: "Suite3"
-  msbuild_buildConfiguration: "Release"
+  msbuild_buildConfiguration: "release"
   LANG: "en_US.utf8"
 
 jobs:
@@ -55,7 +55,7 @@ jobs:
     name: build (Standard Version ${{ matrix.StandardVersion }}) 
     services:
       postgres:
-        image: postgres:16.4-alpine3.20@sha256:ad47523c5154f587f0be492539c76c6c3394e8a7b02f2d86f7b8b32297a862a6
+        image: postgres:13
         env:
           POSTGRES_HOST_AUTH_METHOD: trust
         # Set health checks to wait until postgres has started
