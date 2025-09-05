@@ -246,7 +246,7 @@ function Invoke-Build {
     if ($Push) {
         Write-Message "Pushing $ImageName"
         if ($PreRelease) { 
-            &docker push edfialliance/$($ImageName):pre$stdVer$mssql
+            &docker push edfialliance/$($ImageName):$preTag$stdVer$mssql
         }
         else {
             &docker push edfialliance/$($ImageName):$semVer-$StandardVersion$mssql
