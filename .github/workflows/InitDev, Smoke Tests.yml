@@ -74,7 +74,7 @@ jobs:
     - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
       run:  echo "${{ github.event.inputs.distinct_id }}"
     - name: Support longpaths
-      run: git config --system core.longpaths true
+      run: git config --global core.longpaths true
     - name: Checkout Ed-Fi-ODS-Implementation
       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
