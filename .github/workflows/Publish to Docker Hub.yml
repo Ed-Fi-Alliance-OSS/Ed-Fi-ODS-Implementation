@@ -13,6 +13,11 @@ on:
       initdev_head_branch:
         required: true
         type: string
+      trigger_event:
+        description: 'Event that triggered the calling workflow'
+        required: false
+        type: string
+        default: 'workflow_call'
   release:
     types: [published]
   workflow_dispatch:
@@ -31,7 +36,7 @@ env:
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
   CURRENT_STANDARD_VERSION: "6.0.0"
   PACKAGE_VERSION: "7.3"
-  EVENT_NAME: ${{ GITHUB.EVENT_NAME }}
+  TRIGGER_EVENT: ${{ inputs.trigger_event || GITHUB.EVENT_NAME }}
   EVENT_ACTION: ${{ GITHUB.EVENT.ACTION }}
   BASE_BRANCH: ${{ GITHUB.HEAD_REF || GITHUB.REF_NAME }}
 
@@ -93,10 +98,10 @@ jobs:
         if: ${{ env.DOCKER_HUB_TOKEN != '' }}
         run: |
           # Note: all images will receive the same version number for this Docker release
-          if (($env:EVENT_NAME -eq "release" -and $env:EVENT_ACTION -eq "published") -or ($env:EVENT_NAME -eq "workflow_dispatch")) {
+          if (($env:TRIGGER_EVENT -eq "release" -and $env:EVENT_ACTION -eq "published") -or ($env:TRIGGER_EVENT -eq "workflow_dispatch")) {
 
             $package_version="${{ env.PACKAGE_VERSION }}"
-            if ($env:EVENT_NAME -eq "workflow_dispatch") {
+            if ($env:TRIGGER_EVENT -eq "workflow_dispatch") {
               $package_version="${{ inputs.package_version }}"
             }
 
