@@ -17,7 +17,7 @@ on:
 permissions: read-all
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.workflow_run.run_number || github.event.workflow_run.head_branch || github.head_ref || github.ref_name }}
+  group: ${{ github.workflow }}-${{ github.event.workflow_run.head_sha || github.sha }}-${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 env:
@@ -111,7 +111,7 @@ jobs:
     needs: PublishToAzureArtifacts
     uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/.github/workflows/Docker Test.yml@2bad8210fcfda467f7ac69017cce5a142d914916
     with:
-      initdev_commit: ${{ github.event.workflow_run.head_sha || github.head_ref || github.ref_name }}
+      initdev_commit: ${{ github.event.workflow_run.head_sha || github.sha }}
       initdev_head_branch: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }}
       
   PublishToDockerHub:

@@ -25,10 +25,6 @@ on:
 
 permissions: read-all
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.workflow_run.run_number || inputs.initdev_head_branch || github.head_ref || github.ref_name }}
-  cancel-in-progress: true
-
 env:
   DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
   DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
@@ -84,7 +80,7 @@ jobs:
         if: ${{ env.DOCKER_HUB_TOKEN != '' }}
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          ref: ${{ inputs.initdev_commit }} # checkout the same commit as InitDev workflow run that triggered this actio
+          ref: ${{ inputs.initdev_commit || github.sha }} # checkout the same commit as InitDev workflow run that triggered this actio
 
       - name: Log in to Docker Hub
         if: ${{ env.DOCKER_HUB_TOKEN != '' }}

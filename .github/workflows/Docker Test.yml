@@ -22,10 +22,6 @@ on:
 
 permissions: read-all
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.workflow_run.run_number || inputs.initdev_head_branch || github.head_ref || github.ref_name }}
-  cancel-in-progress: true
-
 env:
   CURRENT_STANDARD_VERSION: "6.0.0"
   PACKAGE_VERSION: "7.3"
@@ -90,7 +86,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          ref: ${{ inputs.initdev_commit }} # checkout the same commit as InitDev workflow run that triggered this action
+          ref: ${{ inputs.initdev_commit || github.sha }} # checkout the same commit as InitDev workflow run that triggered this action
 
       - name: Build  ${{ matrix.dockerfile.name }} image in path ${{ matrix.dockerfile.path }}
         # To confirm no errors occur. The "local" one will be built by the e2e
