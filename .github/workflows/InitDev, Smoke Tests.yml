@@ -82,7 +82,7 @@ jobs:
           path: Ed-Fi-ODS-Implementation/
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: powershell
+      shell: pwsh
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
     - name: Checkout Ed-Fi-ODS
@@ -92,7 +92,7 @@ jobs:
           path: Ed-Fi-ODS/
     - name: Is pull request branch exists in Ed-Fi-ODS
       working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: powershell
+      shell: pwsh
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
     - name: update BUILD_INCREMENTER 
@@ -102,7 +102,7 @@ jobs:
                 $newRevision = 1
                 echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
             }
-      shell: powershell
+      shell: pwsh
     - name: Cache Nuget packages   
       uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
       with:
@@ -119,9 +119,9 @@ jobs:
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln"
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln"
-      shell: powershell
+      shell: pwsh
     - name: Install sql-server-2019 & sqlpackage
-      shell: powershell
+      shell: pwsh
       run: |
           choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
           choco install sqlpackage
@@ -134,7 +134,7 @@ jobs:
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.INFORMATIONAL_VERSION}}"+ "."+ $newRevision.ToString()
         .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateTestSdkPackage -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages" -NoPackaging -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -JavaPath $env:JAVA_HOME_11_X64\bin\java.exe
-      shell: powershell
+      shell: pwsh
     - name: Upload initdev logs
       if: success() || failure()
       uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6
@@ -148,12 +148,12 @@ jobs:
         .\build.githubactions.ps1 Restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln"
         .\build.githubactions.ps1 Build -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln"        
         .\build.githubactions.ps1 Test -Configuration ${{ env.CONFIGURATION }} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln" -TestFilter "RunManually"
-      shell: powershell
+      shell: pwsh
     - name: ODS/API Smoke Test Sandbox
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
-        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-pwshForDevelopment.ps1
 
         Reset-TestPopulatedTemplateDatabase
         $params = @{
@@ -175,7 +175,7 @@ jobs:
                 testHarnessLogNamePrefix = "SmokeTestSandbox"
         }
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 @params
-      shell: powershell
+      shell: pwsh
     - name: Upload Smoke Test Sandbox Logs
       if: success() || failure()
       uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6
