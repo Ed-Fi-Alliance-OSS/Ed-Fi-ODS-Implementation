@@ -50,25 +50,32 @@ param(
     
     [String] $SwaggerUIId = 'EdFi.Suite3.Ods.SwaggerUI',
     
-    [String] $WebApiId  = 'EdFi.Suite3.Ods.WebApi',
+    [String] $WebApiId = 'EdFi.Suite3.Ods.WebApi',
     
     [String] $DatabasesId = 'EdFi.Suite3.RestApi.Databases',
 
-	[String] $JavaPath = 'java',
+    [String] $JavaPath = 'java',
     
-    [Parameter(Mandatory=$true)]    
+    [Parameter(Mandatory = $true)]    
     [ValidateSet('4.0.0', '5.0.0')]
     [String] $StandardVersion,
 
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory = $true)]
     [ValidateScript({
-                if ($_ -match '^(?!0\.0\.0)\d+\.\d+\.\d+?$') {
-                    $true
-                } else {
-                    throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
-                }
-    })]
-    [String] $ExtensionVersion
+            if ($_ -match '^(?!0\.0\.0)\d+\.\d+\.\d+?$') {
+                $true
+            }
+            else {
+                throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
+            }
+        })]
+    [String] $ExtensionVersion,
+    
+    [string] $MssqlSaPassword,
+
+    [string] $LocalDbBackupDirectory,
+
+    [string] $DbServerBackupDirectory
 )
 
 $ErrorActionPreference = 'Stop'
@@ -78,27 +85,30 @@ $ErrorActionPreference = 'Stop'
 
 # Build and Test
 $params = @{
-    InstallType            = $InstallType
-    OdsTokens              = @()
-    Tenants                = $Tenants
-    Engine                 = $Engine
-    NoCodeGen              = $NoCodeGen
-    NoRebuild              = $NoRebuild
-    NoRestore              = $NoRestore
-    NoDeploy               = $NoDeploy
-    RunPester              = $RunPester
-    RunDotnetTest          = $RunDotnetTest
-    RunPostman             = $RunPostman
-    RunSmokeTest           = $RunSmokeTest
-    UsePlugins             = $UsePlugins
-    RunSdkGen              = $RunSdkGen
-    GenerateApiSdkPackage  = $GenerateApiSdkPackage
-    GenerateTestSdkPackage = $GenerateTestSdkPackage
-    PackageVersion         = $PackageVersion
-    RepositoryRoot         = $RepositoryRoot
-    StandardVersion        = $StandardVersion
-    ExtensionVersion       = $ExtensionVersion
-	JavaPath               = $JavaPath
+    InstallType             = $InstallType
+    OdsTokens               = @()
+    Tenants                 = $Tenants
+    Engine                  = $Engine
+    NoCodeGen               = $NoCodeGen
+    NoRebuild               = $NoRebuild
+    NoRestore               = $NoRestore
+    NoDeploy                = $NoDeploy
+    RunPester               = $RunPester
+    RunDotnetTest           = $RunDotnetTest
+    RunPostman              = $RunPostman
+    RunSmokeTest            = $RunSmokeTest
+    UsePlugins              = $UsePlugins
+    RunSdkGen               = $RunSdkGen
+    GenerateApiSdkPackage   = $GenerateApiSdkPackage
+    GenerateTestSdkPackage  = $GenerateTestSdkPackage
+    PackageVersion          = $PackageVersion
+    RepositoryRoot          = $RepositoryRoot
+    StandardVersion         = $StandardVersion
+    ExtensionVersion        = $ExtensionVersion
+    JavaPath                = $JavaPath
+    MssqlSaPassword         = $MssqlSaPassword
+    LocalDbBackupDirectory  = $LocalDbBackupDirectory
+    DbServerBackupDirectory = $DbServerBackupDirectory
 }
 
 Write-FlatHashtable $params
@@ -106,11 +116,10 @@ $result = Initialize-DevelopmentEnvironment @params
 
 if (-not $NoPackaging) {
 
-   if($null -ne $StandardVersion)
-   {
+    if ($null -ne $StandardVersion) {
         $WebApiId += ".Standard." + $StandardVersion
-        $DatabasesId +=".Standard." + $StandardVersion
-   }
+        $DatabasesId += ".Standard." + $StandardVersion
+    }
 
     # Package
     $parameters = @{
@@ -137,6 +146,7 @@ if (-not $NoPackaging) {
         Version         = $params.PackageVersion
         Properties      = (Get-DefaultNuGetProperties)
         OutputDirectory = $PackageOutput
+        StandardVersion = $StandardVersion
     }
     $result += New-WebPackage @parameters
 
