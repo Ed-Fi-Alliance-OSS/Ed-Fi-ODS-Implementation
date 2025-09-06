@@ -4,7 +4,7 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 # SDK image used to install dotnet tool. Runtime image do not have 'dotnet tools' installed
-FROM mcr.microsoft.com/dotnet/sdk:8.0.403-alpine3.20@sha256:07cb8622ca6c4d7600b42b2eccba968dff4b37d41b43a9bf4bd800aa02fab117 AS builder
+FROM mcr.microsoft.com/dotnet/sdk:8.0.412-alpine3.21@sha256:12f4b6bde8ac5305b9ec41be87bb9dadf689f18a9f68bdcf98414170c8b529ea AS builder
 
 ARG BULKLOAD_VERSION
 
@@ -14,14 +14,14 @@ RUN dotnet tool install -g \
     rm -f /root/.dotnet/tools/.store/edfi.suite3.bulkloadclient.console/$BULKLOAD_VERSION/edfi.suite3.bulkloadclient.console/$BULKLOAD_VERSION/tools/net8.0/any/log4net.config
 
 # Smaller image
-FROM mcr.microsoft.com/dotnet/runtime:8.0.10-alpine3.20@sha256:3230a42af24d0a73b77219bb4bc742aa2fd851b38db62d1decd61fb88a72de07
-RUN apk --upgrade --no-cache add gettext=~0 bash=~5 busybox=~1.36 openssl~=3.3.3-r0 && \
+FROM mcr.microsoft.com/dotnet/runtime:8.0.18-alpine3.21@sha256:1455e0c98bbf35e6a5d270c53dcab65eede2d522c286d41a7597667d68e3a8c4
+RUN apk --upgrade --no-cache add gettext=~0 bash=~5 && \
     addgroup -S edfi && adduser -S edfi -G edfi
 
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
 ARG BULKLOAD_VERSION
-ENV ENV_BULKLOAD_VERSION $BULKLOAD_VERSION
+ENV ENV_BULKLOAD_VERSION=$BULKLOAD_VERSION
 ENV ENV_CONSOLE_LOG_LEVEL="INFO"
 ENV ENV_FILE_LOG_LEVEL="DEBUG"
 
