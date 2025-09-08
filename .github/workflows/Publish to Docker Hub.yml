@@ -38,7 +38,7 @@ env:
   PACKAGE_VERSION: "7.3"
   TRIGGER_EVENT: ${{ inputs.trigger_event || GITHUB.EVENT_NAME }}
   EVENT_ACTION: ${{ GITHUB.EVENT.ACTION }}
-  BASE_BRANCH: ${{ GITHUB.HEAD_REF || GITHUB.REF_NAME }}
+  BASE_BRANCH: ${{ inputs.initdev_head_branch || github.head_ref || github.ref_name }}
 
 jobs:
   FindStandardAndExtensionVersions:
@@ -97,22 +97,7 @@ jobs:
       - name: Build  ${{ matrix.dockerfile.name }} image in path ${{ matrix.dockerfile.path }} and Push
         if: ${{ env.DOCKER_HUB_TOKEN != '' }}
         run: |
-          # Note: all images will receive the same version number for this Docker release
-          if (($env:TRIGGER_EVENT -eq "release" -and $env:EVENT_ACTION -eq "published") -or ($env:TRIGGER_EVENT -eq "workflow_dispatch")) {
-
-            $package_version="${{ env.PACKAGE_VERSION }}"
-            if ($env:TRIGGER_EVENT -eq "workflow_dispatch") {
-              $package_version="${{ inputs.package_version }}"
-            }
-
-            ./get-versions.ps1 -PackageVersion $package_version -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
-            ./Invoke-Build.ps1 -Push -PackageVersion $package_version -Patch ${{ github.run_number }}  -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
-            Write-Host "This step is triggered manually or by a published release."
-          }
-          else
-          {
-            ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease
-            ./Invoke-Build.ps1 -Push -PackageVersion ${{ env.PACKAGE_VERSION }} -Patch ${{ github.run_number }} -PreRelease  -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
-          }
+          ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease
+          ./Invoke-Build.ps1 -Push -PackageVersion ${{ env.PACKAGE_VERSION }} -Patch ${{ github.run_number }} -PreRelease  -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
         working-directory: Docker
         shell: pwsh
