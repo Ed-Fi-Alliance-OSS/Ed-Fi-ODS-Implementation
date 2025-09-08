@@ -120,6 +120,6 @@ jobs:
     needs: DockerTest
     uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/.github/workflows/Publish to Docker Hub.yml@main
     with:
-      initdev_commit: ${{ github.event.workflow_run.head_sha || github.head_ref || github.ref_name }}
+      initdev_commit: ${{ github.event.workflow_run.head_sha || github.sha }}
       initdev_head_branch: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }}
     secrets: inherit
