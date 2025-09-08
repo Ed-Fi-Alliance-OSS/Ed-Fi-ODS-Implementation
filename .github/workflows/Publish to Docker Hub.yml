@@ -5,13 +5,19 @@
 
 name: Publish to Docker Hub
 on:
-  workflow_run:
-    workflows:
-      - "Docker Test"
-    types:
-      - completed
-    branches:
-      [main, 'b-v*-patch*','feature-*']
+  workflow_call:
+    inputs:
+      initdev_commit:
+        required: true
+        type: string
+      initdev_head_branch:
+        required: true
+        type: string
+      trigger_event:
+        description: 'Event that triggered the calling workflow'
+        required: false
+        type: string
+        default: 'workflow_call'
   release:
     types: [published]
   workflow_dispatch:
@@ -30,16 +36,15 @@ env:
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
   CURRENT_STANDARD_VERSION: "5.2.0"
   PACKAGE_VERSION: "7.3"
-  EVENT_NAME: ${{ GITHUB.EVENT_NAME }}
+  TRIGGER_EVENT: ${{ inputs.trigger_event || GITHUB.EVENT_NAME }}
   EVENT_ACTION: ${{ GITHUB.EVENT.ACTION }}
   BASE_BRANCH: ${{ GITHUB.HEAD_REF || GITHUB.REF_NAME }}
 
 jobs:
-
   FindStandardAndExtensionVersions:
     uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
     with:
-      calling_branch: ${{ github.head_ref || github.ref_name }}
+      calling_branch: ${{ inputs.initdev_head_branch || github.head_ref || github.ref_name }}
 
   docker-publish:
     if: (needs.FindStandardAndExtensionVersions.outputs.StandardVersions != '' &&
@@ -78,7 +83,9 @@ jobs:
 
       - name: Checkout Repository
         if: ${{ env.DOCKER_HUB_TOKEN != '' }}
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ inputs.initdev_commit || github.sha }} # checkout the same commit as InitDev workflow run that triggered this actio
 
       - name: Log in to Docker Hub
         if: ${{ env.DOCKER_HUB_TOKEN != '' }}
@@ -91,10 +98,10 @@ jobs:
         if: ${{ env.DOCKER_HUB_TOKEN != '' }}
         run: |
           # Note: all images will receive the same version number for this Docker release
-          if (($env:EVENT_NAME -eq "release" -and $env:EVENT_ACTION -eq "published") -or ($env:EVENT_NAME -eq "workflow_dispatch")) {
+          if (($env:TRIGGER_EVENT -eq "release" -and $env:EVENT_ACTION -eq "published") -or ($env:TRIGGER_EVENT -eq "workflow_dispatch")) {
 
             $package_version="${{ env.PACKAGE_VERSION }}"
-            if ($env:EVENT_NAME -eq "workflow_dispatch") {
+            if ($env:TRIGGER_EVENT -eq "workflow_dispatch") {
               $package_version="${{ inputs.package_version }}"
             }
 
