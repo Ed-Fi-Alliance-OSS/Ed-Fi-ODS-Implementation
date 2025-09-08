@@ -182,6 +182,9 @@ function New-Package {
         $ProjectFile = "EmptyProject"
     }
 
+    (Get-Content -Path $PackageDefinitionFile -Raw).Replace('$configuration$', $BuildConfiguration) | Set-Content -Path $PackageDefinitionFile
+
+
     $parameters = @("pack") + @($ProjectFile) + $parameters
 
     Write-Host -ForegroundColor Magenta "& dotnet $parameters"
