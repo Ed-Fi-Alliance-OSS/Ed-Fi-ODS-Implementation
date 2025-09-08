@@ -17,14 +17,16 @@ on:
 permissions: read-all
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.workflow_run.head_sha || github.sha }}-${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 env:
+  DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+  DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
-  INITDEV_COMMIT: ${{ github.event.workflow_run.head_sha}}
+  INITDEV_COMMIT: ${{ github.event.workflow_run.head_sha }}
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
 
 jobs:
@@ -35,15 +37,15 @@ jobs:
         with:
           timeout: 1800000
           delay: 60000
+          sha: ${{ env.INITDEV_COMMIT }}
 
   FindStandardAndExtensionVersions:
     needs: assert-all-required-workflows-succeeded
     uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
     with:
-      calling_branch: ${{ github.head_ref || github.ref_name }}
+      calling_branch: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }} # match the branch for InitDev workflow run that triggered this action
       
-  build:
-
+  PublishToAzureArtifacts:
     runs-on: ubuntu-24.04    
     needs: FindStandardAndExtensionVersions
 
@@ -58,6 +60,8 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
+          ref: ${{ env.INITDEV_COMMIT || github.sha }} # checkout the same commit as InitDev workflow run that triggered this action
+
     - name: Check for Azure token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
       run: | 
@@ -71,7 +75,7 @@ jobs:
         workflow_conclusion: success
         name: NugetPackages.Artifacts-${{ matrix.StandardVersion }}
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
-        commit: ${{ env.INITDEV_COMMIT }}
+        commit: ${{ env.INITDEV_COMMIT || github.sha }}
         check_artifacts: true
         if_no_artifact_found: fail
 
@@ -82,7 +86,7 @@ jobs:
         workflow_conclusion: success
         name: NugetPackages.Artifacts-${{ matrix.StandardVersion }}
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
-        commit: ${{ env.INITDEV_COMMIT }}
+        commit: ${{ env.INITDEV_COMMIT || github.sha }}
         check_artifacts: true
         if_no_artifact_found: fail
 
@@ -91,7 +95,8 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/      
       run: |      
         .\build.githubactions.ps1 InstallCredentialHandler
-      shell: pwsh 
+      shell: pwsh
+
     - name: Publish to Azure Artifacts
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -103,3 +108,18 @@ jobs:
             dotnet nuget push $packagePath --api-key ${{ env.AZURE_ARTIFACT_NUGET_KEY }} --source ${{env.AZURE_ARTIFACT_URL}} --skip-duplicate
         }
       shell: pwsh
+
+  DockerTest:
+    needs: PublishToAzureArtifacts
+    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/.github/workflows/Docker Test.yml@2f51ca5fcf80e1c605b36d578e1506262a93a9fb
+    with:
+      initdev_commit: ${{ github.event.workflow_run.head_sha || github.sha }}
+      initdev_head_branch: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }}
+      
+  PublishToDockerHub:
+    needs: DockerTest
+    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/.github/workflows/Publish to Docker Hub.yml@2f51ca5fcf80e1c605b36d578e1506262a93a9fb
+    with:
+      initdev_commit: ${{ github.event.workflow_run.head_sha || github.head_ref || github.ref_name }}
+      initdev_head_branch: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }}
+    secrets: inherit
