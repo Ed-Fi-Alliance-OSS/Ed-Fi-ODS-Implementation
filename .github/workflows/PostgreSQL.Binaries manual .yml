@@ -21,7 +21,7 @@ env:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
  
     steps:
     - name: Check for Azure token
@@ -29,10 +29,6 @@ jobs:
       run: | 
         echo "::error::Missing Azure Token"
           exit 1
-    - name: Setup .NET
-      uses: actions/setup-dotnet@87b7050bc53ea08284295505d98d2aa94301e852 # v4.2
-      with:
-        dotnet-version: 6.0.x
     - name: Checkout Ed-Fi-ODS-Implementation
       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
@@ -65,7 +61,10 @@ jobs:
         $NuspecFilePath = Join-Path ([IO.Path]::GetTempPath()) 'PostgreSQL.Binaries/package/package.nuspec'
         nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright © $(date +'%Y') Ed-Fi Alliance, LLC and Contributors" -Properties "id=PostgreSQL.Binaries" -Properties "title=PostgreSQL.Binaries" -Properties "description=PostgreSQL.Binaries" -NoPackageAnalysis -NoDefaultExcludes
     - name: Install-credential-handler
-      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
+      working-directory: ./Ed-Fi-ODS-Implementation/      
+      run: |      
+        .\build.githubactions.ps1 InstallCredentialHandler
       shell: pwsh
     - name: Publish release Version
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}

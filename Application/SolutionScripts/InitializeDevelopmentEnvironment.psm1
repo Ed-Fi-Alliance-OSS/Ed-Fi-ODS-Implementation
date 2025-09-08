@@ -84,10 +84,20 @@ function Initialize-DevelopmentEnvironment {
         Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-Ods-Implementation.
     .parameter PackageVersion
         Package version passed from CI that is used in Invoke-SdkGen
+    .parameter MssqlSaPassword
+        IMPORTANT: Only use this parameter for deployment in isolated, ephemeral environments (i.e. a disposable container in an isolated CI/CD pipeline.) 
+                   This password will be stored as plain-text in connection strings and may be present in log files or other unprotected formats.
+        When using SQLServer, the password for 'sa' user account, which will be used for all database connection, overriding all other authentication methods or credentials.
+    .parameter LocalDbBackupDirectory
+        A locally accessable path mapped to the backup file directory used by a containerized SQLServer instance
+    .parameter DbServerBackupDirectory
+        A directory, within the filesystem of a containerized SQLServer instance, to which the database engine should write backup files
     .parameter StandardVersion
         Standard Version.
     .parameter ExtensionVersion
         Extension Version.
+	.parameter JavaPath
+        Path to the java executable (used for SDK generation).
     #>
     param(
         [ValidateSet('Sandbox', 'SingleTenant', 'MultiTenant')]
@@ -150,12 +160,30 @@ function Initialize-DevelopmentEnvironment {
         [string] $PackageVersion,
 
         [Parameter(Mandatory=$false)]
+        [string] $MssqlSaPassword,
+
+        [Parameter(Mandatory=$false)]
+        [string] $LocalDbBackupDirectory,
+
+        [Parameter(Mandatory=$false)]
+        [string] $DbServerBackupDirectory,
+
+        [Parameter(Mandatory=$false)]
         [ValidateSet('4.0.0', '5.0.0')]
         [String] $StandardVersion = '5.0.0',
 
         [Parameter(Mandatory=$false)]
-        [ValidateSet('1.0.0', '1.1.0')]
-        [String] $ExtensionVersion = '1.1.0'
+        [ValidateScript({
+                if ($_ -match '^(?!0\.0\.0)\d+\.\d+\.\d+?$') {
+                    $true
+                } else {
+                    throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
+                }
+        })]
+        [String] $ExtensionVersion = '1.1.0',
+		
+		[Parameter(Mandatory=$false)]
+        [String] $JavaPath
     )
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'SingleTenant') -and ($InstallType -ine 'MultiTenant')) {
@@ -164,6 +192,10 @@ function Initialize-DevelopmentEnvironment {
     
     if (($InstallType -eq 'MultiTenant') -and ([string]::IsNullOrWhiteSpace($Tenants))) {
         throw "The Tenants parameter is required with the 'MultiTenant' InstallType."
+    }
+
+    if ((-not [string]::IsNullOrEmpty($MssqlSaPassword)) -and ($Engine -ne 'SQLServer')) {
+        throw "The MssqlSaPassword parameter can only be used with the 'SQLServer' Engine."
     }
 
     Clear-Error
@@ -180,6 +212,9 @@ function Initialize-DevelopmentEnvironment {
         if ($Engine) { $settings.ApiSettings.Engine = $Engine }
         if ($StandardVersion) { $settings.ApiSettings.StandardVersion = $StandardVersion }
         if ($ExtensionVersion) { $settings.ApiSettings.ExtensionVersion = $ExtensionVersion }
+        if ($MssqlSaPassword) { $settings.MssqlSaPassword = $MssqlSaPassword }
+        if ($DbServerBackupDirectory) { $settings.DbServerBackupDirectory = $DbServerBackupDirectory }
+        if ($LocalDbBackupDirectory) { $settings.LocalDbBackupDirectory = $LocalDbBackupDirectory }
         Set-DeploymentSettings $settings | Out-Null
 
         if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }
@@ -224,6 +259,7 @@ function Initialize-DevelopmentEnvironment {
                 DropDatabases = $true
                 NoDuration    = $true
                 UsePlugins    = $UsePlugins.IsPresent
+                MssqlSaPassword = $MssqlSaPassword
             }
             $script:result += Initialize-DeploymentEnvironment @params
         }
@@ -236,7 +272,7 @@ function Initialize-DevelopmentEnvironment {
 
         if ($RunSmokeTest) { $script:result += Invoke-SmokeTests }
 
-        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateApiSdkPackage $GenerateTestSdkPackage $PackageVersion $NoRestore $StandardVersion }
+        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateApiSdkPackage $GenerateTestSdkPackage $PackageVersion $NoRestore $StandardVersion $JavaPath }
     }
 
     $script:result += New-TaskResult -name '-' -duration '-'
@@ -301,7 +337,8 @@ Function Invoke-RebuildSolution {
         [string] $verbosity = "minimal",
         [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln"),
         [Boolean] $noRestore = $false,
-        [String] $standardVersion = '5.0.0'
+        [ValidateSet('4.0.0', '5.0.0')]
+        [string]  $standardVersion
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         if ((Get-DeploymentSettings).Engine -eq 'PostgreSQL') { $buildConfiguration = 'Npgsql' }
@@ -404,6 +441,12 @@ function Reset-TestPopulatedTemplateDatabase {
         $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
         if ($settings.InstallType -eq 'MultiTenant') { $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "$($settings.ApiSettings.populatedTemplateSuffix)_$($_)_Test" } }
         $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
+        if (-not [string]::IsNullOrEmpty($settings.MssqlSaPassword))
+        {
+            $csbs['trusted_connection'] = 'False'
+            $csbs['user id'] = 'sa'
+            $csbs['password'] = $settings.MssqlSaPassword
+        }
         $createByRestoringBackup = Get-PopulatedTemplateBackupPathFromSettings $settings
         foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb $createByRestoringBackup }
     }
@@ -411,13 +454,41 @@ function Reset-TestPopulatedTemplateDatabase {
 
 Set-Alias -Scope Global Run-CodeGen Invoke-CodeGen
 function Invoke-CodeGen {
+    <#
+    .description
+        Generates the solution and extensions code.
+    .parameter Engine
+        The database engine provider, either "SQLServer" or "PostgreSQL".
+    .parameter ExtensionPaths
+        Array of paths for the extension location, required only if extensions are located outside the CodeRepositoryPath.
+    .parameter RepositoryRoot
+        Path to the code repository where the ODS is located.
+    .parameter StandardVersion
+        EdFi Standard Version.
+    .parameter ExtensionVersion
+        Extension Version. Required only if the extension version is different than 1.0.0 .
+    #>
     param(
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $Engine,
+        
         [string[]] $ExtensionPaths,
+        
         [String] $RepositoryRoot,
-        [String] $StandardVersion = '5.0.0',
-        [String] $ExtensionVersion = '1.1.0'
+        
+        [ValidateSet('4.0.0', '5.0.0')]
+        [Parameter(Mandatory=$true)]
+        [string] $StandardVersion,
+        
+        [ValidateScript({
+                if ($_ -match '^(?!0\.0\.0)\d+\.\d+\.\d+?$') {
+                    $true
+                } else {
+                    throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
+                }
+        })]
+        [Parameter(Mandatory=$true)]
+        [string] $ExtensionVersion
     )
 
     Install-CodeGenUtility
@@ -527,10 +598,12 @@ function Invoke-SdkGen {
         [Boolean] $GenerateTestSdkPackage,
         [string] $PackageVersion,
         [Boolean] $NoRestore,
-        [String] $StandardVersion
+        [ValidateSet('4.0.0', '5.0.0')]
+        [String] $StandardVersion,
+		[String] $JavaPath
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion -noRestore $NoRestore -standardVersion $StandardVersion
+        & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion -noRestore $NoRestore -standardVersion $StandardVersion -javaPath $JavaPath
     }
 }
 
@@ -547,7 +620,7 @@ function Invoke-DotnetTest {
 }
 
 function Get-DefaultNuGetProperties {
-    $buildConfiguration = 'debug'
+    $buildConfiguration = 'Debug'
     if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
 
     return @(
@@ -570,6 +643,7 @@ function New-DatabasesPackage {
 
         [string] $OutputDirectory,
 
+        [ValidateSet('4.0.0', '5.0.0')]
         [string] $StandardVersion
 
     )
@@ -581,15 +655,12 @@ function New-DatabasesPackage {
         & "$ProjectPath/prep-package.ps1" $PackageId $StandardVersion
         Write-Host
 
-        $nuget = Install-NuGetCli -ToolsPath $ToolsPath
-
         $params = @{
             PackageDefinitionFile = (Get-ChildItem "$ProjectPath/$PackageId.nuspec")
             PackageId             = $PackageId
             Version               = $Version
             Properties            = $Properties
             OutputDirectory       = $OutputDirectory
-            NuGet                 = $nuget
         }
         New-Package @params | Out-Host
     }
@@ -597,6 +668,10 @@ function New-DatabasesPackage {
 
 function New-WebPackage {
     param(
+
+        [ValidateSet('4.0.0', '5.0.0')]
+        [string] $StandardVersion,
+
         [string] $ProjectPath,
 
         [string] $PackageDefinitionFile = "$ProjectPath/bin/*/*/publish/$(Split-Path $ProjectPath -Leaf).nuspec",
@@ -612,14 +687,14 @@ function New-WebPackage {
 
     Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectPath -Leaf))" -task {
 
-        $buildConfiguration = 'debug'
+        $buildConfiguration = 'Debug'
         if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
 
         $params = @(
             "publish", $ProjectPath,
             "--configuration", $buildConfiguration,
             "--no-restore",
-            "--no-build"
+            "-p:StandardVersion=$StandardVersion"
         )
 
         Write-Host -ForegroundColor Magenta "& dotnet $params"
@@ -633,14 +708,11 @@ function New-WebPackage {
             $xml.Save($PackageDefinitionFile)
         }
 
-        $nuget = Install-NuGetCli -ToolsPath $ToolsPath
-
         $params = @{
             PackageDefinitionFile = $PackageDefinitionFile
             Version               = $Version
             Properties            = $Properties
             OutputDirectory       = $OutputDirectory
-            NuGet                 = $nuget
         }
 
         New-Package @params | Out-Host

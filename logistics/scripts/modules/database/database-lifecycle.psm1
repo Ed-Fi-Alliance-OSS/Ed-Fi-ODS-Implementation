@@ -54,10 +54,15 @@ function Get-SQLServerDatabaseCreateStrategy {
 
     if (-not (Test-DatabaseExists -csb $csb) -and $CreateByRestoringBackup) {
         # Copy the backup to a location that the SQL Server has permission to see
-        Write-Host "Using backup $CreateByRestoringBackup"
-        $backupDir = if ($msSqlBackupPath) { $msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
-        $restorableBackup = Copy-Item $CreateByRestoringBackup $backupDir -PassThru
-        Write-Host "Copying to backup directory $backupDir"
+        Write-Host "Using backup $createByRestoringBackup"
+        $backupDir = if($Settings.DbServerBackupDirectory) { $Settings.DbServerBackupDirectory } elseif ($msSqlBackupPath) { $msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
+        $backupCopyDestinationDir = if($Settings.LocalDbBackupDirectory) { $Settings.LocalDbBackupDirectory } else { $backupDir }
+        $backupFileName = Split-Path $CreateByRestoringBackup -leaf
+        $restorableBackup = Join-Path $backupDir $backupFileName
+
+        Write-Host "Copying to backup directory $backupCopyDestinationDir"
+
+        Copy-Item $CreateByRestoringBackup $backupCopyDestinationDir -PassThru
         Restore-Database -csb $csb -backupFile $restorableBackup
     }
 }
@@ -159,6 +164,7 @@ function Get-SQLServerDatabaseScriptStrategy {
         FilePaths        = $Settings.ApiSettings.FilePaths
         Features         = $Settings.ApiSettings.SubTypes
         StandardVersion  = $Settings.ApiSettings.StandardVersion
+        ExtensionVersion = $Settings.ApiSettings.ExtensionVersion
     }
     if ($Database -eq $Settings.ApiSettings.DatabaseTypes.Ods) { $params.DatabaseTimeoutInSeconds = $Settings.ApiSettings.PopulatedTemplateDBTimeOutInSeconds }
     Invoke-DbDeploy @params
@@ -187,9 +193,9 @@ function Get-SQLServerDatabaseBackupStrategy {
     )
 
     if ($databaseNeedsBackup) {
-        $msSqlBackupPath = if ($Settings.ApiSettings.msSqlBackupPath) { $Settings.ApiSettings.msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
-        Write-Host "Backing up database $($csb.InitialCatalog) to $msSqlBackupPath..."
-        Backup-Database -csb $csb -backupDirectory "$msSqlBackupPath/" -overwriteExisting | Out-Null
+        $sqlBackupPath = if($Settings.DbServerBackupDirectory) { $Settings.DbServerBackupDirectory } elseif ($Settings.ApiSettings.msSqlBackupPath) { $Settings.ApiSettings.msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
+        Write-Host "Backing up database $($csb.InitialCatalog) to $sqlBackupPath..."
+        Backup-Database -csb $csb -backupDirectory "$sqlBackupPath/" -DbServerBackupDirectory $Settings.DbServerBackupDirectory -LocalDbBackupDirectory $Settings.LocalDbBackupDirectory -overwriteExisting | Out-Null
     }
     else {
         Write-Host "No backup required for database $($csb.InitialCatalog)"
@@ -278,6 +284,7 @@ function Get-PostgreSQLDatabaseScriptStrategy {
         FilePaths        = $Settings.ApiSettings.FilePaths
         Features         = $Settings.ApiSettings.SubTypes
         StandardVersion  = $settings.ApiSettings.StandardVersion
+        ExtensionVersion = $Settings.ApiSettings.ExtensionVersion
     }
     if ($Database -eq $Settings.ApiSettings.DatabaseTypes.Ods) { $params.DatabaseTimeoutInSeconds = $Settings.ApiSettings.PopulatedTemplateDBTimeOutInSeconds }
     Invoke-DbDeploy @params
@@ -397,6 +404,12 @@ function Initialize-EdFiDatabase {
         $CSB['Encrypt'] = $false
     }
 
+    if (($Settings.ApiSettings.Engine -eq 'SQLServer') -and (-not [string]::IsNullOrEmpty($Settings.MssqlSaPassword))) {
+        $CSB['Uid'] = 'sa'
+        $CSB['Pwd'] = $Settings.MssqlSaPassword
+        $CSB['trusted_connection'] = 'False'
+    }
+
     Write-InvocationInfo $MyInvocation
 
     $lifecycle = New-EdFiDatabaseLifecycle @PSBoundParameters
@@ -483,6 +496,7 @@ function Test-DatabaseHasScriptsToApply {
         Features                 = $Features
         DatabaseTimeoutInSeconds = $DatabaseTimeoutInSeconds
         StandardVersion          = $Settings.ApiSettings.StandardVersion
+        ExtensionVersion         = $Settings.ApiSettings.ExtensionVersion
     }
 
     $exitCode = Invoke-DbDeploy @params
@@ -519,8 +533,15 @@ backup is restored, the database will be synced normally. Note: The backup file
 must have a dbo.DeployJournal like the module expects.
 
 .parameter msSqlBackupPath
-A location to store backups of databases before they are dropped or migrated.
+When using a traditional SQLServer host, a location to store backups of databases before they are dropped or migrated.
 If this is not provided, the default backup path on the SQL server is used.
+
+.parameter LocalDbBackupDirectory
+A locally accessable path mapped to the backup file directory used by a containerized SQLServer instance
+
+.parameter DbServerBackupDirectory
+A directory, within the filesystem of a containerized SQLServer instance, to which the database engine should write backup files
+
 #>
 function Initialize-EdFiDatabaseWithDbDeploy {
     [CmdletBinding()]
@@ -548,9 +569,15 @@ function Initialize-EdFiDatabaseWithDbDeploy {
 
         [Int] $databaseTimeoutInSeconds = 60,
         
-        [String] $standardVersion = '5.0.0',
+        [ValidateSet('4.0.0', '5.0.0')]
+        [String] $standardVersion,
 
-        [String] $extensionVersion = '1.1.0'
+        [string]  $LocalDbBackupDirectory,
+
+        [string]  $DbServerBackupDirectory,
+        
+        [ValidateSet('1.0.0', '1.1.0')]
+        [string]  $extensionVersion
     )
 
     Write-InvocationInfo $MyInvocation
@@ -591,11 +618,18 @@ function Initialize-EdFiDatabaseWithDbDeploy {
             Features                 = $subTypeNames
             DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
             StandardVersion          = $standardVersion
+            ExtensionVersion         = $extensionVersion
           }
         Invoke-DbDeploy @params
         
         Set-PostgresSQLDatabaseAsTemplate @scriptParams
         return;
+    }
+
+    if (($Settings.ApiSettings.Engine -eq 'SQLServer') -and (-not [string]::IsNullOrEmpty($Settings.MssqlSaPassword))) {
+        $CSB['Uid'] = 'sa'
+        $CSB['Pwd'] = $Settings.MssqlSaPassword
+        $CSB['trusted_connection'] = 'False'
     }
 
     $databaseNeedsBackup = (
@@ -621,9 +655,16 @@ function Initialize-EdFiDatabaseWithDbDeploy {
         if ($createByRestoringBackup) {
             # Copy the backup to a location that the SQL Server has permission to see
             Write-Host "Using backup $createByRestoringBackup"
-            $backupDir = if ($msSqlBackupPath) { $msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
-            $restorableBackup = Copy-Item $createByRestoringBackup $backupDir -PassThru
-            Write-Host "Copying to backup directory $backupDir"
+            $backupDir = if($DbServerBackupDirectory) { $DbServerBackupDirectory } elseif ($msSqlBackupPath) { $msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
+            $backupCopyDestinationDir = if($LocalDbBackupDirectory) { $LocalDbBackupDirectory } else { $backupDir }
+            
+            $backupFileName = Split-Path $CreateByRestoringBackup -leaf
+    
+            $restorableBackup = "$backupDir/$backupFileName"
+    
+            Write-Host "Copying to backup directory $backupCopyDestinationDir"
+    
+            Copy-Item $CreateByRestoringBackup $backupCopyDestinationDir -PassThru
             Restore-Database -csb $csb -backupFile $restorableBackup
         }
     }
@@ -637,6 +678,7 @@ function Initialize-EdFiDatabaseWithDbDeploy {
         Features                 = $subTypeNames
         DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
         StandardVersion          = $standardVersion
+        ExtensionVersion         = $extensionVersion
     }
     Invoke-DbDeploy @params
 }
