@@ -163,6 +163,219 @@
                             }
                         }
                     }
+                },
+                function EdFiResourceDomainsPlugin() {
+                    let processedResources = new Set();
+                    let resourceDomains = {};
+                    
+                    return {
+                        afterLoad: function(system) {
+                            const processOnceWhenReady = () => {
+                                const specState = system.getState().get('spec');
+                                const spec = specState?.get('json');
+                                
+                                if (spec) {
+                                    const specJS = spec.toJS ? spec.toJS() : spec;
+                                    if (specJS && specJS.paths && Object.keys(resourceDomains).length === 0) {                                        
+                                        extractResourceDomains(specJS);
+                                        
+                                        setTimeout(() => {
+                                            applyDomainsToResources();
+                                            setupDOMObserver();
+                                        }, 3000);
+                                    }
+                                }
+                            };
+                            
+                            const tryProcess = () => {
+                                processOnceWhenReady();
+                                if (Object.keys(resourceDomains).length === 0) {
+                                    setTimeout(tryProcess, 2000);
+                                }
+                            };
+                            
+                            setTimeout(tryProcess, 1000);
+                        }
+                    };
+                    
+                    function extractResourceDomains(spec) {
+                        resourceDomains = {};
+                        
+                        if (spec.paths) {
+                            Object.keys(spec.paths).forEach(path => {
+                                const pathItem = spec.paths[path];
+                                
+                                Object.keys(pathItem).forEach(method => {
+                                    if (['get', 'post', 'put', 'delete', 'patch'].includes(method)) {
+                                        const operation = pathItem[method];
+                                        
+                                        if (operation.tags && operation.tags.length > 0 && operation['x-Ed-Fi-domains']) {
+                                            const tag = operation.tags[0];
+                                            
+                                            if (!resourceDomains[tag]) {
+                                                resourceDomains[tag] = new Set();
+                                            }
+                                            
+                                            operation['x-Ed-Fi-domains'].forEach(domain => {
+                                                resourceDomains[tag].add(domain);
+                                            });
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                        
+                        Object.keys(resourceDomains).forEach(tag => {
+                            resourceDomains[tag] = Array.from(resourceDomains[tag]);
+                        });
+                    }
+                    
+                    function setupDOMObserver() {
+                        const observer = new MutationObserver(() => {
+                            if (document.querySelectorAll('.opblock-tag').length > processedResources.size) {
+                                setTimeout(applyDomainsToResources, 500);
+                            }
+                        });
+                        
+                        observer.observe(document.body, {
+                            childList: true,
+                            subtree: true
+                        });
+                    }
+                    
+                    function applyDomainsToResources() {
+                        Object.keys(resourceDomains).forEach(resourceName => {
+                            const domains = resourceDomains[resourceName];
+                            if (domains.length > 0) {
+                                insertResourceDomains(resourceName, domains);
+                            }
+                        });
+                    }
+                    
+                    function insertResourceDomains(resourceName, domains) {
+                        const tagElements = document.querySelectorAll('.opblock-tag');
+                        
+                        tagElements.forEach(tagElement => {
+                            const elementText = tagElement.textContent || '';
+                            
+                            if (elementText.includes(resourceName) && !tagElement.querySelector('.edfi-resource-domains') && !tagElement.hasAttribute('data-edfi-domains-processed')) {
+                                let textNode = findDescriptionTextNode(tagElement, resourceName);
+                                
+                                if (textNode) {
+                                    const domainsElement = createInlineDomainsElement(domains);
+                                    
+                                    if (textNode.nextSibling) {
+                                        textNode.parentNode.insertBefore(domainsElement, textNode.nextSibling);
+                                    } else {
+                                        textNode.parentNode.appendChild(domainsElement);
+                                    }
+                                    
+                                    tagElement.setAttribute('data-edfi-domains-processed', 'true');
+                                    processedResources.add(resourceName);
+                                }
+                            }
+                        });
+                    }
+                    
+                    function findDescriptionTextNode(tagElement, resourceName) {
+                        // Strategy 1: Look for small elements
+                        const smallElements = tagElement.querySelectorAll('.opblock-tag small');
+                        for (let element of smallElements) {
+                            const text = element.textContent?.trim();
+                            if (text && text.length > 30 && !text.includes(resourceName) && !text.includes('Domain:')) {
+                                const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
+                                let lastTextNode = null;
+                                let textNode;
+                                while (textNode = walker.nextNode()) {
+                                    if (textNode.textContent && textNode.textContent.trim().length > 10) {
+                                        lastTextNode = textNode;
+                                    }
+                                }
+                                return lastTextNode || element;
+                            }
+                        }
+                        
+                        // Strategy 2: Look for markdown p elements
+                        const markdownElements = tagElement.querySelectorAll('.renderedMarkdown p');
+                        for (let element of markdownElements) {
+                            const text = element.textContent?.trim();
+                            if (text && text.length > 30 && !text.includes(resourceName) && !text.includes('Domain:')) {
+                                const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
+                                let lastTextNode = null;
+                                let textNode;
+                                while (textNode = walker.nextNode()) {
+                                    if (textNode.textContent && textNode.textContent.trim().length > 10) {
+                                        lastTextNode = textNode;
+                                    }
+                                }
+                                return lastTextNode || element;
+                            }
+                        }
+                        
+                        return null;
+                    }
+                    
+                    function createInlineDomainsElement(domains) {
+                        const container = document.createElement('span');
+                        container.className = 'edfi-resource-domains';
+                        container.style.cssText = 'position: relative; display: inline; color: #007bff; font-weight: normal; font-size: inherit; font-family: inherit;';
+                        
+                        const domainsText = getDomainText(domains);
+                        container.textContent = domainsText;
+                        
+                        if (domains.length > 1) {
+                            container.style.cursor = 'pointer';
+                            
+                            const tooltip = document.createElement('div');
+                            tooltip.className = 'edfi-domains-tooltip';
+                            tooltip.style.cssText = `
+                                position: fixed; background: #333; color: white; padding: 12px 16px;
+                                border-radius: 6px; font-size: 13px; z-index: 9999;
+                                box-shadow: 0 4px 12px rgba(0,0,0,0.25); display: none;
+                                pointer-events: none; max-width: 400px; line-height: 1.5;
+                                font-family: inherit;
+                            `;
+                            
+                            let domainsHTML = '<strong>Domains:</strong> ';
+                            for (let i = 0; i < domains.length; i++) {
+                                if (i > 0) {
+                                    if (i % 3 === 0) {
+                                        domainsHTML += '<br>';
+                                    } else {
+                                        domainsHTML += ', ';
+                                    }
+                                }
+                                domainsHTML += domains[i];
+                            }
+                            
+                            tooltip.innerHTML = domainsHTML;
+                            
+                            container.addEventListener('mouseenter', () => {
+                                const rect = container.getBoundingClientRect();
+                                tooltip.style.left = Math.min(rect.left, window.innerWidth - 420) + 'px';
+                                tooltip.style.top = (rect.bottom + 8) + 'px';
+                                tooltip.style.display = 'block';
+                                document.body.appendChild(tooltip);
+                            });
+                            
+                            container.addEventListener('mouseleave', () => {
+                                tooltip.style.display = 'none';
+                                if (tooltip.parentNode) {
+                                    tooltip.parentNode.removeChild(tooltip);
+                                }
+                            });
+                        }
+                        
+                        return container;
+                    }
+                    
+                    function getDomainText(domains) {
+                        if (domains.length === 1) {
+                            return ` Domain: ${domains[0]}`;
+                        } else {
+                            return ` Domains: ${domains[0]} +${domains.length - 1}`;
+                        }
+                    }
                 }];
                 // Begin Swagger UI call region
 

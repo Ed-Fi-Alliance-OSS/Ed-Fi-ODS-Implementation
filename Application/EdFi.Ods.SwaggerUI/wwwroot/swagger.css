@@ -46,3 +46,50 @@
     outline: none;
     box-shadow: none
 }
+
+/* Ed-Fi Resource Domains Styling - Inline */
+.swagger-ui .edfi-resource-domains {
+    display: inline !important;
+    margin-left: 8px !important;
+    position: relative !important;
+}
+
+.swagger-ui .edfi-domains-text {
+    color: #007bff !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    cursor: default !important;
+    display: inline !important;
+    margin-left: 8px !important;
+}
+
+.swagger-ui .edfi-domains-tooltip {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    background: #333 !important;
+    color: white !important;
+    padding: 8px 12px !important;
+    border-radius: 4px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+    z-index: 9999 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+    display: none !important;
+    margin-top: 2px !important;
+}
+
+/* Hide x-Ed-Fi-domains from Extensions sections in operations */
+.swagger-ui .extensions .renderedMarkdown table tbody tr:has(td:contains('x-Ed-Fi-domains')) {
+    display: none !important;
+}
+
+/* Alternative method to hide x-Ed-Fi-domains if :has() is not supported */
+.swagger-ui .extensions .renderedMarkdown table tbody tr td:first-child {
+    /* This will be enhanced by JavaScript if needed */
+}
+
+/* Hide Extensions section completely if it only contains x-Ed-Fi-domains */
+.swagger-ui .extensions:has(.renderedMarkdown table tbody tr td:contains('x-Ed-Fi-domains')) {
+    display: none !important;
+}
