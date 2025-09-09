@@ -120,14 +120,14 @@ jobs:
 
   DockerTest:
     needs: PublishToAzureArtifacts
-    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/.github/workflows/Docker Test.yml@main
+    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/.github/workflows/Docker Test.yml@2e0518d04301f599c29ca53f7a79436e28e5a1b2
     with:
       initdev_commit: ${{ github.event.workflow_run.head_sha || github.sha }}
       initdev_head_branch: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }}
       
   PublishToDockerHub:
     needs: DockerTest
-    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/.github/workflows/Publish to Docker Hub.yml@main
+    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/.github/workflows/Publish to Docker Hub.yml@2e0518d04301f599c29ca53f7a79436e28e5a1b2
     with:
       initdev_commit: ${{ github.event.workflow_run.head_sha || github.sha }}
       initdev_head_branch: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }}
