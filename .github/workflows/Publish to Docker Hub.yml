@@ -11,7 +11,7 @@ on:
     types:
       - completed
     branches:
-      [main, 'b-v*-patch*','feature-*']
+      [main, 'b-v*-patch*']
   release:
     types: [published]
   workflow_dispatch:
