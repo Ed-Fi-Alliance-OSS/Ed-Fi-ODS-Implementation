@@ -13,6 +13,7 @@ function Get-MinimalConfiguration([hashtable] $config = @{ }) {
 
     $config = Merge-Hashtables (Get-DefaultTemplateConfiguration $config), $config
     $config.StandardVersion = $config.StandardVersion
+    $config.ExtensionVersion = $config.ExtensionVersion
     $config.Remove('apiClientNameSandbox')
 
     $config.testHarnessJsonConfigLEAs = @()
@@ -64,6 +65,17 @@ function Initialize-MinimalTemplate {
     .parameter engine
     The database engine provider, either 'SQLServer' or 'PostgreSQL'
 
+    .parameter StandardVersion
+        Standard Version.
+    .parameter ExtensionVersion
+        Extension Version.
+
+    .parameter LocalDbBackupDirectory
+        A locally accessable path mapped to the backup file directory used by a containerized SQLServer instance
+
+    .parameter DbServerBackupDirectory
+        A directory, within the filesystem of a containerized SQLServer instance, to which the database engine should write backup files
+
     .EXAMPLE
         PS> Initialize-MinimalTempalate -samplePath "C:/edfi/Ed-Fi-Standard/v3.2/"
     #>
@@ -79,7 +91,12 @@ function Initialize-MinimalTemplate {
         [switch] $noValidation,
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $engine = 'SQLServer',
-        [String] $standardVersion = '5.0.0'
+        [ValidateSet('4.0.0', '5.0.0')]
+        [String] $StandardVersion,
+        [ValidateSet('1.0.0', '1.1.0')]
+        [String] $ExtensionVersion,
+        [String] $LocalDbBackupDirectory,
+        [String] $DbServerBackupDirectory
     )
 
     Clear-Error
@@ -90,6 +107,9 @@ function Initialize-MinimalTemplate {
         noValidation = $noValidation
         engine       = $engine
         standardVersion = $standardVersion
+        extensionVersion = $extensionVersion
+        LocalDbBackupDirectory = $LocalDbBackupDirectory
+        DbServerBackupDirectory = $DbServerBackupDirectory
     }
 
     $config = (Get-MinimalConfiguration $paramConfig)
@@ -113,6 +133,7 @@ function Initialize-MinimalTemplate {
 
             $script:result += Invoke-Task 'Stop-TestHarness' { Stop-TestHarness $config }
             $script:result += Invoke-Task 'Backup-DatabaseTemplate' { Backup-DatabaseTemplate $config }
+            $config.ExtensionVersion = ""
             $script:result += Invoke-Task 'New-DatabaseTemplateNuspec' { New-DatabaseTemplateNuspec $config }
         }
         catch {

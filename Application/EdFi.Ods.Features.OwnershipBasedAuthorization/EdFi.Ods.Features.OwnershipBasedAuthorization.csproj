@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>EdFi.Ods.Features.OwnershipBasedAuthorization</RootNamespace>
     <AssemblyName>EdFi.Ods.Features.OwnershipBasedAuthorization</AssemblyName>
     <Product>EdFi.Ods.Api.Startup</Product>
@@ -21,18 +21,18 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Common" Version="7.1.9" />
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.1.14" />
       </ItemGroup>
     </Otherwise>
-  </Choose>  
-  <ItemGroup>    
+  </Choose>
+  <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.15" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-    <PackageReference Include="NHibernate" Version="5.4.9" />
+    <PackageReference Include="NHibernate" Version="5.5.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
