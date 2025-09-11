@@ -223,7 +223,7 @@ function Invoke-Build {
         $stdVer = ""
     }
 
-    #building the images from a branch different than main, will add the package version suffix to the pre tag
+    # Building the images from a branch different than `main` (like `b-v7.3-patch1`), will add the package version suffix to the pre tag
     $preTag = "pre"
     if ($env:BASE_BRANCH -ne 'main') {
       $preTag = $preTag+"-"+$PackageVersion.Replace(".", "")

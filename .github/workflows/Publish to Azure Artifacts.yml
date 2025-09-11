@@ -7,15 +7,6 @@ name: Publish to Azure Artifacts
 
 on:
   workflow_dispatch:
-    inputs:
-      timeout:
-        description: "Timeout before we stop trying (in milliseconds) for action-workflow-run-wait step"
-        required: true
-        default: '1800000'
-      delay:
-        description: "delay between status checks (in milliseconds) for action-workflow-run-wait step"
-        required: true
-        default: '10000'        
           
   workflow_run:
     workflows: ["InitDev, Smoke Tests", "InitDev, Unit tests, Integration tests, Package", "InitDev, MultiTenancy"]
@@ -35,8 +26,17 @@ env:
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
-  INITDEV_COMMIT: ${{ github.event.workflow_run.head_sha }}
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
+  REPO_DISPATCH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
+  
+  ##### WARNING #####
+  # When triggered by `workflow_run`, GitHub always uses the workflow definition of the main branch.
+  # We should keep this workflow's definition the same as the main branch across patch branches to avoid
+  # confusion when/if we manually trigger it with `workflow_dispatch`.
+
+  # Get the original branch and commit when triggered by `workflow_run`
+  INITDEV_COMMIT: ${{ github.event.workflow_run.head_sha }}
+  INITDEV_BRANCH: ${{ github.event.workflow_run.head_branch }}
 
 jobs:
   assert-all-required-workflows-succeeded:
@@ -49,13 +49,13 @@ jobs:
           sha: ${{ env.INITDEV_COMMIT }}
 
   FindStandardAndExtensionVersions:
+    needs: assert-all-required-workflows-succeeded
     uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
     with:
-      calling_branch: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }} # match the branch for InitDev workflow run that triggered this action
+      calling_branch: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }}
       
   PublishToAzureArtifacts:
     runs-on: ubuntu-24.04    
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     needs: FindStandardAndExtensionVersions
 
     strategy:
@@ -65,11 +65,11 @@ jobs:
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
     steps:
     - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
-          ref: ${{ env.INITDEV_COMMIT || github.sha }} # checkout the same commit as InitDev workflow run that triggered this action
+          ref: ${{ env.INITDEV_COMMIT || github.sha }}
 
     - name: Check for Azure token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
@@ -78,7 +78,7 @@ jobs:
         exit 1
 
     - name: Download SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
-      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43  #v7
+      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43 #v7
       with:
         workflow: InitDev, Unit tests, Integration tests, Package.yml
         workflow_conclusion: success
@@ -89,7 +89,7 @@ jobs:
         if_no_artifact_found: fail
 
     - name: EdFi.Ods.Api.TestSdk NugetPackage
-      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43  #v7
+      uses: dawidd6/action-download-artifact@80620a5d27ce0ae443b965134db88467fc607b43 #v7
       with:
         workflow: InitDev, Smoke Tests.yml
         workflow_conclusion: success
@@ -118,17 +118,38 @@ jobs:
         }
       shell: pwsh
 
-  DockerTest:
+  DispatchDockerTestAndPublishToDockerHub:
+    if: ${{ github.event_name == 'workflow_run' }}
     needs: PublishToAzureArtifacts
-    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/.github/workflows/Docker Test.yml@2e0518d04301f599c29ca53f7a79436e28e5a1b2
-    with:
-      initdev_commit: ${{ github.event.workflow_run.head_sha || github.sha }}
-      initdev_head_branch: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }}
-      
-  PublishToDockerHub:
-    needs: DockerTest
-    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/.github/workflows/Publish to Docker Hub.yml@2e0518d04301f599c29ca53f7a79436e28e5a1b2
-    with:
-      initdev_commit: ${{ github.event.workflow_run.head_sha || github.sha }}
-      initdev_head_branch: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref_name }}
-    secrets: inherit
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Dispatch Docker Test workflow
+      uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
+      id: docker_test_dispatch
+      with:
+        token: ${{ env.REPO_DISPATCH_TOKEN }}
+        ref: ${{ env.INITDEV_BRANCH || github.ref_name }}
+        repo: Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        workflow: Docker Test.yml
+        workflow_timeout_seconds: 4800
+
+    - name: Await Docker Test
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
+      with:
+        token: ${{ env.REPO_DISPATCH_TOKEN }}
+        repo: Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.docker_test_dispatch.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+
+    - name: Dispatch Publish to Docker Hub workflow
+      uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
+      with:
+        token: ${{ env.REPO_DISPATCH_TOKEN }}
+        ref: ${{ env.INITDEV_BRANCH || github.ref_name }}
+        repo: Ed-Fi-ODS-Implementation
+        owner: ${{ github.repository_owner }}
+        workflow: Publish to Docker Hub.yml
+        workflow_timeout_seconds: 4800
