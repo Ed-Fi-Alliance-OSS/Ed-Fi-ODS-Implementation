@@ -142,7 +142,12 @@ function Get-NugetPackageVersion {
 
         # Enable usage of prereleases
         [Switch]
-        $PreRelease
+        $PreRelease,
+
+        # Search for a package whose patch version is lower than or equal to the given value.
+        # Useful, for example, to not select a v7.3.1 package from a v7.3 context
+        [int]
+        $MaxPatchVersion = 9999
     )
 
     # Pre-releases
@@ -177,7 +182,10 @@ Invalid version string ``$($PackageVersion)``. Should be one, two, or three comp
     $versions = Invoke-SemanticSort $package.versions
 
     # Find the first available version that matches the requested version
-    $version = $versions | Where-Object { $_ -like $versionSearch } | Select-Object -First 1
+    $version = $versions `
+                | Where-Object { $_ -like $versionSearch } `
+                | Where-Object { [int]$_.Split(".")[2] -le $MaxPatchVersion } `
+                | Select-Object -First 1
 
     if ($null -eq $version) {
         throw "Version ``$($PackageVersion)`` does not exist yet for ``$($PackageName)``."
