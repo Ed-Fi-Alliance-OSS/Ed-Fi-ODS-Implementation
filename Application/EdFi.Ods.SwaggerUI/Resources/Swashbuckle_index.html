@@ -236,46 +236,44 @@
 
                         function insertResourceDomains(resourceName, domains) {
                             // Use data-tag attribute for more reliable resource matching
-                            const tagElements = document.querySelectorAll(`.opblock-tag[data-tag="${resourceName}"]`);
+                            let tagElements = document.querySelectorAll(`.opblock-tag[data-tag="${resourceName}"]`);
                             
                             // Fallback to text-based matching if data-tag approach doesn't find elements
                             if (tagElements.length === 0) {
                                 const allTagElements = document.querySelectorAll('.opblock-tag');
-                                allTagElements.forEach(tagElement => {
+                                tagElements = Array.from(allTagElements).filter(tagElement => {
                                     const elementText = tagElement.textContent || '';
-                                    if (elementText.includes(resourceName) && !tagElement.querySelector('.edfi-resource-domains') && !tagElement.hasAttribute('data-edfi-domains-processed')) {
-                                        processTagElement(tagElement, resourceName, domains);
-                                    }
+                                    return elementText.includes(resourceName) && 
+                                           !tagElement.querySelector('.edfi-resource-domains') && 
+                                           !tagElement.hasAttribute('data-edfi-domains-processed');
                                 });
                             } else {
-                                tagElements.forEach(tagElement => {
-                                    if (!tagElement.querySelector('.edfi-resource-domains') && !tagElement.hasAttribute('data-edfi-domains-processed')) {
-                                        processTagElement(tagElement, resourceName, domains);
-                                    }
+                                tagElements = Array.from(tagElements).filter(tagElement => {
+                                    return !tagElement.querySelector('.edfi-resource-domains') && 
+                                           !tagElement.hasAttribute('data-edfi-domains-processed');
                                 });
                             }
-                        }
 
-                        function processTagElement(tagElement, resourceName, domains) {
-                            let textNode = findDescriptionTextNode(tagElement, resourceName);
+                            tagElements.forEach(tagElement => {
+                                let textNode = findDescriptionTextNode(tagElement, resourceName);
 
-                            if (textNode) {
-                                const domainsElement = createInlineDomainsElement(domains);
+                                if (textNode) {
+                                    const domainsElement = createInlineDomainsElement(domains);
 
-                                if (textNode.nextSibling) {
-                                    textNode.parentNode.insertBefore(domainsElement, textNode.nextSibling);
-                                } else {
-                                    textNode.parentNode.appendChild(domainsElement);
+                                    if (textNode.nextSibling) {
+                                        textNode.parentNode.insertBefore(domainsElement, textNode.nextSibling);
+                                    } else {
+                                        textNode.parentNode.appendChild(domainsElement);
+                                    }
+
+                                    tagElement.setAttribute('data-edfi-domains-processed', 'true');
+                                    processedResources.add(resourceName);
                                 }
-
-                                tagElement.setAttribute('data-edfi-domains-processed', 'true');
-                                processedResources.add(resourceName);
-                            }
+                            });
                         }
 
                         function findDescriptionTextNode(tagElement, resourceName) {
                             // Strategy 1: Look for description text in the tag element itself
-                            // First try to find the description span directly
                             const descriptionSpan = tagElement.querySelector('.opblock-tag__description');
                             if (descriptionSpan) {
                                 const walker = document.createTreeWalker(descriptionSpan, NodeFilter.SHOW_TEXT, null, false);
