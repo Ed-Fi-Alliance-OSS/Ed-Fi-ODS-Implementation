@@ -171,6 +171,8 @@
                     configObject.plugins.push(function EdFiResourceDomainsPlugin() {
                         let processedResources = new Set();
                         let resourceDomains = {};
+                        let domObserver = null; // Track the observer for cleanup
+                        let tooltipCleanupFunctions = new Set(); // Track cleanup functions
 
                         return {
                             afterLoad: function (system) {
@@ -199,6 +201,11 @@
                                 };
 
                                 setTimeout(tryProcess, 100);
+                            },
+                            
+                            // Add cleanup method for when plugin is destroyed
+                            beforeUnload: function() {
+                                cleanup();
                             }
                         };
 
@@ -213,13 +220,18 @@
                         }
 
                         function setupDOMObserver() {
-                            const observer = new MutationObserver(() => {
+                            // Disconnect existing observer if any
+                            if (domObserver) {
+                                domObserver.disconnect();
+                            }
+
+                            domObserver = new MutationObserver(() => {
                                 if (document.querySelectorAll('.opblock-tag').length > processedResources.size) {
                                     setTimeout(applyDomainsToResources, 100);
                                 }
                             });
 
-                            observer.observe(document.body, {
+                            domObserver.observe(document.body, {
                                 childList: true,
                                 subtree: true
                             });
@@ -244,13 +256,13 @@
                                 tagElements = Array.from(allTagElements).filter(tagElement => {
                                     const elementText = tagElement.textContent || '';
                                     return elementText.includes(resourceName) && 
-                                           !tagElement.querySelector('.edfi-resource-domains') && 
-                                           !tagElement.hasAttribute('data-edfi-domains-processed');
+                                        !tagElement.querySelector('.edfi-resource-domains') && 
+                                        !tagElement.hasAttribute('data-edfi-domains-processed');
                                 });
                             } else {
                                 tagElements = Array.from(tagElements).filter(tagElement => {
                                     return !tagElement.querySelector('.edfi-resource-domains') && 
-                                           !tagElement.hasAttribute('data-edfi-domains-processed');
+                                        !tagElement.hasAttribute('data-edfi-domains-processed');
                                 });
                             }
 
@@ -279,7 +291,7 @@
                                 const walker = document.createTreeWalker(descriptionSpan, NodeFilter.SHOW_TEXT, null, false);
                                 let lastTextNode = null;
                                 let textNode;
-                                while (textNode = walker.nextNode()) {
+                                while ((textNode = walker.nextNode()) !== null) {
                                     if (textNode.textContent && textNode.textContent.trim().length > 10) {
                                         lastTextNode = textNode;
                                     }
@@ -295,7 +307,7 @@
                                     const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
                                     let lastTextNode = null;
                                     let textNode;
-                                    while (textNode = walker.nextNode()) {
+                                    while ((textNode = walker.nextNode()) !== null) {
                                         if (textNode.textContent && textNode.textContent.trim().length > 10) {
                                             lastTextNode = textNode;
                                         }
@@ -307,12 +319,13 @@
                             // Strategy 3: Look for any significant text content as fallback
                             const walker = document.createTreeWalker(tagElement, NodeFilter.SHOW_TEXT, null, false);
                             let bestTextNode = null;
-                            let textNode;
-                            while (textNode = walker.nextNode()) {
+                            let textNode = walker.nextNode();
+                            while (textNode !== null ) {
                                 const text = textNode.textContent?.trim();
                                 if (text && text.length > 20 && !text.includes(resourceName) && !text.includes('Domain:')) {
                                     bestTextNode = textNode;
                                 }
+                                textNode = walker.nextNode(); 
                             }
 
                             return bestTextNode;
@@ -353,20 +366,38 @@
 
                                 tooltip.innerHTML = domainsHTML;
 
-                                container.addEventListener('mouseenter', () => {
+                                // Create event handler functions to enable proper cleanup
+                                const mouseenterHandler = () => {
                                     const rect = container.getBoundingClientRect();
                                     tooltip.style.left = Math.min(rect.left, window.innerWidth - 420) + 'px';
                                     tooltip.style.top = (rect.bottom + 8) + 'px';
                                     tooltip.style.display = 'block';
                                     document.body.appendChild(tooltip);
-                                });
+                                };
 
-                                container.addEventListener('mouseleave', () => {
+                                const mouseleaveHandler = () => {
                                     tooltip.style.display = 'none';
                                     if (tooltip.parentNode) {
                                         tooltip.parentNode.removeChild(tooltip);
                                     }
-                                });
+                                };
+
+                                container.addEventListener('mouseenter', mouseenterHandler);
+                                container.addEventListener('mouseleave', mouseleaveHandler);
+
+                                // Store cleanup function for this element
+                                const cleanupFunction = () => {
+                                    container.removeEventListener('mouseenter', mouseenterHandler);
+                                    container.removeEventListener('mouseleave', mouseleaveHandler);
+                                    if (tooltip.parentNode) {
+                                        tooltip.parentNode.removeChild(tooltip);
+                                    }
+                                };
+                                
+                                tooltipCleanupFunctions.add(cleanupFunction);
+                                
+                                // Store cleanup function on the container for individual cleanup
+                                container._edfiTooltipCleanup = cleanupFunction;
                             }
 
                             return container;
@@ -379,6 +410,35 @@
                                 return ` Domains: ${domains[0]} +${domains.length - 1}`;
                             }
                         }
+
+                        // Cleanup function to remove all event listeners and observers
+                        function cleanup() {
+                            // Disconnect MutationObserver
+                            if (domObserver) {
+                                domObserver.disconnect();
+                                domObserver = null;
+                            }
+
+                            // Remove all tooltip event listeners
+                            tooltipCleanupFunctions.forEach(cleanupFn => {
+                                try {
+                                    cleanupFn();
+                                } catch (e) {
+                                    console.warn('Error during tooltip cleanup:', e);
+                                }
+                            });
+                            tooltipCleanupFunctions.clear();
+
+                            // Remove any orphaned tooltips
+                            document.querySelectorAll('.edfi-domains-tooltip').forEach(tooltip => {
+                                if (tooltip.parentNode) {
+                                    tooltip.parentNode.removeChild(tooltip);
+                                }
+                            });
+                        }
+
+                        // Add global cleanup on page unload
+                        window.addEventListener('beforeunload', cleanup);
                     });
                 }
                 // Begin Swagger UI call region
