@@ -110,11 +110,16 @@ function Install-EdFiOdsSwaggerUI {
         # Turns off display of script run-time duration.
         [switch]
         $NoDuration,
-         
+        
         # List of Tenants deployed
         # If MultiTenancy is enabled, then at least one valid tenant identifier must be provided
         [string[]]
-        $Tenants
+        $Tenants,
+
+        # Show Domains in Swagger.
+        # Default value: true, set to false to hide domains.
+        [bool]
+        $ShowDomainsInSwaggerUI = $true
     )
 
     Write-InvocationInfo $MyInvocation
@@ -141,6 +146,7 @@ function Install-EdFiOdsSwaggerUI {
         DisablePrepopulatedCredentials = $DisablePrepopulatedCredentials
         NoDuration = $NoDuration
         Tenants = $Tenants
+        ShowDomainsInSwaggerUI = $ShowDomainsInSwaggerUI
     }
 
     $elapsed = Use-StopWatch {
@@ -293,6 +299,7 @@ function Invoke-TransformWebConfigAppSettings {
         $appSettings = @{
             WebApiVersionUrl = $Config.WebApiVersionUrl
             SwaggerUIOptions = @{
+                ShowDomains = $Config.ShowDomainsInSwaggerUI
                 OAuthConfigObject = @{
                     ClientId     = $Config.PrePopulatedKey
                     ClientSecret = $Config.PrePopulatedSecret

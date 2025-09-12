@@ -65,6 +65,7 @@ namespace EdFi.Ods.SwaggerUI
         {
             string webApiUrl = Configuration.GetValue("WebApiVersionUrl", string.Empty);
             string sandboxDisclaimer = Configuration.GetValue("SandboxDisclaimer", string.Empty);
+            bool showDomains = Configuration.GetValue("SwaggerUIOptions:ShowDomains", true);
             var tenants = Configuration.GetSection("Tenants").Get<List<Tenants>>() ?? new List<Tenants>();
             string swaggerStyleSheetPath = "../swagger.css";
 
@@ -102,13 +103,15 @@ namespace EdFi.Ods.SwaggerUI
                                         WebApiVersionUrl = webApiUrl,
                                         RoutePrefix = _routePrefix,
                                         Tenants = tenants,
-                                        SandboxDisclaimer = sandboxDisclaimer
+                                        SandboxDisclaimer = sandboxDisclaimer,
+                                        ShowDomains = showDomains
                                     }));
                         });
                 });
 
             logger.LogInformation($"SandboxDisclaimer = '{sandboxDisclaimer}'");
             logger.LogInformation($"WebApiUrl = '{webApiUrl}'");
+            logger.LogInformation($"ShowDomains = '{showDomains}'");
             logger.LogInformation($"UseReverseProxyHeaders = '{_useReverseProxyHeaders}'");
             logger.LogInformation($"PathBase = '{_pathBase}'");
             logger.LogInformation($"SwaggerStyleSheetPath = '{swaggerStyleSheetPath}'");
@@ -133,6 +136,7 @@ namespace EdFi.Ods.SwaggerUI
                         => GetType().Assembly.GetManifestResourceStream("EdFi.Ods.SwaggerUI.Resources.Swashbuckle_index.html");
 
                     options.ConfigObject.AdditionalItems["WebApiVersionUrl"] = webApiUrl;
+                    options.ConfigObject.AdditionalItems["ShowDomains"] = showDomains;
                     options.RoutePrefix = _routePrefix;
                 });
 
