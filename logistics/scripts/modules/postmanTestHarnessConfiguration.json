@@ -29,6 +29,12 @@
           "ApiClients": [
             {
               "ApiClientName": "255901",
+              "LocalEducationOrganizations": [255901],
+              "OwnershipToken": "OwnershipToken_255901",
+              "ApiClientOwnershipTokens": [ "OwnershipToken_255901" ]
+            },
+            {
+              "ApiClientName": "ManyEdOrgs",
               "LocalEducationOrganizations": [255901, { "Start": 2147480647, "Count": 3000 }, 9223372036854775000],
               "OwnershipToken": "OwnershipToken_255901",
               "ApiClientOwnershipTokens": [ "OwnershipToken_255901" ]
