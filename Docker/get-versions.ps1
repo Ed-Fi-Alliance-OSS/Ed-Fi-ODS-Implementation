@@ -33,6 +33,13 @@
     - $env:SANDBOX_VERSION
     - $env:STANDARD_VERSION
     - $env:EXTENSION_VERSION
+    - $env:BULKLOAD_VERSION
+    - $env:MSSQL_ODS_MINIMAL_VERSION
+    - $env:MSSQL_TPDM_MINIMAL_VERSION
+    - $env:MSSQL_ODS_POPULATED_VERSION
+    - $env:MSSQL_TPDM_POPULATED_VERSION
+    - $env:MSSQL_ADMIN_VERSION
+    - $env:MSSQL_SECURITY_VERSION
 #>
 param(
     [string]
@@ -43,7 +50,13 @@ param(
     $StandardVersion,
 
     [string]
-    [ValidateSet('1.0.0', '1.1.0')]
+    [ValidateScript({
+                if ($_ -match '^(?!0\.0\.0)\d+\.\d+\.\d+?$') {
+                    $true
+                } else {
+                    throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
+                }
+    })]
     $ExtensionVersion,
 
     # Enable usage of prereleases
@@ -129,12 +142,7 @@ function Get-NugetPackageVersion {
 
         # Enable usage of prereleases
         [Switch]
-        $PreRelease,
-
-        # Search for a package whose patch version is lower than or equal to the given value.
-        # Useful, for example, to not select a v7.3.1 package from a v7.3 context
-        [int]
-        $MaxPatchVersion = 9999
+        $PreRelease
     )
 
     # Pre-releases
@@ -169,10 +177,7 @@ Invalid version string ``$($PackageVersion)``. Should be one, two, or three comp
     $versions = Invoke-SemanticSort $package.versions
 
     # Find the first available version that matches the requested version
-    $version = $versions `
-                | Where-Object { $_ -like $versionSearch } `
-                | Where-Object { [int]$_.Split(".")[2] -le $MaxPatchVersion } `
-                | Select-Object -First 1
+    $version = $versions | Where-Object { $_ -like $versionSearch } | Select-Object -First 1
 
     if ($null -eq $version) {
         throw "Version ``$($PackageVersion)`` does not exist yet for ``$($PackageName)``."
@@ -192,3 +197,10 @@ $env:SWAGGER_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.S
 $env:SANDBOX_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.SandboxAdmin -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
 $env:STANDARD_VERSION = $StandardVersion
 $env:EXTENSION_VERSION = $ExtensionVersion
+$env:BULKLOAD_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.BulkLoadClient.Console -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:MSSQL_ODS_MINIMAL_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Minimal.Template.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:MSSQL_TPDM_MINIMAL_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.$ExtensionVersion.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:MSSQL_ODS_POPULATED_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Populated.Template.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:MSSQL_TPDM_POPULATED_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Populated.Template.TPDM.Core.$ExtensionVersion.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:MSSQL_ADMIN_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Database.Admin.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:MSSQL_SECURITY_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Database.Security.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
