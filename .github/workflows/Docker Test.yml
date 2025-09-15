@@ -29,7 +29,6 @@ jobs:
     strategy:
       matrix:
         image:
-          - ods-api-bulk-load-console/alpine
           - ods-api-db-admin/alpine/pgsql
           - ods-api-db-ods-minimal/alpine/pgsql
           - ods-api-db-ods-sandbox/alpine/pgsql
@@ -38,9 +37,6 @@ jobs:
           - ods-api-web-api/alpine/pgsql
           - ods-api-web-sandbox-admin/alpine/mssql
           - ods-api-web-sandbox-admin/alpine/pgsql
-          - ods-api-db-admin/ubuntu/mssql
-          - ods-api-db-ods-minimal/ubuntu/mssql
-          - ods-api-db-ods-sandbox/ubuntu/mssql
     steps:
       - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
         run:  echo "${{ github.event.inputs.distinct_id }}" 
@@ -66,18 +62,14 @@ jobs:
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
         dockerfile:
           [
-            { name: "ods-api-bulk-load-console", path: "alpine" },
             { name: "ods-api-db-admin", path: "alpine/pgsql" },
             { name: "ods-api-db-ods-minimal", path: "alpine/pgsql" },
             { name: "ods-api-db-ods-sandbox", path: "alpine/pgsql" },
             { name: "ods-api-swaggerui", path: "alpine" },
             { name: "ods-api-web-api", path: "alpine/pgsql" },
-            { name: "ods-api-web-api", path: "alpine/mssql" },
+            { name: "ods-api-web-api", path: "alpine/mssql" },            
             { name: "ods-api-web-sandbox-admin", path: "alpine/pgsql" },
-            { name: "ods-api-web-sandbox-admin", path: "alpine/mssql" },
-            { name: "ods-api-db-admin", path: "ubuntu/mssql" },
-            { name: "ods-api-db-ods-minimal", path: "ubuntu/mssql" },
-            { name: "ods-api-db-ods-sandbox", path: "ubuntu/mssql" }
+            { name: "ods-api-web-sandbox-admin", path: "alpine/mssql" }            
           ]        
     name: ${{ matrix.dockerfile.name }}/${{ matrix.dockerfile.path }} Image for (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})
 
