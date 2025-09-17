@@ -65,7 +65,7 @@ function Invoke-CreatePackage {
 
         # Additional Properties to pass when packaging
         [string]
-        $Properties = "copyright=Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors;version=$Version",
+        $Properties = "copyright=Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance LLC and Contributors;",
 
         [string]
         $AdditionalParameters
@@ -101,7 +101,6 @@ function Invoke-CreatePackage {
             PackageFile = (Get-ChildItem "$OutputDirectory/$packageId*.$Version.nupkg").FullName
             Source      = $Source
             ApiKey      = $ApiKey
-            Verbose     = $verbose
         }
         Publish-PrereleasePackage @parameters
     }
@@ -157,14 +156,16 @@ function New-Package {
     $parameters += "--configuration"
     $parameters += $BuildConfiguration
 
-    $nuspecProperties = "-p:NuspecProperties=""version=$($Version)"
-
+    $nuspecPropsList = @("version=$Version")
 
     foreach ($prop in $Properties) {
-        $nuspecProperties += ";$prop"
+        if ($prop -match "^(?<key>[^=]+)=(?<value>.+)$") {
+            $key = $Matches['key']
+            $value = $Matches['value']
+            $nuspecPropsList += "$key=""$value"""
+        }
     }
-
-    $nuspecProperties += """"
+    $nuspecProperties = "-p:NuspecProperties=" + ($nuspecPropsList -join ';')
 
     $parameters += $nuspecProperties
 
@@ -214,10 +215,6 @@ function Publish-PrereleasePackage {
         "--api-key", $ApiKey
     )
 
-    if ($Verbose) {
-        $parameters += "--verbosity"
-        $parameters += "detailed"
-    }
 
     & dotnet nuget @parameters
 }
