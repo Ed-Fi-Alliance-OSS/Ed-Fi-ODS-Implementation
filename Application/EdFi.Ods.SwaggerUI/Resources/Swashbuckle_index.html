@@ -42,7 +42,7 @@
 
     <script src="./swagger-ui-bundle.js"></script>
     <script src="./swagger-ui-standalone-preset.js"></script>
-<script>
+    <script>
         window.onload = function () {
 
             initSwaggerUI();
@@ -62,7 +62,7 @@
                 configObject.urls = await getOpenApiUrls(configObject.WebApiVersionUrl);
 
                 // Workaround for https://github.com/swagger-api/swagger-ui/issues/5945
-                configObject.urls.forEach(function (item) {            
+                configObject.urls.forEach(function (item) {
                     if (item.url.startsWith("http") || item.url.startsWith("/")) return;
                     item.url = window.location.href.replace("index.html", item.url).split('#')[0];
                 });
@@ -86,12 +86,12 @@
                             statePlugins: {
                                 auth: {
                                     wrapActions: {
-                                          // This plugin method is called whenever the authentication dialog is about to open, and, if applicable, 
-                                          // rewrites the token URL so that the route context value displayed in it match the user's selections in the main UI
+                                        // This plugin method is called whenever the authentication dialog is about to open, and, if applicable,
+                                        // rewrites the token URL so that the route context value displayed in it match the user's selections in the main UI
                                         showDefinitions: (oriAction, system) => (args) => {
 
-                                            // If args is 'false', the authentication window is closing. If 'serverVariableValues' is not defined, 
-                                            // no route context or tenant options are available in the main UI. In either case, no token URL  
+                                            // If args is 'false', the authentication window is closing. If 'serverVariableValues' is not defined,
+                                            // no route context or tenant options are available in the main UI. In either case, no token URL
                                             // modification is needed, so we short-circuit the procedure here
                                             if (!args || system.getState().get('oas3').get('serverVariableValues') === undefined) {
                                                 return oriAction(args)
@@ -105,7 +105,7 @@
 
                                             // Handle the case when multi-tenant and route context segments are both in use
                                             if (tenantContextSelected !== undefined) {
-                                                
+
                                                 // Get the selected tenant name by splitting it off of the tenant/routeContext dropdown selection
                                                 let selectedTenantName = tenantContextSelected.split('/')[0]
 
@@ -129,7 +129,7 @@
                                                 // Construct a token URL with the route context segment matching what is selected in the UI
                                                 let tokenURL = tokenURLBase + contextValueSelected + '/' + 'oauth/token'
 
-                                                // Update the token URL value for the authentication schema 
+                                                // Update the token URL value for the authentication schema
                                                 args = args.setIn([0, 'oauth2_client_credentials', 'tokenUrl'], tokenURL)
                                             }
 
@@ -141,29 +141,306 @@
                         }
                     },
                     function UrlParamDisablePlugin() {
-                    return {
-                        statePlugins: {
-                            spec: {
-                                wrapActions: {
-                                    // Workaround listed in https://github.com/swagger-api/swagger-ui/security/advisories/GHSA-qrmm-w75w-3wpx
-                                    // Remove ?url and ?configUrl parameters from loading an external URLs.
-                                    updateUrl: (oriAction) => (payload) => {
-                                        const url = new URL(window.location.href)
-                                        if (url.searchParams.has('configUrl')) {
-                                            url.searchParams.delete('configUrl')
-                                            window.location.replace(url.toString())
+                        return {
+                            statePlugins: {
+                                spec: {
+                                    wrapActions: {
+                                        // Workaround listed in https://github.com/swagger-api/swagger-ui/security/advisories/GHSA-qrmm-w75w-3wpx
+                                        // Remove ?url and ?configUrl parameters from loading an external URLs.
+                                        updateUrl: (oriAction) => (payload) => {
+                                            const url = new URL(window.location.href)
+                                            if (url.searchParams.has('configUrl')) {
+                                                url.searchParams.delete('configUrl')
+                                                window.location.replace(url.toString())
+                                            }
+                                            if (url.searchParams.has('url')) {
+                                                url.searchParams.delete('url')
+                                                window.location.replace(url.toString())
+                                            }
+                                            return oriAction(payload)
                                         }
-                                        if (url.searchParams.has('url')) {
-                                            url.searchParams.delete('url')
-                                            window.location.replace(url.toString())
-                                        }
-                                        return oriAction(payload)
                                     }
                                 }
                             }
                         }
                     }
-                }];
+                ];
+
+                // Add EdFi Domains plugin only if enabled in configuration                
+                if (configObject.ShowDomains) {
+                    configObject.plugins.push(function EdFiResourceDomainsPlugin() {
+                        let processedResources = new Set();
+                        let resourceDomains = {};
+                        let domObserver = null; // Track the observer for cleanup
+                        let tooltipCleanupFunctions = new Set(); // Track cleanup functions
+
+                        return {
+                            afterLoad: function (system) {
+                                const processOnceWhenReady = () => {
+                                    const specState = system.getState().get('spec');
+                                    const spec = specState?.get('json');
+
+                                    if (spec) {
+                                        const specJS = spec.toJS ? spec.toJS() : spec;
+                                        if (specJS && specJS.paths && Object.keys(resourceDomains).length === 0) {
+                                            extractResourceDomains(specJS);
+
+                                            setTimeout(() => {
+                                                applyDomainsToResources();
+                                                setupDOMObserver();
+                                            }, 300);
+                                        }
+                                    }
+                                };
+
+                                const tryProcess = () => {
+                                    processOnceWhenReady();
+                                    if (Object.keys(resourceDomains).length === 0) {
+                                        setTimeout(tryProcess, 200);
+                                    }
+                                };
+
+                                setTimeout(tryProcess, 100);
+                            },
+                            
+                            // Add cleanup method for when plugin is destroyed
+                            beforeUnload: function() {
+                                cleanup();
+                            }
+                        };
+
+                        function extractResourceDomains(spec) {
+                            if (spec.tags && Array.isArray(spec.tags)) {
+                                spec.tags.forEach(tag => {
+                                    if (tag['x-Ed-Fi-domains'] && tag.name) {
+                                        resourceDomains[tag.name] = tag['x-Ed-Fi-domains'];
+                                    }
+                                });
+                            }
+                        }
+
+                        function setupDOMObserver() {
+                            // Disconnect existing observer if any
+                            if (domObserver) {
+                                domObserver.disconnect();
+                            }
+
+                            domObserver = new MutationObserver(() => {
+                                if (document.querySelectorAll('.opblock-tag').length > processedResources.size) {
+                                    setTimeout(applyDomainsToResources, 100);
+                                }
+                            });
+
+                            domObserver.observe(document.body, {
+                                childList: true,
+                                subtree: true
+                            });
+                        }
+
+                        function applyDomainsToResources() {
+                            Object.keys(resourceDomains).forEach(resourceName => {
+                                const domains = resourceDomains[resourceName];
+                                if (domains.length > 0) {
+                                    insertResourceDomains(resourceName, domains);
+                                }
+                            });
+                        }
+
+                        function insertResourceDomains(resourceName, domains) {
+                            // Use data-tag attribute for more reliable resource matching
+                            let tagElements = document.querySelectorAll(`.opblock-tag[data-tag="${resourceName}"]`);
+                            
+                            // Fallback to text-based matching if data-tag approach doesn't find elements
+                            if (tagElements.length === 0) {
+                                const allTagElements = document.querySelectorAll('.opblock-tag');
+                                tagElements = Array.from(allTagElements).filter(tagElement => {
+                                    const elementText = tagElement.textContent || '';
+                                    return elementText.includes(resourceName) && 
+                                        !tagElement.querySelector('.edfi-resource-domains') && 
+                                        !tagElement.hasAttribute('data-edfi-domains-processed');
+                                });
+                            } else {
+                                tagElements = Array.from(tagElements).filter(tagElement => {
+                                    return !tagElement.querySelector('.edfi-resource-domains') && 
+                                        !tagElement.hasAttribute('data-edfi-domains-processed');
+                                });
+                            }
+
+                            tagElements.forEach(tagElement => {
+                                let textNode = findDescriptionTextNode(tagElement, resourceName);
+
+                                if (textNode) {
+                                    const domainsElement = createInlineDomainsElement(domains);
+
+                                    if (textNode.nextSibling) {
+                                        textNode.parentNode.insertBefore(domainsElement, textNode.nextSibling);
+                                    } else {
+                                        textNode.parentNode.appendChild(domainsElement);
+                                    }
+
+                                    tagElement.setAttribute('data-edfi-domains-processed', 'true');
+                                    processedResources.add(resourceName);
+                                }
+                            });
+                        }
+
+                        function findDescriptionTextNode(tagElement, resourceName) {
+                            // Strategy 1: Look for description text in the tag element itself
+                            const descriptionSpan = tagElement.querySelector('.opblock-tag__description');
+                            if (descriptionSpan) {
+                                const walker = document.createTreeWalker(descriptionSpan, NodeFilter.SHOW_TEXT, null, false);
+                                let lastTextNode = null;
+                                let textNode;
+                                while ((textNode = walker.nextNode()) !== null) {
+                                    if (textNode.textContent && textNode.textContent.trim().length > 10) {
+                                        lastTextNode = textNode;
+                                    }
+                                }
+                                if (lastTextNode) return lastTextNode;
+                            }
+
+                            // Strategy 2: Look for rendered markdown content
+                            const markdownElements = tagElement.querySelectorAll('.renderedMarkdown p');
+                            for (let element of markdownElements) {
+                                const text = element.textContent?.trim();
+                                if (text && text.length > 20 && !text.includes('Domain:')) {
+                                    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
+                                    let lastTextNode = null;
+                                    let textNode;
+                                    while ((textNode = walker.nextNode()) !== null) {
+                                        if (textNode.textContent && textNode.textContent.trim().length > 10) {
+                                            lastTextNode = textNode;
+                                        }
+                                    }
+                                    if (lastTextNode) return lastTextNode;
+                                }
+                            }
+
+                            // Strategy 3: Look for any significant text content as fallback
+                            const walker = document.createTreeWalker(tagElement, NodeFilter.SHOW_TEXT, null, false);
+                            let bestTextNode = null;
+                            let textNode = walker.nextNode();
+                            while (textNode !== null ) {
+                                const text = textNode.textContent?.trim();
+                                if (text && text.length > 20 && !text.includes(resourceName) && !text.includes('Domain:')) {
+                                    bestTextNode = textNode;
+                                }
+                                textNode = walker.nextNode(); 
+                            }
+
+                            return bestTextNode;
+                        }
+
+                        function createInlineDomainsElement(domains) {
+                            const container = document.createElement('span');
+                            container.className = 'edfi-resource-domains';
+                            container.style.cssText = 'position: relative; display: inline; color: rgb(25,118,210); font-weight: normal; font-size: inherit; font-family: inherit;';
+
+                            const domainsText = getDomainText(domains);
+                            container.textContent = domainsText;
+
+                            if (domains.length > 1) {
+                                container.style.cursor = 'pointer';
+
+                                const tooltip = document.createElement('div');
+                                tooltip.className = 'edfi-domains-tooltip';
+                                tooltip.style.cssText = `
+                                        position: fixed; background: #333; color: white; padding: 12px 16px;
+                                        border-radius: 6px; font-size: 13px; z-index: 9999;
+                                        box-shadow: 0 4px 12px rgba(0,0,0,0.25); display: none;
+                                        pointer-events: none; max-width: 400px; line-height: 1.5;
+                                        font-family: sans-serif;
+                                    `;
+
+                                let domainsHTML = '<strong>Domains:</strong> ';
+                                for (let i = 0; i < domains.length; i++) {
+                                    if (i > 0) {
+                                        if (i % 3 === 0) {
+                                            domainsHTML += ',<br>';
+                                        } else {
+                                            domainsHTML += ', ';
+                                        }
+                                    }
+                                    domainsHTML += domains[i];
+                                }
+
+                                tooltip.innerHTML = domainsHTML;
+
+                                // Create event handler functions to enable proper cleanup
+                                const mouseenterHandler = () => {
+                                    const rect = container.getBoundingClientRect();
+                                    tooltip.style.left = Math.min(rect.left, window.innerWidth - 420) + 'px';
+                                    tooltip.style.top = (rect.bottom + 8) + 'px';
+                                    tooltip.style.display = 'block';
+                                    document.body.appendChild(tooltip);
+                                };
+
+                                const mouseleaveHandler = () => {
+                                    tooltip.style.display = 'none';
+                                    if (tooltip.parentNode) {
+                                        tooltip.parentNode.removeChild(tooltip);
+                                    }
+                                };
+
+                                container.addEventListener('mouseenter', mouseenterHandler);
+                                container.addEventListener('mouseleave', mouseleaveHandler);
+
+                                // Store cleanup function for this element
+                                const cleanupFunction = () => {
+                                    container.removeEventListener('mouseenter', mouseenterHandler);
+                                    container.removeEventListener('mouseleave', mouseleaveHandler);
+                                    if (tooltip.parentNode) {
+                                        tooltip.parentNode.removeChild(tooltip);
+                                    }
+                                };
+                                
+                                tooltipCleanupFunctions.add(cleanupFunction);
+                                
+                                // Store cleanup function on the container for individual cleanup
+                                container._edfiTooltipCleanup = cleanupFunction;
+                            }
+
+                            return container;
+                        }
+
+                        function getDomainText(domains) {
+                            if (domains.length === 1) {
+                                return ` Domain: ${domains[0]}`;
+                            } else {
+                                return ` Domains: ${domains[0]} +${domains.length - 1}`;
+                            }
+                        }
+
+                        // Cleanup function to remove all event listeners and observers
+                        function cleanup() {
+                            // Disconnect MutationObserver
+                            if (domObserver) {
+                                domObserver.disconnect();
+                                domObserver = null;
+                            }
+
+                            // Remove all tooltip event listeners
+                            tooltipCleanupFunctions.forEach(cleanupFn => {
+                                try {
+                                    cleanupFn();
+                                } catch (e) {
+                                    console.warn('Error during tooltip cleanup:', e);
+                                }
+                            });
+                            tooltipCleanupFunctions.clear();
+
+                            // Remove any orphaned tooltips
+                            document.querySelectorAll('.edfi-domains-tooltip').forEach(tooltip => {
+                                if (tooltip.parentNode) {
+                                    tooltip.parentNode.removeChild(tooltip);
+                                }
+                            });
+                        }
+
+                        // Add global cleanup on page unload
+                        window.addEventListener('beforeunload', cleanup);
+                    });
+                }
                 // Begin Swagger UI call region
 
                 const ui = SwaggerUIBundle(configObject);
