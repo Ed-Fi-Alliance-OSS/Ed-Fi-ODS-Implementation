@@ -167,7 +167,10 @@ function New-Package {
             $value = $matches['value']
 
             if ([string]::IsNullOrWhiteSpace($key)) { return }
-
+            if ([string]::IsNullOrWhiteSpace($value)) { 
+                Write-Host "Skipping $key (value is null or empty)"
+                return
+            }
             # Check if node already exists
             if ($xml.package.metadata.$key) {
                 $xml.package.metadata.$key = $value
