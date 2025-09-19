@@ -42,7 +42,6 @@ $parameters = @{
     Publish               = $true
     Source                = $NuGetFeed
     ApiKey                = $NuGetApiKey
-    ToolsPath             = "../../tools"
 }
 
 Invoke-CreatePackage @parameters -Verbose:$verbose

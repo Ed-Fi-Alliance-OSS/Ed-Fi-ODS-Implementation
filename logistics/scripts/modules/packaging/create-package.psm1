@@ -101,7 +101,6 @@ function Invoke-CreatePackage {
             PackageFile = (Get-ChildItem "$OutputDirectory/$packageId*.$Version.nupkg").FullName
             Source      = $Source
             ApiKey      = $ApiKey
-            Verbose     = $verbose
         }
         Publish-PrereleasePackage @parameters
     }
@@ -157,16 +156,36 @@ function New-Package {
     $parameters += "--configuration"
     $parameters += $BuildConfiguration
 
-    $nuspecProperties = "-p:NuspecProperties=""version=$($Version)"
+    $nuspecProperties = "-p:NuspecProperties=""version=$($Version)"""
+    $parameters += $nuspecProperties
+    
+    [xml]$xml = Get-Content -Path $PackageDefinitionFile
 
+    # Split "key=value" pairs
+    $Properties -split ';' | ForEach-Object {
+        if ($_ -match "^(?<key>[^=]+)=(?<value>.*)$") {
+            $key   = $matches['key']
+            $value = $matches['value']
 
-    foreach ($prop in $Properties) {
-        $nuspecProperties += ";$prop"
+            if ([string]::IsNullOrWhiteSpace($key)) { return }
+            if ([string]::IsNullOrWhiteSpace($value)) { 
+                Write-Host "Skipping $key (value is null or empty)"
+                return
+            }
+            # Check if node already exists
+            if ($xml.package.metadata.$key) {
+                $xml.package.metadata.$key = $value
+            }
+            else {
+                $node = $xml.CreateElement($key)
+                $node.InnerText = $value
+                $xml.package.metadata.AppendChild($node) | Out-Null
+            }
+        }
     }
 
-    $nuspecProperties += """"
+    $xml.Save($PackageDefinitionFile)
 
-    $parameters += $nuspecProperties
 
     if ($Verbose) {
         $parameters += "--verbosity"
@@ -214,10 +233,6 @@ function Publish-PrereleasePackage {
         "--api-key", $ApiKey
     )
 
-    if ($Verbose) {
-        $parameters += "--verbosity"
-        $parameters += "detailed"
-    }
 
     & dotnet nuget @parameters
 }
