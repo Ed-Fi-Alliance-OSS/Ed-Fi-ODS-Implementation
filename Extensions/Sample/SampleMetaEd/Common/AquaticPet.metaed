@@ -5,6 +5,6 @@
 
 Common AquaticPet based on Pet
     documentation "Details about pets in the individual's household."
-    integer MimimumTankVolume
+    integer MinimumTankVolume
         documentation "The minimum tank volume this aquatic pet requires."
         is part of identity

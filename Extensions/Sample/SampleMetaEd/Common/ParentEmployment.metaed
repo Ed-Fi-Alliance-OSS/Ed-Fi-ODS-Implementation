@@ -41,7 +41,7 @@ Common ParentEmployment
     year TargetRetirementYear
         documentation "The year in which the parent hopes to retire."
         is optional
-	  shared decimal EdFi.HoursPerWeek
+    shared decimal EdFi.HoursPerWeek
         documentation "The number of hours per week the parent works."
         is required
     shared integer EdFi.Duration
@@ -50,7 +50,7 @@ Common ParentEmployment
     shared string EdFi.PositionTitle
         documentation "The parent's job title."
         is required collection
-	  common EdFi.Telephone
+    common EdFi.Telephone
         documentation "A telephone number where the parent may be reached at work."
         is required
     inline common EdFi.Name
