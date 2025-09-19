@@ -156,8 +156,9 @@ function New-Package {
     $parameters += "--configuration"
     $parameters += $BuildConfiguration
 
-
-
+    $nuspecProperties = "-p:NuspecProperties=""version=$($Version)"""
+    $parameters += $nuspecProperties
+    
     [xml]$xml = Get-Content -Path $PackageDefinitionFile
 
     # Split "key=value" pairs
