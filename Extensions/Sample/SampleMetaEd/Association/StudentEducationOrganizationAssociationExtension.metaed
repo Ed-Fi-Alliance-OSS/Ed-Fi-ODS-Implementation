@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 Association EdFi.StudentEducationOrganizationAssociation additions
+    // [ODS-6691] Move Address to StudentDirectory Entity and StudentCharacteristic to StudentDemographic Entity
     domain entity EdFi.Program
         documentation "References the student's favorite program."
         is optional
