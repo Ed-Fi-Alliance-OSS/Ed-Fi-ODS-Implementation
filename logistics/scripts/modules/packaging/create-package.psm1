@@ -211,19 +211,9 @@ function New-Package {
         $xml.Save($PackageDefinitionFile)
 
 
-        # 'dotnet pack' requires a project or solution be specified,
-        # even if it's contents are not used in the package.
-        # Therefore, when creating a package defined by a .nuspec file,
-        # we must create an empty project and then delete it after packing is complete
-        if ([string]::IsNullOrEmpty($ProjectFile)) {
-            & dotnet new classlib --name EmptyProject
-            $ProjectFile = "EmptyProject"
-        }
-
         (Get-Content -Path $PackageDefinitionFile -Raw).Replace('$configuration$', $BuildConfiguration) | Set-Content -Path $PackageDefinitionFile
 
-
-        $parameters = @("pack") + @($ProjectFile) + $parameters
+        $parameters = @("pack") + $parameters
 
         Write-Host -ForegroundColor Magenta "& dotnet $parameters"
         & dotnet $parameters | Out-Host
