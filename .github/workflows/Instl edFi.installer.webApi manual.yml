@@ -30,14 +30,14 @@ jobs:
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
       run: | 
         echo "::error::Missing Azure Token"
-          exit 1   
+          exit 1
+    - name: Install-credential-handler
+      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      shell: powershell
     - name: build
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       run: |
         .\build-package.ps1 -InformationalVersion ${{env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -NugetFeed ${{env.AZURE_ARTIFACT_URL}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }}
-      shell: powershell
-    - name: Install-credential-handler
-      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
       shell: powershell
       working-directory: InstallerPackages/EdFi.Installer.WebApi
     - name: Upload EdFi.Installer.WebApi Artifacts

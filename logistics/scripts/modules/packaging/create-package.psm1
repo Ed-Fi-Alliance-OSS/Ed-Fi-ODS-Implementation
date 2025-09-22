@@ -239,11 +239,6 @@ function Publish-PrereleasePackage {
         "--api-key", $ApiKey
     )
 
-    if ($Verbose) {
-        $parameters += "--verbosity"
-        $parameters += "detailed"
-    }
-
     & dotnet nuget @parameters
 }
 
