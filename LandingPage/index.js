@@ -54,11 +54,13 @@ async function init() {
     window.location.protocol === 'file:' ? apiUrlBaseForLocalTesting : `${window.location.protocol}//${window.location.host}`
 
   const versionsToProbe = [];
-  for (let major = 0; major < 100; major++) {
-    for (let minor = 0; minor < 100; minor++) {
-      const version = semver.parse(`${major}.${minor}.0`);
-      if (versionRanges.some(versionRange => semver.satisfies(version, versionRange))) {
-        versionsToProbe.push(version);
+  for (let major = 0; major < 10; major++) {
+    for (let minor = 0; minor < 10; minor++) {
+      for (let patch = 0; patch < 10; patch++) {
+        const version = semver.parse(`${major}.${minor}.${patch}`);
+        if (versionRanges.some(versionRange => semver.satisfies(version, versionRange))) {
+          versionsToProbe.push(version);
+        }
       }
     }
   }
@@ -82,8 +84,12 @@ async function init() {
 await init();
 
 function interpolateTemplate(stringTemplate, version, baseUrl) {
+  // If patch is 0, use major.minor, else use major.minor.patch
+  const versionString = version.patch === 0
+    ? `${version.major}.${version.minor}`
+    : `${version.major}.${version.minor}.${version.patch}`;
   return stringTemplate
-    .replace(/{{version}}/g, `${version.major}.${version.minor}`)
+    .replace(/{{version}}/g, versionString)
     .replace(/{{baseUrl}}/g, baseUrl);
 }
 
