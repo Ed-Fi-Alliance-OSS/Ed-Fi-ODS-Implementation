@@ -56,14 +56,15 @@ async function init() {
   const versionsToProbe = [];
   for (let major = 0; major < 10; major++) {
     for (let minor = 0; minor < 10; minor++) {
-      for (let patch = 0; patch < 10; patch++) {
-        const version = semver.parse(`${major}.${minor}.${patch}`);
-        if (versionRanges.some(versionRange => semver.satisfies(version, versionRange))) {
-          versionsToProbe.push(version);
-        }
+      const version = semver.parse(`${major}.${minor}.0`);
+      if (versionRanges.some(versionRange => semver.satisfies(version, versionRange))) {
+        versionsToProbe.push(version);
       }
     }
   }
+
+  // Ensure 7.3.1 is always included
+  versionsToProbe.push(semver.parse('7.3.1'));
 
   const requests = versionsToProbe
     .reverse()
