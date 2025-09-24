@@ -24,7 +24,6 @@ ENV ODS_VIRTUAL_NAME=api
 ENV PATH_BASE="${ODS_VIRTUAL_NAME}"
 ENV TPDM_ENABLED=true
 ENV NPG_POOLING_ENABLED=false
-ENV STANDARD_VERSION=${STANDARD_VERSION}
 
 # Alpine image does not contain Globalization Cultures library so we need to
 # install ICU library to get LINQ expression to work and disable the
