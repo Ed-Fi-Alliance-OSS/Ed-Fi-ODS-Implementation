@@ -15,14 +15,15 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-./get-versions.ps1
-
 $template = "shared"
 if ($Hub) {
     $template = "hub"
 }
+else {
+  ./get-versions.ps1 -StandardVersion 5.0.0 -ExtensionVersion 1.1.0 -PreRelease
+}
 
-docker compose -f .\docker-compose-$template.yml build `
+docker compose -f ./docker-compose-$template.yml build `
  --build-arg ADMIN_VERSION=$env:ADMIN_VERSION `
  --build-arg SECURITY_VERSION=$env:SECURITY_VERSION `
  --build-arg ODS_VERSION=$env:ODS_MINIMAL_VERSION `
@@ -30,7 +31,7 @@ docker compose -f .\docker-compose-$template.yml build `
  --build-arg API_VERSION=$env:API_VERSION `
  --build-arg SWAGGER_VERSION=$env:SWAGGER_VERSION
 
-docker compose  -f .\docker-compose-$template.yml up -d
+docker compose  -f ./docker-compose-$template.yml up -d
 
 Start-Sleep -Seconds 10
 
