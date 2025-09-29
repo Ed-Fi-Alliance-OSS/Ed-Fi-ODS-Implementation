@@ -128,10 +128,10 @@ param (
     [switch]
     $PreRelease = $false,
 
-    # Major/minor version number
+    # Major/minor/patch version number
     [Parameter()]
     [string]
-    $PackageVersion = "7.3",
+    $PackageVersion = "7.3.1",
 
     # Patch version number
     [Parameter()]
@@ -158,8 +158,16 @@ param (
 $ErrorActionPreference = "Stop"
 
 
-$semVer = "$PackageVersion.$Patch"
-$major = $($PackageVersion -split "\.")[0]
+# Handle semantic versioning based on PackageVersion format
+$versionParts = $PackageVersion -split "\."
+if ($versionParts.Length -eq 3) {
+    # Already has patch version (7.3.1), use build metadata
+    $semVer = "$PackageVersion+$Patch"
+} else {
+    # Traditional major.minor format (7.3), append patch
+    $semVer = "$PackageVersion.$Patch"
+}
+$major = $versionParts[0]
 
 $BuildArgs = ""
 
