@@ -4,8 +4,16 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 # Base image with additional packages
-FROM postgres:13.13-alpine3.18@sha256:3cf9bba86013877375df15001a31b10be6834e56e69ac1cb1605f469c5c5bdd6 AS base
+FROM postgres:13.22-alpine3.22@sha256:61fffbe6ea476854da052e66f3cb09bdedbd9e86943b4c28bd8d80220b976d80 AS base
 RUN apk --no-cache add unzip=~6 dos2unix=~7
+
+# Workaround to fix false positive CVEs using gosu
+FROM golang:1.24 AS gosubuilder
+ENV GOSU_VERSION=1.19
+WORKDIR /go/src/github.com/tianon
+RUN git clone https://github.com/tianon/gosu.git --branch $GOSU_VERSION
+WORKDIR /go/src/github.com/tianon/gosu
+RUN go mod download; go build
 
 # Start a new layer so that the above layer can be cached
 FROM base AS build
@@ -18,6 +26,9 @@ LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 ENV POSTGRES_DB=postgres
 ENV ADMIN_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Database.Admin.PostgreSQL.Standard.${STANDARD_VERSION}/versions/${ADMIN_VERSION}/content
 ENV SECURITY_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Database.Security.PostgreSQL.Standard.${STANDARD_VERSION}/versions/${SECURITY_VERSION}/content
+
+# Override provided gosu with the one built from source with updated go version
+COPY --from=gosubuilder /go/src/github.com/tianon/gosu/gosu /usr/local/bin/gosu
 
 COPY init-database.sh /docker-entrypoint-initdb.d/1-init-database.sh
 
