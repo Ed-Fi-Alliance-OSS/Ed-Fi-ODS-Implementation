@@ -80,7 +80,67 @@
                 configObject.presets = [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset];
                 configObject.layout = "StandaloneLayout";
 
-                configObject.plugins = [function UrlParamDisablePlugin() {
+                configObject.plugins = [
+                    function (system) {
+                        return {
+                            statePlugins: {
+                                auth: {
+                                    wrapActions: {
+                                          // This plugin method is called whenever the authentication dialog is about to open, and, if applicable, 
+                                          // rewrites the token URL so that the route context value displayed in it match the user's selections in the main UI
+                                        showDefinitions: (oriAction, system) => (args) => {
+
+                                            // If args is 'false', the authentication window is closing. If 'serverVariableValues' is not defined, 
+                                            // no route context or tenant options are available in the main UI. In either case, no token URL  
+                                            // modification is needed, so we short-circuit the procedure here
+                                            if (!args || system.getState().get('oas3').get('serverVariableValues') === undefined) {
+                                                return oriAction(args)
+                                            }
+
+                                            // Check if mulit-tenant and route context values are enabled by trying to get the currently selected tenant+context dropdown value
+                                            let tenantContextSelected = system.getState().get('oas3').get('serverVariableValues').get(system.getState().get('oas3').get('selectedServer')).get('Tenant/Context Selection')
+
+                                            // Check if route context values are in use by trying to get the currently selected route context value
+                                            let contextValueSelected = system.getState().get('oas3').get('serverVariableValues').get(system.getState().get('oas3').get('selectedServer')).get('Context Selection')
+
+                                            // Handle the case when multi-tenant and route context segments are both in use
+                                            if (tenantContextSelected !== undefined) {
+                                                
+                                                // Get the selected tenant name by splitting it off of the tenant/routeContext dropdown selection
+                                                let selectedTenantName = tenantContextSelected.split('/')[0]
+
+                                                // Get the base part of the templated server URL to build the token URL off of
+                                                let tokenURLBase = system.getState().get('oas3').get('selectedServer').split('{')[0]
+
+                                                let tokenURL = tokenURLBase + tenantContextSelected + '/' + 'oauth/token'
+
+                                                // Find the index of the correct authentication schema for the selected tenant
+                                                let authIndex = args.findIndex(a => a.has(selectedTenantName + '_oauth2_client_credentials'))
+
+                                                // Update the token URL value for the correct authentication schema (index found in the last step)
+                                                args = args.setIn([authIndex, selectedTenantName + '_oauth2_client_credentials', 'tokenUrl'], tokenURL)
+                                            }
+                                            // Handle situation with no multi-tenant, but with route context segment in use
+                                            else if (contextValueSelected !== undefined) {
+
+                                                // Get the base part of the templated server URL to build the token URL from
+                                                let tokenURLBase = system.getState().get('oas3').get('selectedServer').split('{')[0]
+
+                                                // Construct a token URL with the route context segment matching what is selected in the UI
+                                                let tokenURL = tokenURLBase + contextValueSelected + '/' + 'oauth/token'
+
+                                                // Update the token URL value for the authentication schema 
+                                                args = args.setIn([0, 'oauth2_client_credentials', 'tokenUrl'], tokenURL)
+                                            }
+
+                                            return oriAction(args)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    function UrlParamDisablePlugin() {
                     return {
                         statePlugins: {
                             spec: {
