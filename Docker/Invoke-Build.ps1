@@ -276,7 +276,13 @@ function Invoke-Build {
                     Invoke-Expression "docker buildx build --platform $Platforms --push -t edfialliance/$($ImageName):$preTag$stdVer$mssql $BuildArgs ."
                 }
                 else {
-                    Invoke-Expression "docker buildx build --platform $Platforms --push -t edfialliance/$($ImageName):$semVer-$StandardVersion$mssql -t edfialliance/$($ImageName):$PackageVersion$stdVer$mssql -t edfialliance/$($ImageName):$major$stdVer$mssql $BuildArgs ."
+                    $tags = @(
+                        "edfialliance/$($ImageName):$semVer-$StandardVersion$mssql"
+                        "edfialliance/$($ImageName):$PackageVersion$stdVer$mssql"
+                        "edfialliance/$($ImageName):$major$stdVer$mssql"
+                    )
+                    $tagArgs = $tags | ForEach-Object { "-t $_" } | Join-String " "
+                    Invoke-Expression "docker buildx build --platform $Platforms --push $tagArgs $BuildArgs ."
                 }
                 if ($LASTEXITCODE -gt 0) {
                     throw "Failed to build and push multi-platform image $ImageName"
