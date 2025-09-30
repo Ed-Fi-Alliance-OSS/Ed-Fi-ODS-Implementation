@@ -30,6 +30,18 @@
     ./Invoke-Build.ps1 -TagBase MyName
 
     # Result: creates images with tags like "MyName/ods-api-web-api:7.1.15"
+
+.EXAMPLE
+    # Build multi-platform images for both AMD64 and ARM64
+    ./Invoke-Build.ps1 -IsMultiPlatform -Platforms "linux/amd64,linux/arm64" -Push
+
+    # Result: builds and pushes images for both architectures using docker buildx
+
+.EXAMPLE
+    # Local development (single-platform build using regular docker build)
+    ./Invoke-Build.ps1
+
+    # Result: builds image for current platform only using docker build
 #>
 [CmdletBinding()]
 param (
@@ -128,10 +140,10 @@ param (
     [switch]
     $PreRelease = $false,
 
-    # Major/minor version number
+    # Major/minor/patch version number
     [Parameter()]
     [string]
-    $PackageVersion = "7.3",
+    $PackageVersion = "7.3.1",
 
     # Patch version number
     [Parameter()]
@@ -152,14 +164,34 @@ param (
 
     [Parameter(Mandatory=$true)]
     [string]
-    $Path
+    $Path,
+
+    # Comma-separated list of platforms to build for (e.g., "linux/amd64,linux/arm64")
+    # Default is both platforms for CI use. For local development, IsMultiPlatform should be false.
+    [Parameter()]
+    [string]
+    $Platforms = "linux/amd64,linux/arm64",
+
+    # When true, uses docker buildx for multi-platform builds. When false, uses regular docker build.
+    # Note: Multi-platform builds require Docker Buildx and QEMU to be enabled
+    [Parameter()]
+    [switch]
+    $IsMultiPlatform = $false
 )
 
 $ErrorActionPreference = "Stop"
 
 
-$semVer = "$PackageVersion.$Patch"
-$major = $($PackageVersion -split "\.")[0]
+# Handle semantic versioning based on PackageVersion format
+$versionParts = $PackageVersion -split "\."
+if ($versionParts.Length -eq 3) {
+    # Already has patch version (7.3.1), use build metadata
+    $semVer = "$PackageVersion+$Patch"
+} else {
+    # Traditional major.minor format (7.3), append patch
+    $semVer = "$PackageVersion.$Patch"
+}
+$major = $versionParts[0]
 
 $BuildArgs = ""
 
@@ -231,30 +263,63 @@ function Invoke-Build {
 
     Write-Message "Building $ImageName with $BuildArgs"
     Push-Location $ImageName/$Path
-    # Full semantic version
-    Invoke-Expression "docker build -t edfialliance/$($ImageName):$semVer-$StandardVersion$mssql $BuildArgs ."
-    if ($LASTEXITCODE -gt 0) {
-        Write-Error "Failed to build image $ImageName"
-    }
-    # Major / minor version
-    &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):$PackageVersion$stdVer$mssql
-    # Major version
-    &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):$major$stdVer$mssql
-    # Pre-release
-    &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):$preTag$stdVer$mssql
+    
+    try {
+        if ($IsMultiPlatform) {
+            Write-Message "Building multi-platform image for platforms: $Platforms"
+            
+            # Note: Docker Buildx must be configured at the GitHub Actions level
+            if ($Push) {
+                Write-Message "Building and pushing multi-platform $ImageName with all tags"
+                # Build once with all tags and push directly (most efficient for multi-platform)
+                if ($PreRelease) {
+                    Invoke-Expression "docker buildx build --platform $Platforms --push -t edfialliance/$($ImageName):$preTag$stdVer$mssql $BuildArgs ."
+                }
+                else {
+                    $tags = @(
+                        "edfialliance/$($ImageName):$semVer-$StandardVersion$mssql"
+                        "edfialliance/$($ImageName):$PackageVersion$stdVer$mssql"
+                        "edfialliance/$($ImageName):$major$stdVer$mssql"
+                    )
+                    $tagArgs = $tags | ForEach-Object { "-t $_" } | Join-String " "
+                    Invoke-Expression "docker buildx build --platform $Platforms --push $tagArgs $BuildArgs ."
+                }
+                if ($LASTEXITCODE -gt 0) {
+                    throw "Failed to build and push multi-platform image $ImageName"
+                }
+            }
+        } else {
+            # Original single-platform build logic for local development
+            Write-Message "Building single-platform image for local development"
+            
+            # Full semantic version
+            Invoke-Expression "docker build -t edfialliance/$($ImageName):$semVer-$StandardVersion$mssql $BuildArgs ."
+            if ($LASTEXITCODE -gt 0) {
+                throw "Failed to build image $ImageName"
+            }
+            # Major / minor version
+            &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):$PackageVersion$stdVer$mssql
+            # Major version
+            &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):$major$stdVer$mssql
+            # Pre-release
+            &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):$preTag$stdVer$mssql
 
-    if ($Push) {
-        Write-Message "Pushing $ImageName"
-        if ($PreRelease) { 
-            &docker push edfialliance/$($ImageName):$preTag$stdVer$mssql
-        }
-        else {
-            &docker push edfialliance/$($ImageName):$semVer-$StandardVersion$mssql
-            &docker push edfialliance/$($ImageName):$PackageVersion$stdVer$mssql
-            &docker push edfialliance/$($ImageName):$major$stdVer$mssql
+            if ($Push) {
+                Write-Message "Pushing $ImageName"
+                if ($PreRelease) { 
+                    &docker push edfialliance/$($ImageName):$preTag$stdVer$mssql
+                }
+                else {
+                    &docker push edfialliance/$($ImageName):$semVer-$StandardVersion$mssql
+                    &docker push edfialliance/$($ImageName):$PackageVersion$stdVer$mssql
+                    &docker push edfialliance/$($ImageName):$major$stdVer$mssql
+                }
+            }
         }
     }
-    Pop-Location
+    finally {
+        Pop-Location
+    }
 }
 
 Invoke-Build
