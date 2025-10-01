@@ -139,6 +139,7 @@ function New-Package {
     $parameters = @()
 
     $parameters += "-p:NuspecFile=$($PackageDefinitionFile)"
+    $parameters += "-p:NoDefaultExcludes=true" # Include .nupkg files in the package
     $parameters += "--output"
     $parameters += $OutputDirectory
     $parameters += "--no-build"
