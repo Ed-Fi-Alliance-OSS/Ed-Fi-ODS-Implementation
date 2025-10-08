@@ -1,6 +1,6 @@
 ﻿/* add custom logo */
 .topbar-wrapper img {
-    content: url('EdFi-logo-Powered-60.png');
+    content: url('ed-fi-logo-light.svg');
     height: 60px;
 }
 
