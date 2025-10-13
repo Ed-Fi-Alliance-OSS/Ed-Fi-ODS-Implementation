@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-Domain Entity EdFi.StudentDirectoryExtension additions
+Domain Entity EdFi.StudentDirectory additions
     common extension EdFi.Address
           documentation "The set of elements that describes an address, including the street address, city, state, and ZIP code."
           is optional collection
