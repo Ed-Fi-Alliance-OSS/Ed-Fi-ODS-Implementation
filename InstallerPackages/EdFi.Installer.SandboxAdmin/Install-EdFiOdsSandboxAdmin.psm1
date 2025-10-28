@@ -220,6 +220,7 @@ function Get-SandboxAdminPackage {
             PackageVersion  = $Config.PackageVersion
             OutputDirectory = $Config.DownloadPath
             PackageSource   = $Config.PackageSource
+            ToolsPath       = $Config.ToolsPath
         }
         $Config.PackageDirectory = Get-NuGetPackage @parameters
 
