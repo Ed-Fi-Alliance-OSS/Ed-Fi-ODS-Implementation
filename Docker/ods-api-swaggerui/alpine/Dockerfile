@@ -5,7 +5,7 @@
 
 # Base image with additional packages
 FROM mcr.microsoft.com/dotnet/aspnet:8.0.21-alpine3.21@sha256:d40af50f6a927c552ba686105c56a9986c9ab7f549047151a8eb68c115cc5665 AS base
-RUN apk --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 icu=~76 && \
+RUN apk --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 icu=~74 && \
     addgroup -S edfi && adduser -S edfi -G edfi
 
 # Start a new layer so that the above layer can be cached
