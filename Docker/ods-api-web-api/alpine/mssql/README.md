@@ -21,6 +21,7 @@ SQLSERVER_PASSWORD=<SQL Password for the SQLSERVER_USER with access to SQL Serve
 TPDM_ENABLED=<true/false load TPDM extension> (OPTIONAL, default: true)
 ENCRYPT_CONNECTION=<true/false use encrypted connection>(OPTIONAL, default: false)
 ODS_CONNECTION_STRING_ENCRYPTION_KEY=<base64-encoded 256-bit key>
+BEARER_TOKEN_PER_CLIENT_LIMIT=<integer value for per-client token limit> (OPTIONAL, default: -1 disables limit)
 ```
 
 ## Legal Information

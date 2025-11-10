@@ -29,6 +29,7 @@ NPG_POOLING_ENABLED=<Enables or disables client-side pooling> (OPTIONAL, default
 NPG_API_MAX_POOL_SIZE_ADMIN=<The maximum number of connections for the EdFi_Admin database from each Ed-Fi ODS API container.> (REQUIRED if NPG_POOLING_ENABLED is set to true)
 NPG_API_MAX_POOL_SIZE_SECURITY=<The maximum number of connections for the EdFi_Security database from each Ed-Fi ODS API container.> (REQUIRED if NPG_POOLING_ENABLED is set to true)
 NPG_API_MAX_POOL_SIZE_MASTER=<The maximum number of connections for the 'postgres' default database from each Ed-Fi ODS API container.> (REQUIRED if NPG_POOLING_ENABLED is set to true)
+BEARER_TOKEN_PER_CLIENT_LIMIT=<integer value for per-client token limit> (OPTIONAL, default: -1 disables limit)
 ```
 
 ## Legal Information
