@@ -19,7 +19,8 @@ on:
         options:
         - Prerelease
         - Release
-
+  pull_request:
+   branches: [main, 'b-v*-patch*','feature-*']
 permissions: read-all
       
 env:
@@ -74,7 +75,25 @@ jobs:
         $ExtensionVersion = '${{ matrix.ExtensionVersion }}'
         Write-Host("StandardVersion value is $StandardVersion")
         Write-Host("ExtensionVersion value is $ExtensionVersion")
-        
+        # REMOVE PACKAGES when StandardVersion = 6.0.0 AND PackageName contains 'TPDM.Core.'
+        if ($StandardVersion -eq "6.0.0") {
+            $packagesToRemove = @()
+
+            foreach ($package in $config.packages.psobject.Properties) {
+                $packageValue = $package.Value.PackageName
+
+                if ($packageValue -like "*TPDM.Core.*") {
+                    Write-Host "Removing package: $($package.Name) because PackageName '$packageValue' contains TPDM.Core."
+                    $packagesToRemove += $package.Name
+                }
+            }
+
+            # Remove after enumeration
+            foreach ($pkg in $packagesToRemove) {
+                $config.packages.psobject.Properties.Remove($pkg)
+            }
+        }
+
         foreach ($package in  $config.packages.psobject.properties) 
         {
             $selectedPackageName = $config.packages.$($package.Name).PackageName
@@ -88,10 +107,4 @@ jobs:
         }
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8 
        
-    - name: Promote Packages
-      working-directory: ./Ed-Fi-ODS-Implementation
-      shell: pwsh
-      run: |
-        $ErrorActionPreference = 'Stop'
-        ./logistics/scripts/activities/build/promote-packages.ps1 -FeedsURL "${{ env.AZURE_ARTIFACTS_API_FEEDS }}" -PackagesURL "${{ env.AZURE_ARTIFACTS_API_PACKAGING }}" -Username "${{ env.AZURE_ARTIFACT_USER_NAME }}"  -Password  (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACT_PERSONAL_ACCESS_TOKEN }}" -AsPlainText -Force) -View "${{ inputs.promote_packages_view }}" -StandardVersion ${{ matrix.StandardVersion }}
  
