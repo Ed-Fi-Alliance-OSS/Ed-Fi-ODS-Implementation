@@ -75,7 +75,7 @@ jobs:
         Write-Host("StandardVersion value is $StandardVersion")
         Write-Host("ExtensionVersion value is $ExtensionVersion")
         # REMOVE PACKAGES when StandardVersion = 6.0.0 AND PackageName contains 'TPDM.Core.'
-        if ($StandardVersion -eq "6.0.0") {
+        if ([version]$StandardVersion).Major -ge 6) { {
             $packagesToRemove = @()
 
             foreach ($package in $config.packages.psobject.Properties) {
