@@ -249,13 +249,7 @@ function Get-VersionInfo {
   return @{ Major = $major; MajorMinor = $majorMinor; Package = $PackageVersion; SemVer = $semVer }
 }
 
-# Get structured version values (Major, MajorMinor, Package, SemVer)
-$versionInfo = Get-VersionInfo
-$major = $versionInfo.Major
-$majorMinor = $versionInfo.MajorMinor
-$semVer = $versionInfo.SemVer
-
-function Invoke-Build {
+function Get-DockerTags {
     $mssql = ""
     if ($Path.EndsWith("mssql")) {
         $mssql = "-mssql"
@@ -266,40 +260,65 @@ function Invoke-Build {
         $stdVer = ""
     }
 
-    # Building the images from a branch different than `main` (like `b-v7.3-patch1`), will add the package version suffix to the pre tag
-    $preTag = "pre"
-    if ($env:BASE_BRANCH -ne 'main') {
-      $preTag = $preTag+"-"+$PackageVersion.Replace(".", "")
+    # Get structured version values (Major, MajorMinor, Package, SemVer)
+    $versionInfo = Get-VersionInfo
+
+    $tagMap = @{}
+
+    if ($PreRelease) {
+        # Building the images from a branch different than `main` (like `b-v7.3-patch1`), will add the package version suffix to the pre tag
+        $preTag = "pre"
+        if ($env:BASE_BRANCH -ne 'main' -and $null -ne $env:BASE_BRANCH) {
+             $preTag = $preTag + "-" + $versionInfo.Package.Replace(".", "")
+        }
+        $tagMap["Pre"] = "$TagBase/$($ImageName):$preTag$stdVer$mssql"
     }
+    else {
+        $tagMap["SemVer"] = "$TagBase/$($ImageName):$($versionInfo.SemVer)-$StandardVersion$mssql"
+        $tagMap["Package"] = "$TagBase/$($ImageName):$($versionInfo.Package)$stdVer$mssql"
+        $tagMap["Major"] = "$TagBase/$($ImageName):$($versionInfo.Major)$stdVer$mssql"
+
+        # This will add tag 7.3 if the package version is 7.3.x
+        if ($versionInfo.MajorMinor -ne $versionInfo.Package) {
+            $tagMap["MajorMinor"] = "$TagBase/$($ImageName):$($versionInfo.MajorMinor)$stdVer$mssql"
+        }
+    }
+
+    $tagMap["All"] = @($tagMap.Values | Where-Object { $_ })
+
+    return $tagMap
+}
+
+function Invoke-Build {
+    $tagMap = Get-DockerTags
 
     Write-Message "Building $ImageName with $BuildArgs"
     Push-Location $ImageName/$Path
     
     try {
+        # Split BuildArgs string into an array for direct invocation
+        $buildArgList = @()
+        if (-not [string]::IsNullOrWhiteSpace($BuildArgs)) {
+            $buildArgList = $BuildArgs -split " " | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+        }
+
         if ($IsMultiPlatform) {
             Write-Message "Building multi-platform image for platforms: $Platforms"
             
             # Note: Docker Buildx must be configured at the GitHub Actions level
             if ($Push) {
                 Write-Message "Building and pushing multi-platform $ImageName with all tags"
-                # Build once with all tags and push directly (most efficient for multi-platform)
-                if ($PreRelease) {
-                    Invoke-Expression "docker buildx build --platform $Platforms --push -t $TagBase/$($ImageName):$preTag$stdVer$mssql $BuildArgs ."
+                
+                $dockerArgs = @("buildx", "build", "--platform", $Platforms, "--push")
+                foreach ($tag in $tagMap.All) {
+                    $dockerArgs += "-t"
+                    $dockerArgs += $tag
                 }
-                else {
-                    $tags = @(
-                        "$TagBase/$($ImageName):$semVer-$StandardVersion$mssql"
-                        "$TagBase/$($ImageName):$PackageVersion$stdVer$mssql"
-                        "$TagBase/$($ImageName):$major$stdVer$mssql"
-                    )
+                $dockerArgs += $buildArgList
+                $dockerArgs += "."
 
-                    if ($majorMinor -ne $PackageVersion) {
-                        $tags += "$TagBase/$($ImageName):$majorMinor$stdVer$mssql"
-                    }
-
-                    $tagArgs = ($tags | ForEach-Object { "-t $_" }) -join " "
-                    Invoke-Expression "docker buildx build --platform $Platforms --push $tagArgs $BuildArgs ."
-                }
+                & docker $dockerArgs
+                
                 if ($LASTEXITCODE -gt 0) {
                     throw "Failed to build and push multi-platform image $ImageName"
                 }
@@ -308,35 +327,30 @@ function Invoke-Build {
             # Original single-platform build logic for local development
             Write-Message "Building single-platform image for local development"
             
-            # Full semantic version
-            Invoke-Expression "docker build -t $TagBase/$($ImageName):$semVer-$StandardVersion$mssql $BuildArgs ."
+            # Use SemVer or Pre as the primary tag for building
+            $primaryTag = if ($tagMap.SemVer) { $tagMap.SemVer } else { $tagMap.Pre }
+            
+            $dockerArgs = @("build", "-t", $primaryTag)
+            $dockerArgs += $buildArgList
+            $dockerArgs += "."
+
+            & docker $dockerArgs
+
             if ($LASTEXITCODE -gt 0) {
                 throw "Failed to build image $ImageName"
             }
-            # Package version
-            &docker tag $TagBase/$($ImageName):$semVer-$StandardVersion$mssql $TagBase/$($ImageName):$PackageVersion$stdVer$mssql
-            # Major version
-            &docker tag $TagBase/$($ImageName):$semVer-$StandardVersion$mssql $TagBase/$($ImageName):$major$stdVer$mssql
-            # Pre-release
-            &docker tag $TagBase/$($ImageName):$semVer-$StandardVersion$mssql $TagBase/$($ImageName):$preTag$stdVer$mssql
-            # Major / minor version
-            if ($majorMinor -ne $PackageVersion) {
-                &docker tag $TagBase/$($ImageName):$semVer-$StandardVersion$mssql $TagBase/$($ImageName):$majorMinor$stdVer$mssql
+            
+            # Apply remaining tags
+            foreach ($key in $tagMap.Keys) {
+                if ($key -notin @("All", "SemVer", "Pre")) {
+                    & docker tag $primaryTag $tagMap[$key]
+                }
             }
 
             if ($Push) {
                 Write-Message "Pushing $ImageName"
-                if ($PreRelease) { 
-                    &docker push $TagBase/$($ImageName):$preTag$stdVer$mssql
-                }
-                else {
-                    &docker push $TagBase/$($ImageName):$semVer-$StandardVersion$mssql
-                    &docker push $TagBase/$($ImageName):$PackageVersion$stdVer$mssql
-                    &docker push $TagBase/$($ImageName):$major$stdVer$mssql
-
-                    if ($majorMinor -ne $PackageVersion) {
-                        &docker push $TagBase/$($ImageName):$majorMinor$stdVer$mssql
-                    }
+                foreach ($tag in $tagMap.All) {
+                    & docker push $tag
                 }
             }
         }
