@@ -181,18 +181,6 @@ param (
 
 $ErrorActionPreference = "Stop"
 
-
-# Handle semantic versioning based on PackageVersion format
-$versionParts = $PackageVersion -split "\."
-if ($versionParts.Length -eq 3) {
-    # Already has patch version (7.3.1), use build metadata
-    $semVer = "${PackageVersion}_$Patch"
-} else {
-    # Traditional major.minor format (7.3), append patch
-    $semVer = "$PackageVersion.$Patch"
-}
-$major = $versionParts[0]
-
 $BuildArgs = ""
 
 if ($ImageName -eq "ods-api-db-admin") {
@@ -244,6 +232,29 @@ function Write-Message {
     $host.UI.RawUI.ForegroundColor = $default
 }
 
+function Get-VersionInfo {
+  # Create a [version] object for reliable Major/Minor/Build access
+  $v = [version]$PackageVersion
+
+  # If Build is present (>= 0) treat the PackageVersion as having an explicit patch
+  if ($v.Build -ge 0) {
+    $semVer = "${PackageVersion}_$Patch"
+  } else {
+    $semVer = "$PackageVersion.$Patch"
+  }
+
+  $major = $v.Major
+  $majorMinor = "$($v.Major).$($v.Minor)"
+
+  return @{ Major = $major; MajorMinor = $majorMinor; Package = $PackageVersion; SemVer = $semVer }
+}
+
+# Get structured version values (Major, MajorMinor, Package, SemVer)
+$versionInfo = Get-VersionInfo
+$major = $versionInfo.Major
+$majorMinor = $versionInfo.MajorMinor
+$semVer = $versionInfo.SemVer
+
 function Invoke-Build {
     $mssql = ""
     if ($Path.EndsWith("mssql")) {
@@ -273,14 +284,19 @@ function Invoke-Build {
                 Write-Message "Building and pushing multi-platform $ImageName with all tags"
                 # Build once with all tags and push directly (most efficient for multi-platform)
                 if ($PreRelease) {
-                    Invoke-Expression "docker buildx build --platform $Platforms --push -t edfialliance/$($ImageName):$preTag$stdVer$mssql $BuildArgs ."
+                    Invoke-Expression "docker buildx build --platform $Platforms --push -t $TagBase/$($ImageName):$preTag$stdVer$mssql $BuildArgs ."
                 }
                 else {
                     $tags = @(
-                        "edfialliance/$($ImageName):$semVer-$StandardVersion$mssql"
-                        "edfialliance/$($ImageName):$PackageVersion$stdVer$mssql"
-                        "edfialliance/$($ImageName):$major$stdVer$mssql"
+                        "$TagBase/$($ImageName):$semVer-$StandardVersion$mssql"
+                        "$TagBase/$($ImageName):$PackageVersion$stdVer$mssql"
+                        "$TagBase/$($ImageName):$major$stdVer$mssql"
                     )
+
+                    if ($majorMinor -ne $PackageVersion) {
+                        $tags += "$TagBase/$($ImageName):$majorMinor$stdVer$mssql"
+                    }
+
                     $tagArgs = ($tags | ForEach-Object { "-t $_" }) -join " "
                     Invoke-Expression "docker buildx build --platform $Platforms --push $tagArgs $BuildArgs ."
                 }
@@ -293,26 +309,34 @@ function Invoke-Build {
             Write-Message "Building single-platform image for local development"
             
             # Full semantic version
-            Invoke-Expression "docker build -t edfialliance/$($ImageName):$semVer-$StandardVersion$mssql $BuildArgs ."
+            Invoke-Expression "docker build -t $TagBase/$($ImageName):$semVer-$StandardVersion$mssql $BuildArgs ."
             if ($LASTEXITCODE -gt 0) {
                 throw "Failed to build image $ImageName"
             }
-            # Major / minor version
-            &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):$PackageVersion$stdVer$mssql
+            # Package version
+            &docker tag $TagBase/$($ImageName):$semVer-$StandardVersion$mssql $TagBase/$($ImageName):$PackageVersion$stdVer$mssql
             # Major version
-            &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):$major$stdVer$mssql
+            &docker tag $TagBase/$($ImageName):$semVer-$StandardVersion$mssql $TagBase/$($ImageName):$major$stdVer$mssql
             # Pre-release
-            &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):$preTag$stdVer$mssql
+            &docker tag $TagBase/$($ImageName):$semVer-$StandardVersion$mssql $TagBase/$($ImageName):$preTag$stdVer$mssql
+            # Major / minor version
+            if ($majorMinor -ne $PackageVersion) {
+                &docker tag $TagBase/$($ImageName):$semVer-$StandardVersion$mssql $TagBase/$($ImageName):$majorMinor$stdVer$mssql
+            }
 
             if ($Push) {
                 Write-Message "Pushing $ImageName"
                 if ($PreRelease) { 
-                    &docker push edfialliance/$($ImageName):$preTag$stdVer$mssql
+                    &docker push $TagBase/$($ImageName):$preTag$stdVer$mssql
                 }
                 else {
-                    &docker push edfialliance/$($ImageName):$semVer-$StandardVersion$mssql
-                    &docker push edfialliance/$($ImageName):$PackageVersion$stdVer$mssql
-                    &docker push edfialliance/$($ImageName):$major$stdVer$mssql
+                    &docker push $TagBase/$($ImageName):$semVer-$StandardVersion$mssql
+                    &docker push $TagBase/$($ImageName):$PackageVersion$stdVer$mssql
+                    &docker push $TagBase/$($ImageName):$major$stdVer$mssql
+
+                    if ($majorMinor -ne $PackageVersion) {
+                        &docker push $TagBase/$($ImageName):$majorMinor$stdVer$mssql
+                    }
                 }
             }
         }
