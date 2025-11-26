@@ -21,7 +21,7 @@ permissions: read-all
 
 env:
   CURRENT_STANDARD_VERSION: "6.0.0"
-  PACKAGE_VERSION: "7.3"
+  PACKAGE_VERSION: "7.3.1"
 
 jobs:
   docker-lint:
@@ -89,7 +89,10 @@ jobs:
         # To confirm no errors occur. The "local" one will be built by the e2e
         # testing process.
         run: |
-          ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease
+          # Extract major.minor for NuGet packages (7.3.1 -> 7.3)
+          $nuget_version = ("${{ env.PACKAGE_VERSION }}" -split '\.')[0..1] -join '.'
+
+          ./get-versions.ps1 -PackageVersion $nuget_version -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease
           ./Invoke-Build.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -PreRelease -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
         working-directory: Docker
         shell: pwsh
