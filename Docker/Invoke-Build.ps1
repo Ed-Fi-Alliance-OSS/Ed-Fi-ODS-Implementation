@@ -234,7 +234,12 @@ function Write-Message {
 
 function Get-VersionInfo {
   # Create a [version] object for reliable Major/Minor/Build access
-  $v = [version]$PackageVersion
+  try {
+    $v = [version]$PackageVersion
+  }
+  catch {
+    throw "Invalid PackageVersion '$PackageVersion'. Must be a valid version string (e.g., '7.3.1' or '7.3'). Error: $_"
+  }
 
   # If Build is present (>= 0) treat the PackageVersion as having an explicit patch
   if ($v.Build -ge 0) {
@@ -268,7 +273,7 @@ function Get-DockerTags {
     if ($PreRelease) {
         # Building the images from a branch different than `main` (like `b-v7.3-patch1`), will add the package version suffix to the pre tag
         $preTag = "pre"
-        if ($env:BASE_BRANCH -ne 'main' -and $null -ne $env:BASE_BRANCH) {
+        if ($null -ne $env:BASE_BRANCH -and $env:BASE_BRANCH -ne 'main') {
              $preTag = $preTag + "-" + $versionInfo.Package.Replace(".", "")
         }
         $tagMap["Pre"] = "$TagBase/$($ImageName):$preTag$stdVer$mssql"
@@ -284,7 +289,7 @@ function Get-DockerTags {
         }
     }
 
-    $tagMap["All"] = @($tagMap.Values | Where-Object { $_ })
+    $tagMap["All"] = @($tagMap.Values)
 
     return $tagMap
 }
@@ -340,9 +345,9 @@ function Invoke-Build {
                 throw "Failed to build image $ImageName"
             }
             
-            # Apply remaining tags
-            foreach ($key in $tagMap.Keys) {
-                if ($key -notin @("All", "SemVer", "Pre")) {
+            # Apply remaining tags (Package, Major, MajorMinor if present)
+            foreach ($key in @("Package", "Major", "MajorMinor")) {
+                if ($tagMap.ContainsKey($key)) {
                     & docker tag $primaryTag $tagMap[$key]
                 }
             }
