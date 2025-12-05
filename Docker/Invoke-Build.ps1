@@ -157,9 +157,13 @@ param (
 
 $ErrorActionPreference = "Stop"
 
+ # If PackageVersion has only "major.minor", append ".0"
+  if ($PackageVersion -match '^\d+\.\d+$') {
+      $PackageVersion = "$PackageVersion.0"
+  }
 
-$semVer = "$PackageVersion.$Patch"
-$major = $($PackageVersion -split "\.")[0]
+ 
+$semVer = "${PackageVersion}_$Patch"
 
 $BuildArgs = ""
 
@@ -223,26 +227,29 @@ function Invoke-Build {
         $stdVer = ""
     }
 
-    # Building the images from a branch different than `main` (like `b-v7.3-patch1`), will add the package version suffix to the pre tag
-    $preTag = "pre"
-    if ($env:BASE_BRANCH -ne 'main') {
-      $preTag = $preTag+"-"+$PackageVersion.Replace(".", "")
-    }
-
     Write-Message "Building $ImageName with $BuildArgs"
     Push-Location $ImageName/$Path
-    # Full semantic version
-    Invoke-Expression "docker build -t edfialliance/$($ImageName):$semVer-$StandardVersion$mssql $BuildArgs ."
+    # Full semantic version including patch e.g. 7.3.0_1234
+    Invoke-Expression "docker build -t edfialliance/$($ImageName):$semVer$stdVer$mssql $BuildArgs ."
     if ($LASTEXITCODE -gt 0) {
         Write-Error "Failed to build image $ImageName"
     }
-    # Major / minor version
-    &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):$PackageVersion$stdVer$mssql
-    # Major version
-    &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):$major$stdVer$mssql
-    # Pre-release
-    &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):$preTag$stdVer$mssql
+  
+    # Building the images from a branch different than `main` (like `b-v7.3-patch1`), will add the package version suffix to the pre tag
+    $preTag = "pre"
+    if ($PreRelease) { 
+      if ($env:BASE_BRANCH -ne 'main') {
+        $preTag = $preTag+"-"+$PackageVersion.Replace(".", "")
+        # Pre-release
+        &docker tag edfialliance/$($ImageName):$semVer$stdVer$mssql edfialliance/$($ImageName):$preTag$stdVer$mssql
+        Write-Message "Created Pre-release tag:  edfialliance/$($ImageName):$preTag$stdVer$mssql"
+      }
+   }
 
+    # 7.3.0 version
+    & docker tag edfialliance/$($ImageName):$semVer$stdVer$mssql edfialliance/$($ImageName):$PackageVersion$stdVer$mssql
+
+    Write-Message "Created tags: edfialliance/$($ImageName):$semVer$stdVer$mssql and edfialliance/$($ImageName):$PackageVersion$stdVer$mssql"
     if ($Push) {
         Write-Message "Pushing $ImageName"
         if ($PreRelease) { 
@@ -251,7 +258,6 @@ function Invoke-Build {
         else {
             &docker push edfialliance/$($ImageName):$semVer-$StandardVersion$mssql
             &docker push edfialliance/$($ImageName):$PackageVersion$stdVer$mssql
-            &docker push edfialliance/$($ImageName):$major$stdVer$mssql
         }
     }
     Pop-Location
