@@ -248,7 +248,8 @@ function Invoke-Build {
 
     # 7.3.0 version
     & docker tag edfialliance/$($ImageName):$semVer$stdVer$mssql edfialliance/$($ImageName):$PackageVersion$stdVer$mssql
-
+    # 7.3.0 version with standard version suffix
+    & docker tag edfialliance/$($ImageName):$semVer$stdVer$mssql edfialliance/$($ImageName):$semVer-$StandardVersion$mssql
     Write-Message "Created tags: edfialliance/$($ImageName):$semVer$stdVer$mssql and edfialliance/$($ImageName):$PackageVersion$stdVer$mssql"
     if ($Push) {
         Write-Message "Pushing $ImageName"
