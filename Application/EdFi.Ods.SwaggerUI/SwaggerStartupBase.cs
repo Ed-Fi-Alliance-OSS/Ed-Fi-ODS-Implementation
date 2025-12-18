@@ -199,16 +199,37 @@ namespace EdFi.Ods.SwaggerUI
                             try
                             {
                                 using var http = new HttpClient();
-                                string oneRosterUrl = _oneRosterMetadataUrl + "/swagger.json";
-
-                                if (string.IsNullOrWhiteSpace(oneRosterUrl))
+                                // Fetch metadata from configured base and resolve the OpenAPI spec URL from urls.openApiMetadata
+                                if (string.IsNullOrWhiteSpace(_oneRosterMetadataUrl))
                                 {
                                     context.Response.StatusCode = 500;
                                     await context.Response.WriteAsync("OneRosterMetadataUrl is not configured.");
                                     return;
                                 }
+                                // Load the metadata document (expected shape contains { urls: { openApiMetadata: "..." } })
+                                string specUrl = null;
+                                try
+                                {
+                                    var metaResponse = await http.GetAsync(_oneRosterMetadataUrl);
+                                    var metaBody = await metaResponse.Content.ReadAsStringAsync();
+                                    if (metaResponse.IsSuccessStatusCode)
+                                    {
+                                        var metaRoot = JsonNode.Parse(metaBody) as JsonObject;
+                                        specUrl = metaRoot?["urls"]?["openApiMetadata"]?.GetValue<string>();
+                                    }
+                                }
+                                catch
+                                {
+                                    // Ignore metadata fetch errors and fall back below
+                                }
 
-                                var specResponse = await http.GetAsync(oneRosterUrl);
+                                // Fallback to conventional path if metadata did not provide openApiMetadata
+                                if (string.IsNullOrWhiteSpace(specUrl))
+                                {
+                                    specUrl = _oneRosterMetadataUrl.TrimEnd('/') + "/swagger.json";
+                                }
+
+                                var specResponse = await http.GetAsync(specUrl);
                                 var specBody = await specResponse.Content.ReadAsStringAsync();
 
                                 if (!specResponse.IsSuccessStatusCode)
