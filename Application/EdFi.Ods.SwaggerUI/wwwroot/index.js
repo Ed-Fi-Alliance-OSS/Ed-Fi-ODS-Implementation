@@ -9,11 +9,13 @@ var sections = {
   Composites: { color: '', description: [], links: [] },
   Other: { color: '', description: [], links: [] },
   Profiles: { color: '', description: [], links: [] },
+  'Ed-Fi OneRoster': { color: '', description: [], links: [] },
 }
 sections.Resources.color = 'blue-text'
 sections.Composites.color = 'green-text'
 sections.Other.color = 'orange-text'
 sections.Profiles.color = 'red-text'
+sections['Ed-Fi OneRoster'].color = 'blue-text'
 sections.Resources.description = [
   'Resources are the primary entities that most API client applications work with on a regular basis. Students, staff, education organizations, and their related entities are maintained using this area of the API',
 ]
@@ -26,6 +28,10 @@ sections.Other.description = [
 ]
 sections.Profiles.description = [
   'Profiles are used by platform hosts to restrict access to properties of a resource. Resource properties may be read-write, read-only, or unavailable. When API client applications use a profile to access resources, they are limited to a subset of the properties available on the underlying resource.',
+]
+
+sections['Ed-Fi OneRoster'].description = [
+  'The Ed-Fi OneRoster section appears when enabled in app settings and uses the configured OneRoster metadata to build links.',
 ]
 
 function hideProgress() {
@@ -74,6 +80,26 @@ function createSectionLinks(sectionName) {
   const { Tenants } = appSettings;
   var section = sections[sectionName]
   var prefix = sectionName === 'Resources' ? '' : sectionName + ': '
+    // For OneRoster, route through embedded Swagger UI by selecting the added doc name
+    if (sectionName === 'Ed-Fi OneRoster') {
+      return section.links
+        .map(function (link) {
+          routePrefix = appSettings.RoutePrefix ? appSettings.RoutePrefix + '/' : ''
+
+          let linkHrefBase = `./${routePrefix}index.html`
+
+          let queryParameters = {}
+          // This must match the name we add in embedded UI: 'Ed-Fi OneRoster: OneRoster'
+          queryParameters['urls.primaryName'] = 'Ed-Fi OneRoster: ' + link.name
+
+          let paramsUrlString = Object.keys(queryParameters)
+            .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(queryParameters[k])}`)
+            .join('&')
+
+          return `<li><a class="url-link" href="${linkHrefBase}?${paramsUrlString}">${link.name}</a></li>`
+        })
+        .join('')
+    }
   return section.links
     .map(function (link) {
         routePrefix = appSettings.RoutePrefix ? appSettings.RoutePrefix + '/' : ''
@@ -103,7 +129,7 @@ function createSections() {
 
     Object.keys(sections).forEach(function (sectionName) {
     var section = sections[sectionName]
-    if (section.links <= 0) return
+    if (!Array.isArray(section.links) || section.links.length <= 0) return
         
     var sectionTemplate = document.getElementById('sectionTemplate')
     var templateHtml = sectionTemplate.innerHTML
@@ -159,7 +185,10 @@ const fetchWebApiVersionUrl = (appSettings) => {
 
   return fetch(WebApiVersionUrl)
     .then(getJSON)
-    .then(logJSON)
+    .then((json) => {
+      console.log('WebApiVersionUrl response JSON:', json)
+      return json
+    })
     .catch(function (ex) {
       showError(`Failed to retrieve version from ${WebApiVersionUrl}`)
       hideProgress()
@@ -183,6 +212,59 @@ const fetchOpenApiMetadata = (webApiVersionUrlJson) => {
     })
 }
 
+// Fetch OneRoster metadata based on app settings and populate the OneRoster section
+const fetchOneRosterMetadata = () => {
+  const { EnableOneRoster, OneRosterMetadataUrl } = appSettings
+  const metaUrlRaw = OneRosterMetadataUrl
+
+  if (!EnableOneRoster) {
+    console.log('EnableOneRoster is false; not showing OneRoster section.')
+    return Promise.resolve([])
+  }
+
+  if (!metaUrlRaw || typeof metaUrlRaw !== 'string' || metaUrlRaw.length === 0) {
+    console.warn('OneRoster metadata URL is not configured; skipping OneRoster section population.')
+    return Promise.resolve([])
+  }
+
+  // Use same-origin proxy when the configured URL is cross-origin to avoid CORS
+  let effectiveSpecUrl = './specs/oneroster.json'
+  try {
+    const u = new URL(metaUrlRaw, window.location.href)
+    if (u.origin === window.location.origin) {
+      effectiveSpecUrl = u.href
+    }
+  } catch (e) {
+    // keep default proxy path
+  }
+
+  // Verify the spec is reachable, but regardless we will present the link
+  return fetch(effectiveSpecUrl)
+    .then(getJSON)
+    .then((json) => {
+      console.log('OneRoster spec (sanity check) JSON keys:', Object.keys(json || {}))
+      if (!sections['Ed-Fi OneRoster']) {
+        sections['Ed-Fi OneRoster'] = { color: 'blue-text', description: [], links: [] }
+      }
+      const exists = sections['Ed-Fi OneRoster'].links.some((l) => l.uri === effectiveSpecUrl && l.name === 'OneRoster')
+      if (!exists) {
+        sections['Ed-Fi OneRoster'].links.push({ name: 'OneRoster', uri: effectiveSpecUrl })
+      }
+      return sections['Ed-Fi OneRoster'].links
+    })
+    .catch(function () {
+      // Even if fetch fails (e.g., server down), still add link so users can attempt later
+      if (!sections['Ed-Fi OneRoster']) {
+        sections['Ed-Fi OneRoster'] = { color: 'blue-text', description: [], links: [] }
+      }
+      const exists = sections['Ed-Fi OneRoster'].links.some((l) => l.uri === effectiveSpecUrl && l.name === 'OneRoster')
+      if (!exists) {
+        sections['Ed-Fi OneRoster'].links.push({ name: 'OneRoster', uri: effectiveSpecUrl })
+      }
+      return sections['Ed-Fi OneRoster'].links
+    })
+}
+
 function fetchSandboxDisclaimer() {
     const { SandboxDisclaimer } = appSettings;
     const disclaimerElement = document.getElementById('disclaimer')
@@ -200,6 +282,7 @@ fetchAppSettings()
   .then(showVersion)
   .then(fetchOpenApiMetadata)
   .then(mapSections)
+  .then(fetchOneRosterMetadata)
   .then(showPageDescription)
   .then(createSections)
   .then(fetchSandboxDisclaimer)

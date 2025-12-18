@@ -59,7 +59,7 @@
                     configObject.WebApiVersionUrl = `${configObject.WebApiVersionUrl}/${tenantMatch[1]}`;
                 }
 
-                configObject.urls = await getOpenApiUrls(configObject.WebApiVersionUrl);
+                configObject.urls = await getOpenApiUrls(configObject.WebApiVersionUrl, configObject);
 
                 // Workaround for https://github.com/swagger-api/swagger-ui/issues/5945
                 configObject.urls.forEach(function (item) {
@@ -452,7 +452,7 @@
                 window.ui = ui
             }
 
-            async function getOpenApiUrls(WebApiVersionUrl) {
+            async function getOpenApiUrls(WebApiVersionUrl, configObject) {
 
                 let response = await fetch(WebApiVersionUrl);
 
@@ -483,6 +483,26 @@
                         name: name
                     });
                 });
+
+                // Also honor EnableOneRoster from config, using configured metadata URL (falls back to proxy)
+                try {
+                    // var specUrl = configObject.OneRosterMetadataUrl;
+                    if (configObject && configObject.EnableOneRoster) {
+                        let specUrl = window.location.origin + "/specs/oneroster.json";
+                        const metaRaw = configObject.OneRosterMetadataUrl;
+                        if (typeof metaRaw === 'string' && metaRaw.length > 0) {
+                            const u = new URL(metaRaw, window.location.href);
+                            if (u.origin === window.location.origin) {
+                                specUrl = u.href;
+                            }
+                        }
+                        // Avoid duplicate entries
+                        if (!urls.some(u => u.name === 'Ed-Fi OneRoster: OneRoster')) {
+                            urls.push({ url: specUrl, name: 'Ed-Fi OneRoster: OneRoster' });
+                            console.log("Added OneRoster via config:", specUrl);
+                        }
+                    }
+                } catch (e) { /* ignore */ }
 
                 return urls;
             }
