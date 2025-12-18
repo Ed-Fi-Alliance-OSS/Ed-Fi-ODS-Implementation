@@ -484,9 +484,8 @@
                     });
                 });
 
-                // Also honor EnableOneRoster from config, using configured metadata URL (falls back to proxy)
+                // EnableOneRoster from config, using configured metadata URL
                 try {
-                    // var specUrl = configObject.OneRosterMetadataUrl;
                     if (configObject && configObject.EnableOneRoster) {
                         let specUrl = window.location.origin + "/specs/oneroster.json";
                         const metaRaw = configObject.OneRosterMetadataUrl;
