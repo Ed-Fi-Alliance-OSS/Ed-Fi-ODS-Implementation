@@ -123,7 +123,7 @@ namespace EdFi.Ods.SwaggerUI
                 });
             if (_enableOneRoster)
             {
-                ConfigureOneRoster(app);
+                ConfigureOneRoster(app, logger);
             }
             logger.LogInformation($"SandboxDisclaimer = '{sandboxDisclaimer}'");
             logger.LogInformation($"WebApiUrl = '{webApiUrl}'");
@@ -167,7 +167,8 @@ namespace EdFi.Ods.SwaggerUI
             });
         }
 
-        private void ConfigureOneRoster(IApplicationBuilder app)
+        // Configures OneRoster spec proxying and API proxying
+        private void ConfigureOneRoster(IApplicationBuilder app, ILogger logger)
         {
             // Same-origin proxy for OneRoster spec to avoid CORS issues when the spec is hosted on another origin.
             app.Map(
@@ -198,9 +199,10 @@ namespace EdFi.Ods.SwaggerUI
                                         specUrl = metaRoot?["urls"]?["openApiMetadata"]?.GetValue<string>();
                                     }
                                 }
-                                catch
+                                catch(Exception ex)
                                 {
                                     // Ignore metadata fetch errors and fall back below
+                                    logger.LogWarning($"Failed to fetch or parse OneRoster metadata; falling back to conventional spec URL. Error: {ex.Message}");
                                 }
 
                                 // Fallback to conventional path if metadata did not provide openApiMetadata
@@ -252,9 +254,10 @@ namespace EdFi.Ods.SwaggerUI
                                     context.Response.ContentType = "application/json";
                                     await context.Response.WriteAsync(rewritten);
                                 }
-                                catch
+                                catch (Exception ex)
                                 {
                                     // Fallback: return original spec if rewrite fails
+                                    logger.LogWarning($"Failed to rewrite OneRoster spec servers; returning original spec. Error: {ex.Message}");
                                     context.Response.StatusCode = (int)specResponse.StatusCode;
                                     context.Response.ContentType = "application/json";
                                     await context.Response.WriteAsync(specBody);
@@ -267,6 +270,8 @@ namespace EdFi.Ods.SwaggerUI
                             }
                         });
                 });
+
+            // Determine if a header is hop-by-hop and should not be forwarded
             static bool IsHopByHop(string name)
             {
                 return name.Equals("Connection", StringComparison.OrdinalIgnoreCase)
@@ -286,7 +291,7 @@ namespace EdFi.Ods.SwaggerUI
                     builder.Run(
                         async context =>
                         {
-                            var http = new HttpClient(new SocketsHttpHandler
+                            using var http = new HttpClient(new SocketsHttpHandler
                             {
                                 PooledConnectionLifetime = TimeSpan.FromMinutes(5)
                             });
@@ -307,11 +312,7 @@ namespace EdFi.Ods.SwaggerUI
                                 // Build target URL
                                 var baseUri = new Uri(oneRosterSpecUrl.TrimEnd('/') + "/");
                                 var relPath = (context.Request.Path.Value ?? string.Empty).TrimStart('/');
-                                var target = new Uri(new Uri(baseUri.ToString()), relPath + (context.Request.QueryString.HasValue ? context.Request.QueryString.Value : ""));
-
-                                // Debug headers (optional)
-                                context.Response.Headers["X-Proxy-Base"] = baseUri.ToString().TrimEnd('/');
-                                context.Response.Headers["X-Proxy-Target"] = target.ToString();
+                                var target = new Uri(baseUri, relPath + context.Request.QueryString.ToUriComponent());
 
                                 using var req = new HttpRequestMessage(new HttpMethod(context.Request.Method), target);
 
@@ -324,10 +325,9 @@ namespace EdFi.Ods.SwaggerUI
                                 }
 
                                 // Copy headers (skip Host + hop-by-hop)
-                                foreach (var h in context.Request.Headers)
+                                foreach (var h in context.Request.Headers.Where(h => 
+                                !h.Key.Equals("Host", StringComparison.OrdinalIgnoreCase) && !IsHopByHop(h.Key)))
                                 {
-                                    if (h.Key.Equals("Host", StringComparison.OrdinalIgnoreCase) || IsHopByHop(h.Key)) continue;
-
                                     if (!req.Headers.TryAddWithoutValidation(h.Key, [.. h.Value]))
                                         req.Content?.Headers.TryAddWithoutValidation(h.Key, [.. h.Value]);
                                 }
@@ -336,15 +336,14 @@ namespace EdFi.Ods.SwaggerUI
                                 using var resp = await http.SendAsync(req, HttpCompletionOption.ResponseHeadersRead, context.RequestAborted);
                                 context.Response.StatusCode = (int)resp.StatusCode;
 
-                                foreach (var h in resp.Headers)
-                                    if (!IsHopByHop(h.Key)) context.Response.Headers[h.Key] = h.Value.ToArray();
-
-                                foreach (var h in resp.Content.Headers)
-                                    if (!IsHopByHop(h.Key)) context.Response.Headers[h.Key] = h.Value.ToArray();
+                                foreach (var h in resp.Headers.Where(h => !IsHopByHop(h.Key)))
+                                    context.Response.Headers[h.Key] = h.Value.ToArray();
+                                foreach (var h in resp.Content.Headers.Where(h => !IsHopByHop(h.Key)))
+                                    context.Response.Headers[h.Key] = h.Value.ToArray();
 
                                 // Kestrel will handle chunking; avoid duplicating transfer-encoding
                                 context.Response.Headers.Remove("transfer-encoding");
-                                using var _ = resp.Content.CopyToAsync(context.Response.Body, context.RequestAborted);
+                                await resp.Content.CopyToAsync(context.Response.Body, context.RequestAborted);
                             }
                             catch (Exception ex)
                             {

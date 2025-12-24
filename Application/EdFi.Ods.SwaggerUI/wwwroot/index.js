@@ -77,50 +77,51 @@ function mapSections(json) {
 }
 
 function createSectionLinks(sectionName) {
-  const { Tenants } = appSettings;
-  var section = sections[sectionName]
-  var prefix = sectionName === 'Resources' ? '' : sectionName + ': '
+    const { Tenants } = appSettings;
+    var section = sections[sectionName]
+    var prefix = sectionName === 'Resources' ? '' : sectionName + ': '
+    var routePrefix = ''
     // For OneRoster, route through embedded Swagger UI by selecting the added doc name
     if (sectionName === 'Ed-Fi OneRoster') {
-      return section.links
+        return section.links
+            .map(function (link) {
+                routePrefix = appSettings.RoutePrefix ? appSettings.RoutePrefix + '/' : ''
+
+                let linkHrefBase = `./${routePrefix}index.html`
+
+                let queryParameters = {}
+                // This must match the name we add in embedded UI: 'Ed-Fi OneRoster: OneRoster'
+                queryParameters['urls.primaryName'] = 'Ed-Fi OneRoster: ' + link.name
+
+                let paramsUrlString = Object.keys(queryParameters)
+                    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(queryParameters[k])}`)
+                    .join('&')
+
+                return `<li><a class="url-link" href="${linkHrefBase}?${paramsUrlString}">${link.name}</a></li>`
+            })
+            .join('')
+    }
+    return section.links
         .map(function (link) {
-          routePrefix = appSettings.RoutePrefix ? appSettings.RoutePrefix + '/' : ''
+            routePrefix = appSettings.RoutePrefix ? appSettings.RoutePrefix + '/' : ''
 
-          let linkHrefBase = `./${routePrefix}index.html`
+            let linkHrefBase = `./${routePrefix}index.html`
 
-          let queryParameters = {}
-          // This must match the name we add in embedded UI: 'Ed-Fi OneRoster: OneRoster'
-          queryParameters['urls.primaryName'] = 'Ed-Fi OneRoster: ' + link.name
+            let queryParameters = {};
 
-          let paramsUrlString = Object.keys(queryParameters)
-            .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(queryParameters[k])}`)
-            .join('&')
+            queryParameters['urls.primaryName'] = `${prefix}${link.name}`;
 
-          return `<li><a class="url-link" href="${linkHrefBase}?${paramsUrlString}">${link.name}</a></li>`
+            if (Tenants.length > 0) {
+                queryParameters.tenantIdentifier = Tenants[0].Tenant;
+            }
+
+            let paramsUrlString = Object.keys(queryParameters)
+                .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(queryParameters[k])}`)
+                .join('&');
+
+            return `<li><a class="url-link" href="${linkHrefBase}?${paramsUrlString}">${link.name}</a></li>`
         })
         .join('')
-    }
-  return section.links
-    .map(function (link) {
-        routePrefix = appSettings.RoutePrefix ? appSettings.RoutePrefix + '/' : ''
-
-        let linkHrefBase = `./${routePrefix}index.html`
-
-        let queryParameters = {};
-
-        queryParameters['urls.primaryName'] = `${prefix}${link.name}`;
-        
-        if (Tenants.length > 0) {
-            queryParameters.tenantIdentifier = Tenants[0].Tenant;
-        }
-        
-        let paramsUrlString = Object.keys(queryParameters)
-          .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(queryParameters[k])}`)
-          .join('&');
-
-        return `<li><a class="url-link" href="${linkHrefBase}?${paramsUrlString}">${link.name}</a></li>`
-    })
-    .join('')
 }
 
 // dynamically creates the api sections using the #sectionTemplate
@@ -130,7 +131,6 @@ function createSections() {
     Object.keys(sections).forEach(function (sectionName) {
     var section = sections[sectionName]
     if (!Array.isArray(section.links) || section.links.length <= 0) return
-        
     var sectionTemplate = document.getElementById('sectionTemplate')
     var templateHtml = sectionTemplate.innerHTML
     var html = templateHtml
