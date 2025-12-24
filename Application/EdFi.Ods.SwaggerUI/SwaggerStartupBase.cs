@@ -70,26 +70,6 @@ namespace EdFi.Ods.SwaggerUI
             }
 
             services.AddHealthChecks();
-
-            if (_enableOneRoster)
-            {
-                if (string.IsNullOrWhiteSpace(_oneRosterMetadataUrl))
-                {
-                    throw new InvalidOperationException(
-                        "One Roster is enabled, but OneRosterMetadataUrl is not configured.");
-                }
-                // Allow requests originating from One Roster
-                services.AddCors(options =>
-                {
-                    options.AddPolicy("AllowOneRoster", builder =>
-                    {
-                        builder.WithOrigins(_oneRosterMetadataUrl)
-                               .AllowAnyHeader()
-                               .AllowAnyMethod()
-                               .AllowCredentials();
-                    });
-                });
-            }
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
@@ -373,7 +353,6 @@ namespace EdFi.Ods.SwaggerUI
                             }
                         });
                 });
-            app.UseCors("AllowOneRoster");
         }
     }
 }

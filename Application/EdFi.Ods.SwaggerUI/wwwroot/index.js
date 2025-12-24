@@ -238,31 +238,15 @@ const fetchOneRosterMetadata = () => {
     // keep default proxy path
   }
 
-  // Verify the spec is reachable, but regardless we will present the link
-  return fetch(effectiveSpecUrl)
-    .then(getJSON)
-    .then((json) => {
-      console.log('OneRoster spec (sanity check) JSON keys:', Object.keys(json || {}))
-      if (!sections['Ed-Fi OneRoster']) {
-        sections['Ed-Fi OneRoster'] = { color: 'blue-text', description: [], links: [] }
-      }
-      const exists = sections['Ed-Fi OneRoster'].links.some((l) => l.uri === effectiveSpecUrl && l.name === 'OneRoster')
-      if (!exists) {
-        sections['Ed-Fi OneRoster'].links.push({ name: 'OneRoster', uri: effectiveSpecUrl })
-      }
-      return sections['Ed-Fi OneRoster'].links
-    })
-    .catch(function () {
-      // Even if fetch fails (e.g., server down), still add link so users can attempt later
-      if (!sections['Ed-Fi OneRoster']) {
-        sections['Ed-Fi OneRoster'] = { color: 'blue-text', description: [], links: [] }
-      }
-      const exists = sections['Ed-Fi OneRoster'].links.some((l) => l.uri === effectiveSpecUrl && l.name === 'OneRoster')
-      if (!exists) {
-        sections['Ed-Fi OneRoster'].links.push({ name: 'OneRoster', uri: effectiveSpecUrl })
-      }
-      return sections['Ed-Fi OneRoster'].links
-    })
+  // Directly add the OneRoster link
+  if (!sections['Ed-Fi OneRoster']) {
+    sections['Ed-Fi OneRoster'] = { color: 'blue-text', description: [], links: [] }
+  }
+  const exists = sections['Ed-Fi OneRoster'].links.some((l) => l.uri === effectiveSpecUrl && l.name === 'OneRoster')
+  if (!exists) {
+    sections['Ed-Fi OneRoster'].links.push({ name: 'OneRoster', uri: effectiveSpecUrl })
+  }
+  return Promise.resolve(sections['Ed-Fi OneRoster'].links)
 }
 
 function fetchSandboxDisclaimer() {
