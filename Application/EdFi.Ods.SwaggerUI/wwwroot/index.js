@@ -214,8 +214,8 @@ const fetchOpenApiMetadata = (webApiVersionUrlJson) => {
 
 // Fetch OneRoster metadata based on app settings and populate the OneRoster section
 const fetchOneRosterMetadata = () => {
-  const { EnableOneRoster, OneRosterMetadataUrl } = appSettings
-  const metaUrlRaw = OneRosterMetadataUrl
+  const { EnableOneRoster, OneRosterVersionUrl } = appSettings
+  const metaUrlRaw = OneRosterVersionUrl
 
   if (!EnableOneRoster) {
     console.log('EnableOneRoster is false; not showing OneRoster section.')

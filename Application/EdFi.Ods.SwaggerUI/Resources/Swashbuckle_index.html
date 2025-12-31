@@ -488,7 +488,7 @@
                 try {
                     if (configObject && configObject.EnableOneRoster) {
                         let specUrl = window.location.origin + "/specs/oneroster.json";
-                        const metaRaw = configObject.OneRosterMetadataUrl;
+                        const metaRaw = configObject.OneRosterVersionUrl;
                         if (typeof metaRaw === 'string' && metaRaw.length > 0) {
                             const u = new URL(metaRaw, window.location.href);
                             if (u.origin === window.location.origin) {

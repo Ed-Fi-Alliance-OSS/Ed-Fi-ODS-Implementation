@@ -31,7 +31,7 @@ namespace EdFi.Ods.SwaggerUI
         private readonly string _routePrefix;
         private const string DefaultRoutePrefix = "swagger";
         private readonly bool _enableOneRoster;
-        private readonly string _oneRosterMetadataUrl;
+        private readonly string _OneRosterVersionUrl;
 
         protected SwaggerStartupBase(IConfiguration configuration)
         {
@@ -47,7 +47,7 @@ namespace EdFi.Ods.SwaggerUI
             }
 
             _enableOneRoster = Configuration.GetValue("EnableOneRoster", false);
-            _oneRosterMetadataUrl = Configuration.GetValue("OneRosterMetadataUrl", string.Empty);
+            _OneRosterVersionUrl = Configuration.GetValue("OneRosterVersionUrl", string.Empty);
         }
 
         private IConfiguration Configuration { get; }
@@ -117,7 +117,7 @@ namespace EdFi.Ods.SwaggerUI
                                         SandboxDisclaimer = sandboxDisclaimer,
                                         ShowDomains = showDomains,
                                         EnableOneRoster = _enableOneRoster,
-                                        OneRosterMetadataUrl = _oneRosterMetadataUrl
+                                        OneRosterVersionUrl = _OneRosterVersionUrl
                                     }));
                         });
                 });
@@ -154,7 +154,7 @@ namespace EdFi.Ods.SwaggerUI
                     options.ConfigObject.AdditionalItems["WebApiVersionUrl"] = webApiUrl;
                     options.ConfigObject.AdditionalItems["ShowDomains"] = showDomains;
                     options.ConfigObject.AdditionalItems["EnableOneRoster"] = _enableOneRoster;
-                    options.ConfigObject.AdditionalItems["OneRosterMetadataUrl"] = _oneRosterMetadataUrl;
+                    options.ConfigObject.AdditionalItems["OneRosterVersionUrl"] = _OneRosterVersionUrl;
                     options.RoutePrefix = _routePrefix;
                 });
 
@@ -181,17 +181,17 @@ namespace EdFi.Ods.SwaggerUI
                             {
                                 using var http = new HttpClient();
                                 // Fetch metadata from configured base and resolve the OpenAPI spec URL from urls.openApiMetadata
-                                if (string.IsNullOrWhiteSpace(_oneRosterMetadataUrl))
+                                if (string.IsNullOrWhiteSpace(_OneRosterVersionUrl))
                                 {
                                     context.Response.StatusCode = 500;
-                                    await context.Response.WriteAsync("OneRosterMetadataUrl is not configured.");
+                                    await context.Response.WriteAsync("OneRosterVersionUrl is not configured.");
                                     return;
                                 }
                                 // Load the metadata document (expected shape contains { urls: { openApiMetadata: "..." } })
                                 string specUrl = null;
                                 try
                                 {
-                                    var metaResponse = await http.GetAsync(_oneRosterMetadataUrl);
+                                    var metaResponse = await http.GetAsync(_OneRosterVersionUrl);
                                     var metaBody = await metaResponse.Content.ReadAsStringAsync();
                                     if (metaResponse.IsSuccessStatusCode)
                                     {
@@ -208,7 +208,7 @@ namespace EdFi.Ods.SwaggerUI
                                 // Fallback to conventional path if metadata did not provide openApiMetadata
                                 if (string.IsNullOrWhiteSpace(specUrl))
                                 {
-                                    specUrl = _oneRosterMetadataUrl.TrimEnd('/') + "/swagger.json";
+                                    specUrl = _OneRosterVersionUrl.TrimEnd('/') + "/swagger.json";
                                 }
 
                                 var specResponse = await http.GetAsync(specUrl);
@@ -297,12 +297,12 @@ namespace EdFi.Ods.SwaggerUI
                             });
 
                             // Resolve the OneRoster spec URL from configuration
-                            string oneRosterSpecUrl = _oneRosterMetadataUrl;
+                            string oneRosterSpecUrl = _OneRosterVersionUrl;
 
                             if (string.IsNullOrWhiteSpace(oneRosterSpecUrl))
                             {
                                 context.Response.StatusCode = 500;
-                                await context.Response.WriteAsync("OneRosterMetadataUrl is not configured.");
+                                await context.Response.WriteAsync("OneRosterVersionUrl is not configured.");
                                 return;
                             }
 
