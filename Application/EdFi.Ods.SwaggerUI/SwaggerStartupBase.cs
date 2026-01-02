@@ -233,7 +233,7 @@ namespace EdFi.Ods.SwaggerUI
                                     }
 
                                     var proxyBase =
-                                        $"{context.Request.Scheme}://{context.Request.Host}/proxy/oneroster".TrimEnd('/');
+                                        $"{context.Request.Scheme}://{context.Request.Host}{_pathBase}/proxy/oneroster".TrimEnd('/');
 
                                     // OpenAPI 3.x
                                     if (root["openapi"] is not null)
@@ -246,7 +246,7 @@ namespace EdFi.Ods.SwaggerUI
                                     {
                                         root["host"] = context.Request.Host.ToString();
                                         root["schemes"] = new JsonArray(context.Request.Scheme);
-                                        root["basePath"] = "/proxy/oneroster";
+                                        root["basePath"] = $"{_pathBase}/proxy/oneroster";
                                     }
                                     var rewritten = root.ToJsonString(new JsonSerializerOptions { WriteIndented = false });
 

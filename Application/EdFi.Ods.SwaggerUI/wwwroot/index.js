@@ -79,28 +79,8 @@ function mapSections(json) {
 function createSectionLinks(sectionName) {
     const { Tenants } = appSettings;
     var section = sections[sectionName]
-    var prefix = sectionName === 'Resources' ? '' : sectionName + ': '
+    var prefix = sectionName === 'Resources' || sectionName === 'Ed-Fi OneRoster' ? '' : sectionName + ': '
     var routePrefix = ''
-    // For OneRoster, route through embedded Swagger UI by selecting the added doc name
-    if (sectionName === 'Ed-Fi OneRoster') {
-        return section.links
-            .map(function (link) {
-                routePrefix = appSettings.RoutePrefix ? appSettings.RoutePrefix + '/' : ''
-
-                let linkHrefBase = `./${routePrefix}index.html`
-
-                let queryParameters = {}
-                // This must match the name we add in embedded UI: 'Ed-Fi OneRoster: OneRoster'
-                queryParameters['urls.primaryName'] = 'Ed-Fi OneRoster: ' + link.name
-
-                let paramsUrlString = Object.keys(queryParameters)
-                    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(queryParameters[k])}`)
-                    .join('&')
-
-                return `<li><a class="url-link" href="${linkHrefBase}?${paramsUrlString}">${link.name}</a></li>`
-            })
-            .join('')
-    }
     return section.links
         .map(function (link) {
             routePrefix = appSettings.RoutePrefix ? appSettings.RoutePrefix + '/' : ''
@@ -162,8 +142,8 @@ function createSections() {
     })
 }
 
-const logJSON = (json) => {
-  console.log(json)
+const logJSON = (json, description) => {
+  console.log(description, json)
   return json
 }
 
@@ -185,10 +165,7 @@ const fetchWebApiVersionUrl = (appSettings) => {
 
   return fetch(WebApiVersionUrl)
     .then(getJSON)
-    .then((json) => {
-      console.log('WebApiVersionUrl response JSON:', json)
-      return json
-    })
+    .then(json => logJSON(json, 'WebApiVersionUrl response'))
     .catch(function (ex) {
       showError(`Failed to retrieve version from ${WebApiVersionUrl}`)
       hideProgress()
@@ -214,39 +191,24 @@ const fetchOpenApiMetadata = (webApiVersionUrlJson) => {
 
 // Fetch OneRoster metadata based on app settings and populate the OneRoster section
 const fetchOneRosterMetadata = () => {
-  const { EnableOneRoster, OneRosterVersionUrl } = appSettings
-  const metaUrlRaw = OneRosterVersionUrl
+  const { EnableOneRoster } = appSettings;
 
   if (!EnableOneRoster) {
-    console.log('EnableOneRoster is false; not showing OneRoster section.')
-    return Promise.resolve([])
+    console.log('EnableOneRoster is false; not showing OneRoster section.');
+    return Promise.resolve([]);
   }
 
-  if (!metaUrlRaw || typeof metaUrlRaw !== 'string' || metaUrlRaw.length === 0) {
-    console.warn('OneRoster metadata URL is not configured; skipping OneRoster section population.')
-    return Promise.resolve([])
-  }
+  // Always use the static path for OneRoster spec
+  const effectiveSpecUrl = './specs/oneroster.json';
 
-  // Use same-origin proxy when the configured URL is cross-origin to avoid CORS
-  let effectiveSpecUrl = './specs/oneroster.json'
-  try {
-    const u = new URL(metaUrlRaw, window.location.href)
-    if (u.origin === window.location.origin) {
-      effectiveSpecUrl = u.href
-    }
-  } catch (e) {
-    // keep default proxy path
-  }
-
-  // Directly add the OneRoster link
   if (!sections['Ed-Fi OneRoster']) {
-    sections['Ed-Fi OneRoster'] = { color: 'blue-text', description: [], links: [] }
+    sections['Ed-Fi OneRoster'] = { color: 'blue-text', description: [], links: [] };
   }
-  const exists = sections['Ed-Fi OneRoster'].links.some((l) => l.uri === effectiveSpecUrl && l.name === 'OneRoster')
+  const exists = sections['Ed-Fi OneRoster'].links.some((l) => l.uri === effectiveSpecUrl && l.name === 'OneRoster');
   if (!exists) {
-    sections['Ed-Fi OneRoster'].links.push({ name: 'OneRoster', uri: effectiveSpecUrl })
+    sections['Ed-Fi OneRoster'].links.push({ name: 'OneRoster', uri: effectiveSpecUrl });
   }
-  return Promise.resolve(sections['Ed-Fi OneRoster'].links)
+  return Promise.resolve(sections['Ed-Fi OneRoster'].links);
 }
 
 function fetchSandboxDisclaimer() {
