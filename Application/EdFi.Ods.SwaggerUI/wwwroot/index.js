@@ -199,7 +199,7 @@ const fetchOneRosterMetadata = () => {
   }
 
   // Always use the static path for OneRoster spec
-  const effectiveSpecUrl = './specs/oneroster.json';
+  const effectiveSpecUrl = '../specs/oneroster.json';
 
   if (!sections['Ed-Fi OneRoster']) {
     sections['Ed-Fi OneRoster'] = { color: 'blue-text', description: [], links: [] };

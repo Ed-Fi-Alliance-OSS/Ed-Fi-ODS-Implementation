@@ -487,7 +487,7 @@
                 // EnableOneRoster from config, using configured metadata URL
                 try {
                     if (configObject && configObject.EnableOneRoster) {
-                        let specUrl = new URL("./specs/oneroster.json", window.location.href).toString();
+                        let specUrl = new URL("../specs/oneroster.json", window.location.href).toString();
                         const metaRaw = configObject.OneRosterVersionUrl;
                         if (typeof metaRaw === 'string' && metaRaw.length > 0) {
                             const u = new URL(metaRaw, window.location.href);

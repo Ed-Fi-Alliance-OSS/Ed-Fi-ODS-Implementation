@@ -6,9 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -167,10 +165,10 @@ namespace EdFi.Ods.SwaggerUI
             });
         }
 
-        // Configures OneRoster spec proxying and API proxying
+        // Configures OneRoster spec
         private void ConfigureOneRoster(IApplicationBuilder app, ILogger logger)
         {
-            // Same-origin proxy for OneRoster spec to avoid CORS issues when the spec is hosted on another origin.
+            // Serve the OneRoster spec as-is, using the servers from the spec document
             app.Map(
                 "/specs/oneroster.json", builder =>
                 {
@@ -180,7 +178,6 @@ namespace EdFi.Ods.SwaggerUI
                             try
                             {
                                 using var http = new HttpClient();
-                                // Fetch metadata from configured base and resolve the OpenAPI spec URL from urls.openApiMetadata
                                 if (string.IsNullOrWhiteSpace(_OneRosterVersionUrl))
                                 {
                                     context.Response.StatusCode = 500;
@@ -201,11 +198,9 @@ namespace EdFi.Ods.SwaggerUI
                                 }
                                 catch(Exception ex)
                                 {
-                                    // Ignore metadata fetch errors and fall back below
                                     logger.LogWarning($"Failed to fetch or parse OneRoster metadata; falling back to conventional spec URL. Error: {ex.Message}");
                                 }
 
-                                // Fallback to conventional path if metadata did not provide openApiMetadata
                                 if (string.IsNullOrWhiteSpace(specUrl))
                                 {
                                     specUrl = _OneRosterVersionUrl.TrimEnd('/') + "/swagger.json";
@@ -214,141 +209,14 @@ namespace EdFi.Ods.SwaggerUI
                                 var specResponse = await http.GetAsync(specUrl);
                                 var specBody = await specResponse.Content.ReadAsStringAsync();
 
-                                if (!specResponse.IsSuccessStatusCode)
-                                {
-                                    context.Response.StatusCode = (int)specResponse.StatusCode;
-                                    await context.Response.WriteAsync(specBody);
-                                    return;
-                                }
-
-                                // Rewrite servers to point to our same-origin proxy so Try-It-Out uses the proxy
-                                try
-                                {
-                                    JsonObject root = JsonNode.Parse(specBody) as JsonObject;
-                                    if (root is null)
-                                    {
-                                        context.Response.StatusCode = 500;
-                                        await context.Response.WriteAsync(specBody);
-                                        return;
-                                    }
-
-                                    var proxyBase =
-                                        $"{context.Request.Scheme}://{context.Request.Host}{_pathBase}/proxy/oneroster".TrimEnd('/');
-
-                                    // OpenAPI 3.x
-                                    if (root["openapi"] is not null)
-                                    {
-                                        root["servers"] = new JsonArray(
-                                            new JsonObject { ["url"] = proxyBase });
-                                    }
-                                    // Swagger 2.0
-                                    else if ((root["swagger"]?.GetValue<string>() ?? "").StartsWith("2"))
-                                    {
-                                        root["host"] = context.Request.Host.ToString();
-                                        root["schemes"] = new JsonArray(context.Request.Scheme);
-                                        root["basePath"] = $"{_pathBase}/proxy/oneroster";
-                                    }
-                                    var rewritten = root.ToJsonString(new JsonSerializerOptions { WriteIndented = false });
-
-                                    context.Response.StatusCode = (int)specResponse.StatusCode;
-                                    context.Response.ContentType = "application/json";
-                                    await context.Response.WriteAsync(rewritten);
-                                }
-                                catch (Exception ex)
-                                {
-                                    // Fallback: return original spec if rewrite fails
-                                    logger.LogWarning($"Failed to rewrite OneRoster spec servers; returning original spec. Error: {ex.Message}");
-                                    context.Response.StatusCode = (int)specResponse.StatusCode;
-                                    context.Response.ContentType = "application/json";
-                                    await context.Response.WriteAsync(specBody);
-                                }
+                                context.Response.StatusCode = (int)specResponse.StatusCode;
+                                context.Response.ContentType = "application/json";
+                                await context.Response.WriteAsync(specBody);
                             }
                             catch (Exception ex)
                             {
                                 context.Response.StatusCode = 500;
-                                await context.Response.WriteAsync($"Proxy error: {ex.Message}");
-                            }
-                        });
-                });
-
-            // Determine if a header is hop-by-hop and should not be forwarded
-            static bool IsHopByHop(string name)
-            {
-                return name.Equals("Connection", StringComparison.OrdinalIgnoreCase)
-                       || name.Equals("Transfer-Encoding", StringComparison.OrdinalIgnoreCase)
-                       || name.Equals("Keep-Alive", StringComparison.OrdinalIgnoreCase)
-                       || name.Equals("Proxy-Authenticate", StringComparison.OrdinalIgnoreCase)
-                       || name.Equals("Proxy-Authorization", StringComparison.OrdinalIgnoreCase)
-                       || name.Equals("TE", StringComparison.OrdinalIgnoreCase)
-                       || name.Equals("Trailer", StringComparison.OrdinalIgnoreCase)
-                       || name.Equals("Upgrade", StringComparison.OrdinalIgnoreCase);
-            }
-
-            // Generic pass-through proxy to forward OneRoster API calls to the external origin
-            app.Map(
-                "/proxy/oneroster", builder =>
-                {
-                    builder.Run(
-                        async context =>
-                        {
-                            using var http = new HttpClient(new SocketsHttpHandler
-                            {
-                                PooledConnectionLifetime = TimeSpan.FromMinutes(5)
-                            });
-
-                            // Resolve the OneRoster spec URL from configuration
-                            string oneRosterSpecUrl = _OneRosterVersionUrl;
-
-                            if (string.IsNullOrWhiteSpace(oneRosterSpecUrl))
-                            {
-                                context.Response.StatusCode = 500;
-                                await context.Response.WriteAsync("OneRosterVersionUrl is not configured.");
-                                return;
-                            }
-
-                            // Fetch the OneRoster spec and determine the API server base (OAS3 preferred)
-                            try
-                            {
-                                // Build target URL
-                                var baseUri = new Uri(oneRosterSpecUrl.TrimEnd('/') + "/");
-                                var relPath = (context.Request.Path.Value ?? string.Empty).TrimStart('/');
-                                var target = new Uri(baseUri, relPath + context.Request.QueryString.ToUriComponent());
-
-                                using var req = new HttpRequestMessage(new HttpMethod(context.Request.Method), target);
-
-                                // Body (only when present)
-                                if (context.Request.ContentLength > 0)
-                                {
-                                    req.Content = new StreamContent(context.Request.Body);
-                                    if (!string.IsNullOrWhiteSpace(context.Request.ContentType))
-                                        req.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(context.Request.ContentType);
-                                }
-
-                                // Copy headers (skip Host + hop-by-hop)
-                                foreach (var h in context.Request.Headers.Where(h => 
-                                !h.Key.Equals("Host", StringComparison.OrdinalIgnoreCase) && !IsHopByHop(h.Key)))
-                                {
-                                    if (!req.Headers.TryAddWithoutValidation(h.Key, [.. h.Value]))
-                                        req.Content?.Headers.TryAddWithoutValidation(h.Key, [.. h.Value]);
-                                }
-
-                                // Send + stream response back
-                                using var resp = await http.SendAsync(req, HttpCompletionOption.ResponseHeadersRead, context.RequestAborted);
-                                context.Response.StatusCode = (int)resp.StatusCode;
-
-                                foreach (var h in resp.Headers.Where(h => !IsHopByHop(h.Key)))
-                                    context.Response.Headers[h.Key] = h.Value.ToArray();
-                                foreach (var h in resp.Content.Headers.Where(h => !IsHopByHop(h.Key)))
-                                    context.Response.Headers[h.Key] = h.Value.ToArray();
-
-                                // Kestrel will handle chunking; avoid duplicating transfer-encoding
-                                context.Response.Headers.Remove("transfer-encoding");
-                                await resp.Content.CopyToAsync(context.Response.Body, context.RequestAborted);
-                            }
-                            catch (Exception ex)
-                            {
-                                context.Response.StatusCode = 500;
-                                await context.Response.WriteAsync($"Proxy error: {ex.Message}");
+                                await context.Response.WriteAsync($"Error: {ex.Message}");
                             }
                         });
                 });
