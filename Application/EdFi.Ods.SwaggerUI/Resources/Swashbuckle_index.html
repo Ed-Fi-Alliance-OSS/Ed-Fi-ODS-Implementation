@@ -487,15 +487,7 @@
                 // EnableOneRoster from config, using configured metadata URL
                 try {
                     if (configObject && configObject.EnableOneRoster) {
-                        let specUrl = new URL("../specs/oneroster.json", window.location.href).toString();
-                        const metaRaw = configObject.OneRosterVersionUrl;
-                        if (typeof metaRaw === 'string' && metaRaw.length > 0) {
-                            const u = new URL(metaRaw, window.location.href);
-                            if (u.origin === window.location.origin) {
-                                specUrl = u.href;
-                            }
-                        }
-                        // Avoid duplicate entries
+                        const specUrl = configObject.OneRosterMetadataUrl;
                         if (!urls.some(u => u.name === 'OneRoster')) {
                             urls.push({ url: specUrl, name: 'OneRoster' });
                             console.log("Added OneRoster via config:", specUrl);

@@ -191,22 +191,18 @@ const fetchOpenApiMetadata = (webApiVersionUrlJson) => {
 
 // Fetch OneRoster metadata based on app settings and populate the OneRoster section
 const fetchOneRosterMetadata = () => {
-  const { EnableOneRoster } = appSettings;
+  const { EnableOneRoster, OneRosterMetadataUrl } = appSettings;
 
   if (!EnableOneRoster) {
     console.log('EnableOneRoster is false; not showing OneRoster section.');
     return Promise.resolve([]);
   }
-
-  // Always use the static path for OneRoster spec
-  const effectiveSpecUrl = '../specs/oneroster.json';
-
   if (!sections['Ed-Fi OneRoster']) {
     sections['Ed-Fi OneRoster'] = { color: 'blue-text', description: [], links: [] };
   }
-  const exists = sections['Ed-Fi OneRoster'].links.some((l) => l.uri === effectiveSpecUrl && l.name === 'OneRoster');
+    const exists = sections['Ed-Fi OneRoster'].links.some((l) => l.uri === OneRosterMetadataUrl && l.name === 'OneRoster');
   if (!exists) {
-    sections['Ed-Fi OneRoster'].links.push({ name: 'OneRoster', uri: effectiveSpecUrl });
+      sections['Ed-Fi OneRoster'].links.push({ name: 'OneRoster', uri: OneRosterMetadataUrl });
   }
   return Promise.resolve(sections['Ed-Fi OneRoster'].links);
 }
