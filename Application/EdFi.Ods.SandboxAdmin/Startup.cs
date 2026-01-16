@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Dapper;
@@ -17,8 +15,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,8 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Quartz;
+using System;
+using System.Collections.Generic;
 using UserOptions = EdFi.Ods.Sandbox.Admin.Services.Initialization.UserOptions;
 
 namespace EdFi.Ods.SandboxAdmin
@@ -58,11 +61,9 @@ namespace EdFi.Ods.SandboxAdmin
             _logger.Debug("Building services collection");
 
             var databaseEngine = Configuration["ApiSettings:Engine"];
-
+            services.AddHttpContextAccessor();
             services.AddSingleton(ApiSettings);
             services.AddSingleton(Configuration);
-            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-            services.AddHttpContextAccessor();
 
             if (ApiSettings.UseReverseProxyHeaders.HasValue && ApiSettings.UseReverseProxyHeaders.Value)
             {
@@ -78,7 +79,12 @@ namespace EdFi.Ods.SandboxAdmin
             services.AddScoped(
                 serviceProvider =>
                 {
-                    var actionContext = serviceProvider.GetRequiredService<IActionContextAccessor>().ActionContext;
+                    var httpContext = serviceProvider.GetRequiredService<IHttpContextAccessor>().HttpContext;
+                    if (httpContext == null)
+                    {
+                        throw new InvalidOperationException("IUrlHelper requires an active HTTP request.");
+                    }
+                    var actionContext = new ActionContext(httpContext, httpContext.GetRouteData(), httpContext.GetEndpoint()?.Metadata.GetMetadata<ActionDescriptor>() ?? new ActionDescriptor());
                     var factory = serviceProvider.GetRequiredService<IUrlHelperFactory>();
                     return factory.GetUrlHelper(actionContext);
                 });
