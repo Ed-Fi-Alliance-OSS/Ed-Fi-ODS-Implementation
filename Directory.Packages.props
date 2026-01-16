@@ -5,20 +5,20 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Database Packages -->
-    <PackageVersion Include="dbup-postgresql" Version="5.0.40" />
-    <PackageVersion Include="dbup-sqlserver" Version="5.0.41" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.11" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.11" />
+    <PackageVersion Include="dbup-postgresql" Version="6.1.5" />
+    <PackageVersion Include="dbup-sqlserver" Version="6.0.16" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.2" />
     <PackageVersion Include="NHibernate" Version="5.6.0" />
-    <PackageVersion Include="Npgsql" Version="9.0.4" />
+    <PackageVersion Include="Npgsql" Version="10.0.1" />
     <!-- Ed-Fi Suite Packages -->
-    <PackageVersion Include="EdFi.Suite3.Admin.DataAccess" Version="7.3.10260" />
-    <PackageVersion Include="EdFi.Suite3.Common" Version="7.3.10246" />
-    <PackageVersion Include="EdFi.Suite3.Security.DataAccess" Version="7.3.10256" />
+    <PackageVersion Include="EdFi.Suite3.Admin.DataAccess" Version="7.3.10291" />
+    <PackageVersion Include="EdFi.Suite3.Common" Version="7.3.10276" />
+    <PackageVersion Include="EdFi.Suite3.Security.DataAccess" Version="7.3.10286" />
     <!-- ASP.NET Core Packages -->
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.22" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.22" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.11" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.2" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="8.0.0" />
     <!-- Health Check Packages -->
     <PackageVersion Include="AspNetCore.HealthChecks.NpgSql" Version="9.0.0" />
@@ -36,6 +36,6 @@
     <PackageVersion Include="log4net" Version="3.2.0" />
     <PackageVersion Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.23.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="9.0.6" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="10.1.0" />
   </ItemGroup>
 </Project>
