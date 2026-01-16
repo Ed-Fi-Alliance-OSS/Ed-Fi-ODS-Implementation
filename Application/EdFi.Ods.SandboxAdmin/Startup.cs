@@ -70,8 +70,8 @@ namespace EdFi.Ods.SandboxAdmin
                     options =>
                     {
                         options.ForwardedHeaders = ForwardedHeaders.XForwardedFor
-                                                   & ForwardedHeaders.XForwardedHost
-                                                   & ForwardedHeaders.XForwardedProto;
+                                                   | ForwardedHeaders.XForwardedHost
+                                                   | ForwardedHeaders.XForwardedProto;
                     });
             }
 

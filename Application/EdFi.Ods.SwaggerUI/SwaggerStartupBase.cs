@@ -53,8 +53,7 @@ namespace EdFi.Ods.SwaggerUI
                                                    | ForwardedHeaders.XForwardedProto;
 
                         // Accept forwarded headers from any network and proxy
-                        options.KnownNetworks.Clear();
-                        options.KnownProxies.Clear();
+                        options.RequireHeaderSymmetry = false;
                     });
             }
 
