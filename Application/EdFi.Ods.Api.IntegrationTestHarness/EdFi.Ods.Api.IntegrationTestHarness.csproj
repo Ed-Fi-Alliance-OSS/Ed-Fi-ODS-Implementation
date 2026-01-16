@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Configurations>Debug;Release</Configurations>
     <AssemblyName>EdFi.Ods.Api.IntegrationTestHarness</AssemblyName>
     <RootNamespace>EdFi.Ods.Api.IntegrationTestHarness</RootNamespace>
