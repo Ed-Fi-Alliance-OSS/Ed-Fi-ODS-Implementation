@@ -31,7 +31,7 @@ sections.Profiles.description = [
 ]
 
 sections['Ed-Fi OneRoster'].description = [
-  'The Ed-Fi OneRoster section appears when enabled in app settings and uses the configured OneRoster metadata to build links.',
+  '1EdTech OneRoster® 1.2–compatible REST interface for roster data served from Ed‑Fi ODS. This add‑on simplifies integration for systems that already support OneRoster, reducing custom mapping and ensuring secure, standards‑based rostering.',
 ]
 
 function hideProgress() {
