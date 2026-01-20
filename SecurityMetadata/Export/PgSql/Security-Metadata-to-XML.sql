@@ -1,41 +1,3 @@
-WITH RECURSIVE claim_hierarchy AS (
-    -- Start with top-level claims (no parent)
-    SELECT
-        rc.ResourceClaimId AS claim_id,
-        rc.ClaimName AS claim_name,
-        rc.ResourceName AS resource_name,
-        rc.ParentResourceClaimId AS parent_claim_id
-    FROM
-        dbo.ResourceClaims rc
-    WHERE
-        rc.ParentResourceClaimId IS NULL
-
-    UNION ALL
-
-    -- Recursively join to find all descendants
-    SELECT
-        rc.ResourceClaimId,
-        rc.ClaimName,
-        rc.ResourceName,
-        rc.ParentResourceClaimId
-    FROM
-        dbo.ResourceClaims rc
-    INNER JOIN
-        claim_hierarchy ch ON rc.ParentResourceClaimId = ch.claim_id
-)
-
-SELECT xmlelement(
-    name "SecurityMetadata",
-    xmlelement(
-        name "Claims",
-        xmlagg(build_claim_hierarchy_xml(claim_id, claim_name, resource_name, parent_claim_id))
-    )
-) AS security_metadata
-FROM claim_hierarchy
-WHERE parent_claim_id IS NULL;
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 -- Helper function to recursively build the hierarchy
 CREATE OR REPLACE FUNCTION build_claim_hierarchy_xml(
     claim_id INT,
@@ -167,3 +129,46 @@ BEGIN
     );
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION get_authorization_metadata_document()
+RETURNS XML AS $$
+BEGIN
+    RETURN (
+        WITH RECURSIVE claim_hierarchy AS (
+            -- Start with top-level claims (no parent)
+            SELECT
+                rc.ResourceClaimId AS claim_id,
+                rc.ClaimName AS claim_name,
+                rc.ResourceName AS resource_name,
+                rc.ParentResourceClaimId AS parent_claim_id
+            FROM
+                dbo.ResourceClaims rc
+            WHERE
+                rc.ParentResourceClaimId IS NULL
+
+            UNION ALL
+
+            -- Recursively join to find all descendants
+            SELECT
+                rc.ResourceClaimId,
+                rc.ClaimName,
+                rc.ResourceName,
+                rc.ParentResourceClaimId
+            FROM
+                dbo.ResourceClaims rc
+            INNER JOIN
+                claim_hierarchy ch ON rc.ParentResourceClaimId = ch.claim_id
+        )
+
+        SELECT xmlelement(
+            name "SecurityMetadata",
+            xmlelement(
+                name "Claims",
+                xmlagg(build_claim_hierarchy_xml(claim_id, claim_name, resource_name, parent_claim_id))
+            )
+        ) AS security_metadata
+        FROM claim_hierarchy
+        WHERE parent_claim_id IS NULL
+    );
+END;
+$$ LANGUAGE plpgsql;
