@@ -11,7 +11,7 @@ ARG BULKLOAD_VERSION
 RUN dotnet tool install -g \
     --add-source https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json \
     EdFi.Suite3.BulkLoadClient.Console --version $BULKLOAD_VERSION && \
-    rm -f /root/.dotnet/tools/.store/edfi.suite3.bulkloadclient.console/$BULKLOAD_VERSION/edfi.suite3.bulkloadclient.console/$BULKLOAD_VERSION/tools/net8.0/any/log4net.config
+    rm -f /root/.dotnet/tools/.store/edfi.suite3.bulkloadclient.console/$BULKLOAD_VERSION/edfi.suite3.bulkloadclient.console/$BULKLOAD_VERSION/tools/net10.0/any/log4net.config
 
 # Smaller image
 FROM mcr.microsoft.com/dotnet/runtime:8.0.21-alpine3.21@sha256:04448f605936ab16ae2a67ee3283398f24b458a669ce8e6b77cfec877027852f
