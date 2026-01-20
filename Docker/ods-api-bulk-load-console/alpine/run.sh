@@ -7,6 +7,6 @@
 set -e
 set +x
 
-envsubst < /tmp/log4net.template.config > /opt/bin/.store/edfi.suite3.bulkloadclient.console/$ENV_BULKLOAD_VERSION/edfi.suite3.bulkloadclient.console/$ENV_BULKLOAD_VERSION/tools/net8.0/any/log4net.config 
+envsubst < /tmp/log4net.template.config > /opt/bin/.store/edfi.suite3.bulkloadclient.console/$ENV_BULKLOAD_VERSION/edfi.suite3.bulkloadclient.console/$ENV_BULKLOAD_VERSION/tools/net10.0/any/log4net.config 
 
 EdFi.BulkLoadClient.Console $@ -w /var/bulkload/working -d /var/bulkload/data
