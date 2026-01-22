@@ -25,6 +25,11 @@ namespace EdFi.Ods.SandboxAdmin
 
         public static async Task Main(string[] args)
         {
+            // Configure Npgsql to use legacy DateTime behavior instead of DateOnly/TimeOnly
+            // This must be set before any Npgsql connections are created
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            AppContext.SetSwitch("Npgsql.DisableDateOnlyTimeOnlyConversions", true);
+            
             var result = Parser.Default.ParseArguments<Options>(args);
 
             await result.MapResult(
@@ -41,9 +46,6 @@ namespace EdFi.Ods.SandboxAdmin
                                 webBuilder.UseSetting("ExitAfterSandboxCreation", opts.ExitAfterSandboxCreation.ToString());
                                 webBuilder.UseStartup<Startup>();
                             }).Build();
-                    
-                    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-                    AppContext.SetSwitch("Npgsql.DisableDateOnlyTimeOnlyConversions", true);
                     
                     await host.RunAsync();
                 },
