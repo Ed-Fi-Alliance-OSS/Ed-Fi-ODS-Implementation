@@ -58,6 +58,7 @@ namespace EdFi.Ods.WebApi
             var host = hostBuilder.Build();
 
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            AppContext.SetSwitch("Npgsql.DisableDateOnlyTimeOnlyConversions", true);
 
             await host.RunAsync();
 
