@@ -42,6 +42,9 @@ namespace EdFi.Ods.SandboxAdmin
                                 webBuilder.UseStartup<Startup>();
                             }).Build();
                     
+                    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+                    AppContext.SetSwitch("Npgsql.DisableDateOnlyTimeOnlyConversions", true);
+                    
                     await host.RunAsync();
                 },
                 errors =>
