@@ -21,11 +21,6 @@ namespace EdFi.Ods.WebApi
     {
         public static async Task Main(string[] args)
         {
-            // Configure Npgsql to use legacy DateTime behavior instead of DateOnly/TimeOnly
-            // This must be set before any Npgsql connections are created
-            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-            AppContext.SetSwitch("Npgsql.DisableDateOnlyTimeOnlyConversions", true);
-            
             string startupClassName;
 
             using (var hostBuilderInitial = Host.CreateDefaultBuilder(args).Build())
@@ -62,6 +57,7 @@ namespace EdFi.Ods.WebApi
 
             var host = hostBuilder.Build();
 
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             await host.RunAsync();
 
