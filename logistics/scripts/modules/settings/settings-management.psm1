@@ -7,7 +7,7 @@
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/hashtable.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/config/config-management.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/plugin/plugin-source.psm1')
-    # Import key pair module
+# Import key pair module
 Import-Module -Force (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/public-private-key-pair.psm1')
 
 function Get-ProjectTypes {
@@ -766,13 +766,15 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
 
         $newDevelopmentSettings = Add-SwaggerUiYearSettings $newDevelopmentSettings $Project
 
-        # Inject Security.Jwt.SigningKey with generated keys (unescaped PEM)
+
+        # Inject or update Security.Jwt.SigningKey with generated keys (unescaped PEM)
         if (-not $newDevelopmentSettings.Security) { $newDevelopmentSettings.Security = @{} }
         if (-not $newDevelopmentSettings.Security.Jwt) { $newDevelopmentSettings.Security.Jwt = @{} }
-        $newDevelopmentSettings.Security.Jwt.SigningKey = @{
-            PublicKey = $keyPair.PublicKey
-            PrivateKey = $keyPair.PrivateKey
+        if (-not $newDevelopmentSettings.Security.Jwt.SigningKey) {
+            $newDevelopmentSettings.Security.Jwt.SigningKey = @{}
         }
+        $newDevelopmentSettings.Security.Jwt.SigningKey.PublicKey = $keyPair.PublicKey
+        $newDevelopmentSettings.Security.Jwt.SigningKey.PrivateKey = $keyPair.PrivateKey
 
         if ($Settings.InstallType -eq 'MultiTenant')
         {
