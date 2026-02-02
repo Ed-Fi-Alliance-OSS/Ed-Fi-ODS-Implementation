@@ -160,6 +160,23 @@ function Install-EdFiOdsWebApi {
 
         Install in a single instance with basic database
         configuration, with override all available web.config app settings.
+
+    .EXAMPLE
+        PS c:/> $parameters = @{
+            DbConnectionInfo = @{
+                Engine="SqlServer"
+                Server="localhost"
+                UseIntegratedSecurity=$true
+            }
+            AccessTokenType = "jwt"
+        }
+        PS c:/> Install-EdFiOdsWebApi @parameters
+
+        Install with JWT (JSON Web Token) access tokens instead of the default GUID tokens.
+        When AccessTokenType is set to "jwt", the installer automatically generates a new
+        public/private key pair for signing JWT tokens. This provides enhanced security
+        features such as token verification, expiration claims, and the ability to include
+        additional claims in the token payload.
     #>
     [CmdletBinding()]
     param (
@@ -320,6 +337,7 @@ function Install-EdFiOdsWebApi {
         [switch]
         $UnEncryptedConnection,
 
+        # Type of access token to be used by the WebApi.
         [ValidateSet("guid", "jwt")]
         [string]
         $AccessTokenType = "guid"
@@ -542,6 +560,8 @@ function Invoke-TransformWebConfigAppSettings {
         if ($Config.AccessTokenType -eq 'jwt') {
             $keyPair = New-PublicPrivateKeyPair
             if (-not $settings.Security) { $settings.Security = @{} }
+            if (-not $settings.Security.AccessTokenType) { $settings.Security.AccessTokenType = "" }
+            $settings.Security.AccessTokenType = "jwt"
             if (-not $settings.Security.Jwt) { $settings.Security.Jwt = @{} }
             if (-not $settings.Security.Jwt.SigningKey) { $settings.Security.Jwt.SigningKey = @{} }
             $settings.Security.Jwt.SigningKey.PublicKey = $keyPair.PublicKey
