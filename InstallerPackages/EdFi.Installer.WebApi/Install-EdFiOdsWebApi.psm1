@@ -560,7 +560,6 @@ function Invoke-TransformWebConfigAppSettings {
         if ($Config.AccessTokenType -eq 'jwt') {
             $keyPair = New-PublicPrivateKeyPair
             if (-not $settings.Security) { $settings.Security = @{} }
-            if (-not $settings.Security.AccessTokenType) { $settings.Security.AccessTokenType = "" }
             $settings.Security.AccessTokenType = "jwt"
             if (-not $settings.Security.Jwt) { $settings.Security.Jwt = @{} }
             if (-not $settings.Security.Jwt.SigningKey) { $settings.Security.Jwt.SigningKey = @{} }

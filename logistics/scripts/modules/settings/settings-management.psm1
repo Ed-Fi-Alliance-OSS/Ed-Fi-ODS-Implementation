@@ -7,7 +7,6 @@
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/hashtable.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/config/config-management.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/plugin/plugin-source.psm1')
-# Import key pair module
 Import-Module -Force (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/public-private-key-pair.psm1')
 
 function Get-ProjectTypes {
@@ -767,9 +766,17 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         $newDevelopmentSettings = Add-SwaggerUiYearSettings $newDevelopmentSettings $Project
 
 
-        # Inject or update Security.Jwt.SigningKey with generated keys (unescaped PEM)
+        # Inject or update entire Security section with default configuration
         if (-not $newDevelopmentSettings.Security) { $newDevelopmentSettings.Security = @{} }
-        if (-not $newDevelopmentSettings.Security.Jwt) { $newDevelopmentSettings.Security.Jwt = @{} }
+        
+        $newDevelopmentSettings.Security.AccessTokenType = if ($Settings.Security.AccessTokenType) { $Settings.Security.AccessTokenType } else { "guid" }    
+        
+        if (-not $newDevelopmentSettings.Security.Jwt) { 
+            $newDevelopmentSettings.Security.Jwt = @{} 
+        }      
+        $newDevelopmentSettings.Security.Jwt.Issuer = if ($Settings.Security.Jwt.Issuer) { $Settings.Security.Jwt.Issuer } else { "http://localhost:54746" }
+        $newDevelopmentSettings.Security.Jwt.Audiences = if ($Settings.Security.Jwt.Audiences) { $Settings.Security.Jwt.Audiences } else { @("http://localhost:54746", "http://localhost:3000") }
+        
         if (-not $newDevelopmentSettings.Security.Jwt.SigningKey) {
             $newDevelopmentSettings.Security.Jwt.SigningKey = @{}
         }
