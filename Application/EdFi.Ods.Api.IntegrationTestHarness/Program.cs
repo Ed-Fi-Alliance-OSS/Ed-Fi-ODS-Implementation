@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
 using System.Reflection;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Npgsql;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
@@ -22,6 +24,12 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         {
             var _logger = LogManager.GetLogger(typeof(Program));
             _logger.Debug("Loading configuration files");
+
+#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable NPG9001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+            NpgsqlConnection.GlobalTypeMapper.AddTypeInfoResolverFactory(new LegacyDateAndTimeResolverFactory());
+#pragma warning restore NPG9001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+#pragma warning restore CS0618 // Type or member is obsolete
 
             ConfigureLogging();
 

@@ -3,11 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
 using CommandLine;
 using CommandLine.Text;
@@ -16,6 +11,12 @@ using log4net;
 using log4net.Config;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Npgsql;
+using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace EdFi.Ods.SandboxAdmin
 {
@@ -26,6 +27,11 @@ namespace EdFi.Ods.SandboxAdmin
         public static async Task Main(string[] args)
         {
             var result = Parser.Default.ParseArguments<Options>(args);
+#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable NPG9001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+            NpgsqlConnection.GlobalTypeMapper.AddTypeInfoResolverFactory(new LegacyDateAndTimeResolverFactory());
+#pragma warning restore NPG9001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+#pragma warning restore CS0618 // Type or member is obsolete
 
             await result.MapResult(
                 async (Options opts) =>
