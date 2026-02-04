@@ -97,7 +97,7 @@
     },
     "EdFi.BulkLoadClient.Console": {
       "PackageName": "EdFi.Suite3.BulkLoadClient.Console",
-      "PackageVersion": "latest",
+      "PackageVersion": "7.3.10212",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.SmokeTest.Console": {
