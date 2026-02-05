@@ -5,10 +5,10 @@
 
 <#
 .SYNOPSIS
-Generates a new RSA public/private key pair and outputs them in PEM and JSON formats.
+Generates a new RSA public/private key pair and outputs them in PEM format.
 
 .DESCRIPTION
-This function creates a 2048-bit RSA key pair, displays the private and public keys in PEM format, and also outputs their JSON representations for use in appsettings.json.
+This function creates a 2048-bit RSA key pair and displays the private and public keys in PEM format.
 
 .EXAMPLE
 Import-Module "./public-private-key-pair.psm1"
@@ -19,17 +19,24 @@ function New-PublicPrivateKeyPair {
 
 	$rsa = [System.Security.Cryptography.RSA]::Create(2048)
 
-	# Export Private Key (for the API to sign tokens)
-	$privateKey = $rsa.ExportPkcs8PrivateKeyPem()
+	# Check if running on PowerShell 7+ (.NET Core/.NET 5+) which has PEM export methods
+	$hasPemMethods = $rsa.GetType().GetMethod('ExportPkcs8PrivateKeyPem') -ne $null
 
-	# Export Public Key (for the API and Node.js to verify tokens)
-	$publicKey = $rsa.ExportSubjectPublicKeyInfoPem()
+	if ($hasPemMethods) {
+		$privateKey = $rsa.ExportPkcs8PrivateKeyPem()
+		$publicKey = $rsa.ExportSubjectPublicKeyInfoPem()
+	}
+	else {
+		Write-Warning "Private and public key generation requires PowerShell 7 or later for proper PKCS#8 key generation. Returning empty keys. Please upgrade to PowerShell 7+."
+		$privateKey = ""
+		$publicKey = ""
+	}
 
 	$rsa.Dispose()
 
 	return [PSCustomObject]@{
-    PrivateKey = $privateKey
-    PublicKey = $publicKey
+		PrivateKey = $privateKey
+		PublicKey = $publicKey
 	}
 }
 
