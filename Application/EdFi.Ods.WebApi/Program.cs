@@ -6,6 +6,7 @@
 using Autofac.Extensions.DependencyInjection;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Helpers;
+using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
