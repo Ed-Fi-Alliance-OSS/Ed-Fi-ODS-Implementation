@@ -8,7 +8,7 @@
 Generates a new RSA public/private key pair and outputs them in PEM format.
 
 .DESCRIPTION
-This function creates a 2048-bit RSA key pair and displays the private and public keys in PEM format.
+This function creates a 2048-bit RSA key pair and outputs the private and public keys in PEM format.
 
 .EXAMPLE
 Import-Module "./public-private-key-pair.psm1"
@@ -27,7 +27,7 @@ function New-PublicPrivateKeyPair {
 		$publicKey = $rsa.ExportSubjectPublicKeyInfoPem()
 	}
 	else {
-		Write-Warning "Private and public key generation requires PowerShell 7 or later for proper PKCS#8 key generation. Returning empty keys. Please upgrade to PowerShell 7+."
+		Write-Warning "Skipping signing key generation (PowerShell 7+ required for PEM export)"
 		$privateKey = ""
 		$publicKey = ""
 	}
