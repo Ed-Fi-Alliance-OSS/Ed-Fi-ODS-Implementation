@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
 using System.Reflection;
@@ -15,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Npgsql;
+using EdFi.Ods.Common.Infrastructure.Configuration;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
