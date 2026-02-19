@@ -149,13 +149,13 @@ function New-PackageNuspec([hashtable] $config = (Get-DefaultConfiguration)) {
 
     $params = @{
         nuspecPath               = $nuspecPath
-        id                       = '$id$'
-        title                    = '$title$'
-        description              = '$description$'
+        id                       = 'PostgreSQL.Binaries'
+        title                    = 'PostgreSQL.Binaries'
+        description              = 'PostgreSQL.Binaries'
         version                  = '$version$'
-        authors                  = '$authors$'
-        copyright                = '$copyright$'
-        owners                   = '$owners$'
+        authors                  = 'Ed-Fi Alliance'
+        copyright                = "Copyright © $(Get-Date -Format yyyy) Ed-Fi Alliance, LLC and Contributors"
+        owners                   = 'Ed-Fi Alliance'
         requireLicenseAcceptance = $false
         forceOverwrite           = $true
     }
