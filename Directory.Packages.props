@@ -13,7 +13,7 @@
     <PackageVersion Include="Npgsql" Version="10.0.1" />
     <!-- Ed-Fi Suite Packages -->
     <PackageVersion Include="EdFi.Suite3.Admin.DataAccess" Version="7.3.20001" />
-    <PackageVersion Include="EdFi.Suite3.Common" Version="7.3.20025" />
+    <PackageVersion Include="EdFi.Suite3.Common" Version="7.3.20040" />
     <PackageVersion Include="EdFi.Suite3.Security.DataAccess" Version="7.3.20023" />
     <!-- ASP.NET Core Packages -->
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.2" />
