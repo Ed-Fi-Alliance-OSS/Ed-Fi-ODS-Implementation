@@ -4,7 +4,7 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 # Base image with additional packages
-FROM postgres:16.13-alpine3.22@sha256:c0d136ffd8300dcb64803e4631a3c947c5f9a28a1f7c3fa33825b1cab53ce97c AS base
+FROM postgres:16.12-alpine3.22@sha256:b0634f494e32d9c6e94a016a491e3ea91739be7288af5c8dd09542feea6bb4a7 AS base
 RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 nodejs=~22 npm=~11 && \
     npm install -g semver@7
 
