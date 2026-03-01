@@ -57,56 +57,10 @@ function Install-PostgreSQLBinaries {
     }
 
     Write-Host "Installing $script:packageName version $script:packageVersion to $script:toolsPath"
-    $packagePath = Get-NuGetPostgreSQLBinariesPackage @parameters
+    $packagePath = Get-NuGetPackage @parameters
 
     if (-not (Test-PostgreSQLBinariesInstalled)) {
         throw "Could not find PostgreSQL binaries in $script:toolsPath/$script:packageName/tools."
-    }
-}
-
-
-function Get-NuGetPostgreSQLBinariesPackage {
-    param (
-        [string] [Parameter(Mandatory = $true)] $PackageName,
-        [string] $PackageVersion,
-        [string] $OutputDirectory = './downloads',
-        [string] $PackageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json",
-        [switch] $ExcludeVersion
-    )
-
-    # Create output directory if needed
-    If(-not (Test-Path -PathType container $OutputDirectory)) {
-        New-Item -ItemType Directory -Path $OutputDirectory | Out-Null
-    }
-
-    # Use nuget.exe install which is not dependent on .NET SDK version and supports -ExcludeVersion flag, which is needed to ensure consistent paths for PostgreSQL binaries
-    $nugetParams = @(
-        "install", $PackageName,
-        "-Source", $PackageSource,
-        "-OutputDirectory", $OutputDirectory,
-        "-NonInteractive"
-    )
-
-    if ($PackageVersion) {
-        $nugetParams += "-Version", $PackageVersion
-    }
-
-    if ($ExcludeVersion) {
-        $nugetParams += "-ExcludeVersion"
-    }
-
-    Write-Host -ForegroundColor Magenta "& nuget $nugetParams"
-    & nuget $nugetParams
-
-    if ($LASTEXITCODE -ne 0) {
-        throw "Failed to download package $PackageName"
-    }
-
-    # Return the package path
-    if ($ExcludeVersion) {
-        return "$OutputDirectory/$PackageName"
-    } else {
-        return "$OutputDirectory/$PackageName.$PackageVersion"
     }
 }
 
