@@ -179,7 +179,7 @@ jobs:
         }
        
         $params = @{
-                testSets                 = @("NonDestructiveSdk")
+                testSets                 = @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk")
                 smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net10.0/EdFi.OdsApi.Sdk.dll"
                 testHarnessLogNamePrefix = "SmokeTestSandbox"
         }
