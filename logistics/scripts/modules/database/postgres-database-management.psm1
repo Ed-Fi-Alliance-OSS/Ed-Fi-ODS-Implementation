@@ -64,10 +64,6 @@ function Install-PostgreSQLBinaries {
     }
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 47f292e (PostgreSQL.Binaries Download Issue CodeFix)
 function Invoke-PsqlCommand {
     Param (
         [string] [Parameter(Mandatory = $true)] $serverName,
