@@ -57,8 +57,6 @@ namespace EdFi.Ods.WebApi
 
             var host = hostBuilder.Build();
 
-            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-
             await host.RunAsync();
 
             static void ConfigureLogging(HostBuilderContext hostBuilderContext, ILoggingBuilder loggingBuilder)
