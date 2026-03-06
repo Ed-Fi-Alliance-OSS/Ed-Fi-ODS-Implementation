@@ -25,12 +25,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             var _logger = LogManager.GetLogger(typeof(Program));
             _logger.Debug("Loading configuration files");
 
-#pragma warning disable CS0618 // Type or member is obsolete
-#pragma warning disable NPG9001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-            NpgsqlConnection.GlobalTypeMapper.AddTypeInfoResolverFactory(new LegacyDateAndTimeResolverFactory());
-#pragma warning restore NPG9001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-#pragma warning restore CS0618 // Type or member is obsolete
-
             ConfigureLogging();
 
             var host = Host.CreateDefaultBuilder(args)

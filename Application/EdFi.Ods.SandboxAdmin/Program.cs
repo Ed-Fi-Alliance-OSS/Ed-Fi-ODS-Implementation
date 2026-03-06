@@ -26,11 +26,6 @@ namespace EdFi.Ods.SandboxAdmin
         public static async Task Main(string[] args)
         {
             var result = Parser.Default.ParseArguments<Options>(args);
-#pragma warning disable CS0618 // Type or member is obsolete
-#pragma warning disable NPG9001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-            NpgsqlConnection.GlobalTypeMapper.AddTypeInfoResolverFactory(new LegacyDateAndTimeResolverFactory());
-#pragma warning restore NPG9001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-#pragma warning restore CS0618 // Type or member is obsolete
 
             await result.MapResult(
                 async (Options opts) =>

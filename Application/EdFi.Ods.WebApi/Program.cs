@@ -6,14 +6,12 @@
 using Autofac.Extensions.DependencyInjection;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Helpers;
-using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Npgsql;
 using System;
 using System.Threading.Tasks;
 
@@ -23,12 +21,6 @@ namespace EdFi.Ods.WebApi
     {
         public static async Task Main(string[] args)
         {
-
-#pragma warning disable CS0618 // Type or member is obsolete
-#pragma warning disable NPG9001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-            NpgsqlConnection.GlobalTypeMapper.AddTypeInfoResolverFactory(new LegacyDateAndTimeResolverFactory());
-#pragma warning restore NPG9001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-#pragma warning restore CS0618 // Type or member is obsolete
             string startupClassName;
 
             using (var hostBuilderInitial = Host.CreateDefaultBuilder(args).Build())
