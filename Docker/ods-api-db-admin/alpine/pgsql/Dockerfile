@@ -4,7 +4,7 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 # Base image with additional packages
-FROM postgres:16.12-alpine3.22@sha256:b0634f494e32d9c6e94a016a491e3ea91739be7288af5c8dd09542feea6bb4a7 AS base
+FROM postgres:16.13-alpine3.23@sha256:60b180625695e90b6e450405d5f0bcb74bc8c52c65d1cd11aeb3da46cac06dd8 AS base
 RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7
 
 # Workaround to fix false positive CVEs using gosu
