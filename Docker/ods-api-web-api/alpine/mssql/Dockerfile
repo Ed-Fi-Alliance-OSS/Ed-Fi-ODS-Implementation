@@ -4,8 +4,8 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 # Base image with additional packages
-FROM mcr.microsoft.com/dotnet/aspnet:10.0.3-alpine3.23@sha256:258b939d6d684ff05ad7ea16782b4bee55260de4acc6f99bec897fd11de7640c AS base
-RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 icu=~74 curl=~8 && \
+FROM mcr.microsoft.com/dotnet/aspnet:10.0.3-alpine3.23@sha256:17f8643dca067fd76ae02b05d03f013fe73e92e520d6a47c95e1743386eb8fbd AS base
+RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 icu=~76 curl=~8 && \
     addgroup -S edfi && adduser -S edfi -G edfi
 
 # Add the sqlcmd tool to the base image
