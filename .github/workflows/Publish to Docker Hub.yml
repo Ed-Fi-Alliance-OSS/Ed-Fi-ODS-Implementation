@@ -15,9 +15,9 @@ on:
         type: 'boolean'
         default: false
       package_version:
-        description: 'Package Version (7.3 for NuGet packages, 7.3.1 for Docker tags)'
+        description: 'Package Version (7.3 for NuGet packages, 7.3.2 for Docker tags)'
         required: true
-        default: "7.3.1"
+        default: "7.3.2"
         type: string
       distinct_id:
         description: 'Distinct ID used when triggered by another workflow'
@@ -31,7 +31,7 @@ env:
   DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
   CURRENT_STANDARD_VERSION: "6.0.0"
-  PACKAGE_VERSION: "7.3.1"
+  PACKAGE_VERSION: "7.3.2"
   EVENT_NAME: ${{ GITHUB.EVENT_NAME }}
   EVENT_ACTION: ${{ GITHUB.EVENT.ACTION }}
   BASE_BRANCH: ${{ GITHUB.HEAD_REF || GITHUB.REF_NAME }}
@@ -104,7 +104,7 @@ jobs:
             $package_version="${{ inputs.package_version }}"
           }
           
-          # Extract major.minor for NuGet packages (7.3.1 -> 7.3)
+          # Extract major.minor for NuGet packages (7.3.2 -> 7.3)
           $nuget_version = ($package_version -split '\.')[0..1] -join '.'
           
           if (($env:EVENT_NAME -eq "release" -and $env:EVENT_ACTION -eq "published") -or ($env:EVENT_NAME -eq "workflow_dispatch" -and "${{ inputs.is_release }}" -eq "true")) {

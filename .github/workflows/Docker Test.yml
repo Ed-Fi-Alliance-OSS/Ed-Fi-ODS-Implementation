@@ -7,7 +7,7 @@ name: Docker Test
 
 on:
   pull_request:
-    branches: ['b-v*-patch*','feature-*']
+    branches: [main, 'b-v*-patch*','feature-*']
     paths:
       - "Docker/**/*"
   workflow_dispatch:
@@ -21,7 +21,7 @@ permissions: read-all
 
 env:
   CURRENT_STANDARD_VERSION: "6.0.0"
-  PACKAGE_VERSION: "7.3.1"
+  PACKAGE_VERSION: "7.3.2"
 
 jobs:
   docker-lint:
@@ -89,7 +89,7 @@ jobs:
         # To confirm no errors occur. The "local" one will be built by the e2e
         # testing process.
         run: |
-          # Extract major.minor for NuGet packages (7.3.1 -> 7.3)
+          # Extract major.minor for NuGet packages (7.3.2 -> 7.3)
           $nuget_version = ("${{ env.PACKAGE_VERSION }}" -split '\.')[0..1] -join '.'
 
           ./get-versions.ps1 -PackageVersion $nuget_version -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease

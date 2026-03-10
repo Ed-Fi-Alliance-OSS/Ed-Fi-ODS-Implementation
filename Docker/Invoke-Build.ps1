@@ -143,7 +143,7 @@ param (
     # Major/minor/patch version number
     [Parameter()]
     [string]
-    $PackageVersion = "7.3.1",
+    $PackageVersion = "7.3.2",
 
     # Patch version number
     [Parameter()]
@@ -238,7 +238,7 @@ function Get-VersionInfo {
     $v = [version]$PackageVersion
   }
   catch {
-    throw "Invalid PackageVersion '$PackageVersion'. Must be a valid version string (e.g., '7.3.1' or '7.3'). Error: $_"
+    throw "Invalid PackageVersion '$PackageVersion'. Must be a valid version string (e.g., 7.3.2' or'7.3.1' or '7.3'). Error: $_"
   }
 
   # If Build is present (>= 0) treat the PackageVersion as having an explicit patch
