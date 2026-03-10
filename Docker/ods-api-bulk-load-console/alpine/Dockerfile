@@ -4,7 +4,7 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 # SDK image used to install dotnet tool. Runtime image do not have 'dotnet tools' installed
-FROM mcr.microsoft.com/dotnet/sdk:8.0.415-alpine3.21@sha256:f308a8fe0941a318421d18a0917b344d15d18996173a2db6f908a12b8db6b074 AS builder
+FROM mcr.microsoft.com/dotnet/sdk:10.0.3-alpine3.23@sha256:7f30d0a21b92a30982c7f40d05e85815f8c8bea12b82fc9dc1f6d3acb0f9d8fb AS builder
 
 ARG BULKLOAD_VERSION
 
@@ -14,7 +14,7 @@ RUN dotnet tool install -g \
     rm -f /root/.dotnet/tools/.store/edfi.suite3.bulkloadclient.console/$BULKLOAD_VERSION/edfi.suite3.bulkloadclient.console/$BULKLOAD_VERSION/tools/net10.0/any/log4net.config
 
 # Smaller image
-FROM mcr.microsoft.com/dotnet/runtime:8.0.21-alpine3.21@sha256:04448f605936ab16ae2a67ee3283398f24b458a669ce8e6b77cfec877027852f
+FROM mcr.microsoft.com/dotnet/runtime:10.0.3-alpine3.23@sha256:9f1fa9e3ef7f5b5ef1c2e7f33b7fcc8bbdf1c58a21e065e73488ca6e18965e03
 RUN apk --upgrade --no-cache add gettext=~0 bash=~5 && \
     addgroup -S edfi && adduser -S edfi -G edfi
 
