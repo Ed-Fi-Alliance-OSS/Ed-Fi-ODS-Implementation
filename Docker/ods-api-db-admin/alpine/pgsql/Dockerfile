@@ -4,11 +4,11 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 # Base image with additional packages
-FROM postgres:16.13-alpine3.22@sha256:4f822307d263eb5039fd960a7c70bc1065222ec314fe76be369ecc717db4dd32 AS base
+FROM postgres:16.13-alpine3.23@sha256:20edbde7749f822887a1a022ad526fde0a47d6b2be9a8364433605cf65099416 AS base
 RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7
 
 # Workaround to fix false positive CVEs using gosu
-FROM golang:1.24 AS gosubuilder
+FROM golang:1.26.1 AS gosubuilder
 ENV GOSU_VERSION=1.17
 WORKDIR /go/src/github.com/tianon
 RUN git clone https://github.com/tianon/gosu.git --branch $GOSU_VERSION
