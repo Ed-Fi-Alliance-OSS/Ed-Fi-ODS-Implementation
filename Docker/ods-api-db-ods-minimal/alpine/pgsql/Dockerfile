@@ -5,7 +5,7 @@
 
 # Base image with additional packages
 FROM postgres:16.13-alpine3.23@sha256:60b180625695e90b6e450405d5f0bcb74bc8c52c65d1cd11aeb3da46cac06dd8 AS base
-RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 nodejs=~22 npm=~11 && \
+RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 nodejs=~24 npm=~11 && \
     npm install -g semver@7
 
 # Workaround to fix false positive CVEs using gosu
