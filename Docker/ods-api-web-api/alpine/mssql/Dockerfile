@@ -8,22 +8,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:10.0.4-alpine3.23@sha256:512d643dce0e7daa25
 RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 icu=~76 curl=~8 && \
     addgroup -S edfi && adduser -S edfi -G edfi
 
-# Add the sqlcmd tool to the base image
-WORKDIR /tmp
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN apk --upgrade --no-cache add gnupg=~2.4 && \
-  curl -O https://download.microsoft.com/download/b/9/f/b9f3cce4-3925-46d4-9f46-da08869c6486/msodbcsql18_18.0.1.1-1_amd64.apk && \
-  curl -O https://download.microsoft.com/download/b/9/f/b9f3cce4-3925-46d4-9f46-da08869c6486/mssql-tools18_18.0.1.1-1_amd64.apk && \
-  #Verify signature
-  curl -O https://download.microsoft.com/download/b/9/f/b9f3cce4-3925-46d4-9f46-da08869c6486/msodbcsql18_18.0.1.1-1_amd64.sig && \
-	curl -O https://download.microsoft.com/download/b/9/f/b9f3cce4-3925-46d4-9f46-da08869c6486/mssql-tools18_18.0.1.1-1_amd64.sig  && \
-  curl https://packages.microsoft.com/keys/microsoft.asc | gpg --import -  && \
-	gpg --verify msodbcsql18_18.0.1.1-1_amd64.sig msodbcsql18_18.0.1.1-1_amd64.apk  && \
-	gpg --verify mssql-tools18_18.0.1.1-1_amd64.sig mssql-tools18_18.0.1.1-1_amd64.apk  && \
-  #Install the package(s)
-  apk --upgrade --no-cache add --allow-untrusted msodbcsql18_18.0.1.1-1_amd64.apk mssql-tools18_18.0.1.1-1_amd64.apk  && \
-	rm -f msodbcsql18_18.0.1.1-1_amd64.apk mssql-tools18_18.0.1.1-1_amd64.apk msodbcsql18_18.0.1.1-1_amd64.sig mssql-tools18_18.0.1.1-1_amd64.sig  && \
-  apk del gnupg
 
 # Start a new layer so that the above layer can be cached
 FROM base AS build
