@@ -41,20 +41,6 @@ fi
 
 envsubst < /app/appsettings.template.json > /app/appsettings.json
 
-# Verifying both DB containers are up so the Sandbox Admin container can start gracefully
-STATUS_ODS=1
-STATUS_ADMIN=1 
-until [[ $STATUS_ODS -eq 0 && $STATUS_ADMIN -eq 0 ]]; do
-  >&2 echo "ODS SQL Server is unavailable - sleeping"
-  STATUS_ODS=$(/opt/mssql-tools18/bin/sqlcmd -C -W -h -1 -U ${SQLSERVER_USER} -P "${SQLSERVER_PASSWORD}" -S ${SQLSERVER_ODS_DATASOURCE} -Q "SET NOCOUNT ON; SELECT SUM(state) FROM sys.databases" 2> /dev/null || echo 1) 
-
-  >&2 echo "ADMIN SQL Server is unavailable - sleeping"
-  STATUS_ADMIN=$(/opt/mssql-tools18/bin/sqlcmd -C -W -h -1 -U ${SQLSERVER_USER} -P "${SQLSERVER_PASSWORD}" -S ${SQLSERVER_ADMIN_DATASOURCE} -Q "SET NOCOUNT ON; SELECT SUM(state) FROM sys.databases" 2> /dev/null || echo 1)
-
-  sleep 10
-done
-
->&2 echo "ADMIN and ODS SQL Servers are up - executing command"
 exec $cmd
 
 dotnet EdFi.Ods.Sandbox.Admin.dll
