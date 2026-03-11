@@ -9,10 +9,10 @@ run-name: ${{github.event.client_payload.branch}}
 
 on:
   pull_request:
-   branches: ['b-v*-patch*','feature-*']
+   branches: [main, 'b-v*-patch*','feature-*']
    types: [opened, synchronize, reopened, unlabeled]
   push:
-   branches: ['b-v*-patch*','feature-*']
+   branches: [main, 'b-v*-patch*','feature-*']
   workflow_dispatch:
     inputs:
       distinct_id:
@@ -73,6 +73,10 @@ jobs:
     steps:
     - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
       run:  echo "${{ github.event.inputs.distinct_id }}"
+    - name: Setup .NET 10
+      uses: actions/setup-dotnet@6bd8b7f7774af54e05809fcc5431931b3eb1ddee # v4.2.0
+      with:
+        dotnet-version: '10.0.x'
     - name: Set permissions for database server container backup directory
       run: docker exec --user root mssql chmod 777 /DatabaseBackups
       shell: pwsh
