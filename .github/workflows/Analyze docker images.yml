@@ -9,6 +9,22 @@ on:
   schedule:
     - cron: '0 0 * * 0'
   workflow_dispatch:
+    inputs:
+      is_release:
+        description: 'Analyze Release images (if false, analyzes pre-release images)'
+        required: true
+        type: boolean
+        default: true
+      package_version:
+        description: 'Package Version (e.g., 7.3.1 for release, 7.3.2 for pre-release)'
+        required: false
+        default: "7.3.1"
+        type: string
+      build_version:
+        description: 'Build Version (only used for release images, e.g., 6399)'
+        required: false
+        default: "6399"
+        type: string
 
 permissions: read-all
 
@@ -17,7 +33,6 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  CURRENT_STANDARD_VERSION: "6.0.0"
   PACKAGE_VERSION: "7.3.1"
   BUILD_VERSION: "6399"
   DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
@@ -64,15 +79,63 @@ jobs:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ env.DOCKER_HUB_TOKEN }}
 
-      - name: Set Image Full Name for ${{ env.PACKAGE_VERSION }} tags
+      - name: Determine package and build versions
         run: |
-          $image ="edfialliance/${{ matrix.dockerfile.name }}:${{ env.PACKAGE_VERSION }}_${{ env.BUILD_VERSION }}-${{ matrix.StandardVersion }}"
+          # Use workflow inputs if triggered manually, otherwise use env defaults
+          if ("${{ github.event_name }}" -eq "workflow_dispatch") {
+            $packageVersion = "${{ inputs.package_version }}"
+            $buildVersion = "${{ inputs.build_version }}"
+            $isRelease = "${{ inputs.is_release }}"
+          } else {
+            $packageVersion = "${{ env.PACKAGE_VERSION }}"
+            $buildVersion = "${{ env.BUILD_VERSION }}"
+            $isRelease = "true"  # Scheduled runs default to release
+          }
+          
+          echo "PACKAGE_VERSION_USED=$packageVersion" >> $env:GITHUB_ENV
+          echo "BUILD_VERSION_USED=$buildVersion" >> $env:GITHUB_ENV
+          echo "IS_RELEASE=$isRelease" >> $env:GITHUB_ENV
+        shell: pwsh
 
-          if ("${{ matrix.dockerfile.path }}".EndsWith("mssql")) {
+      - name: Set Image Full Name
+        run: |
+          $packageVersion = $env:PACKAGE_VERSION_USED
+          $buildVersion = $env:BUILD_VERSION_USED
+          $isRelease = $env:IS_RELEASE
+          $standardVersion = "${{ matrix.StandardVersion }}"
+          $imageName = "${{ matrix.dockerfile.name }}"
+          $path = "${{ matrix.dockerfile.path }}"
+          
+          # Construct image tag based on release vs prerelease
+          if ($isRelease -eq "true") {
+            # Release format: edfialliance/ods-api-web-api:7.3.1_6399-6.0.0
+            $tag = "${packageVersion}_${buildVersion}-${standardVersion}"
+          } else {
+            # Prerelease format varies by Data Standard:
+            # - For 6.0.0: pre-732 (no standard suffix)
+            # - For others: pre-732-4.0.0 or pre-732-5.2.0
+            
+            # Extract major.minor from package version (7.3.2 -> 732)
+            $shortVersion = $packageVersion -replace '\.', ''
+            
+            if ($standardVersion -eq "6.0.0") {
+              # Current standard: pre-732
+              $tag = "pre-${shortVersion}"
+            } else {
+              # Legacy standards: pre-732-4.0.0 or pre-732-5.2.0
+              $tag = "pre-${shortVersion}-${standardVersion}"
+            }
+          }
+          
+          $image = "edfialliance/${imageName}:${tag}"
+          
+          # Add -mssql suffix for MSSQL images
+          if ($path.EndsWith("mssql")) {
               $image += "-mssql"
-          }          
-          echo "IMAGENAME=$image">> $env:GITHUB_ENV
-        working-directory: Docker
+          }
+          
+          Write-Host "Analyzing image: $image"
+          echo "IMAGENAME=$image" >> $env:GITHUB_ENV
         shell: pwsh
 
       - name: Analyze
@@ -80,7 +143,7 @@ jobs:
         with:
           command: cves
           image: ${{ env.IMAGENAME }}
-          sarif-file: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}_${{ env.BUILD_VERSION }}-${{ matrix.StandardVersion }}.output.json
+          sarif-file: sarif-${{ env.IMAGENAME }}.output.json
           summary: true
           only-severities: "critical,high"
 
@@ -91,21 +154,21 @@ jobs:
           echo "DockerFile-ModifiedPath=$newPath">> $env:GITHUB_ENV
         shell: pwsh
 
-      - name: Upload vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}_${{ env.BUILD_VERSION }}-${{ matrix.StandardVersion }} Report
+      - name: Upload vulnerabilities-${{ env.IMAGENAME }} Report
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
         with:
-          name: vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}_${{ env.BUILD_VERSION }}-${{ matrix.StandardVersion }}
-          path: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}_${{ env.BUILD_VERSION }}-${{ matrix.StandardVersion }}.output.json
+          name: vulnerabilities-${{ env.IMAGENAME }}
+          path: sarif-${{ env.IMAGENAME }}.output.json
       - name: Upload SARIF result
         id: upload-sarif
         if: ${{ github.event_name != 'pull_request_target' }}
         uses: github/codeql-action/upload-sarif@48ab28a6f5dbc2a99bf1e0131198dd8f1df78169 # v3.28.0
         with:
-          sarif_file: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}_${{ env.BUILD_VERSION }}-${{ matrix.StandardVersion }}.output.json          
+          sarif_file: sarif-${{ env.IMAGENAME }}.output.json
      
       - name: Check for Critical and High vulnerabilities
         run: |
-          $sarifFile = "sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}_${{ env.BUILD_VERSION }}-${{ matrix.StandardVersion }}.output.json"
+          $sarifFile = "sarif-${{ env.IMAGENAME }}.output.json"
           $sarifContent = Get-Content -Path $sarifFile | ConvertFrom-Json
           foreach ($result in $sarifContent.runs.results) {
             $severity = ($result.message.text -match "Severity\s+:\s+(.*)\s*\n") | Out-Null
