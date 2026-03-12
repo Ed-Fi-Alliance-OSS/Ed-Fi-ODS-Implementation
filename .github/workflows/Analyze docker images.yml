@@ -138,37 +138,41 @@ jobs:
           echo "IMAGENAME=$image" >> $env:GITHUB_ENV
         shell: pwsh
 
+      - name: Set Safe Filename for SARIF Report
+        id: set-safe-filename
+        run: |
+          # Sanitize image name for use as filename
+          # Replace invalid characters (/, :) with hyphens
+          $safeImageName = "${{ env.IMAGENAME }}" -replace '[/:]', '-'
+          echo "SAFE_IMAGENAME=$safeImageName" >> $env:GITHUB_ENV
+          Write-Host "Safe filename: $safeImageName"
+        shell: pwsh
+
+
       - name: Analyze
         uses: docker/scout-action@b23590dc1e4d09febc00cfcbc51e9e8c0f7ee9f3  # v1.16.1
         with:
           command: cves
           image: ${{ env.IMAGENAME }}
-          sarif-file: sarif-${{ env.IMAGENAME }}.output.json
+          sarif-file: sarif-${{ env.SAFE_IMAGENAME }}.output.json
           summary: true
           only-severities: "critical,high"
-
-      - name: Set Dockerfile Path with Hyphens
-        id: set-dockerfile-path
-        run: |
-          $newPath = "${{ matrix.dockerfile.path }}" -replace '/', '-'
-          echo "DockerFile-ModifiedPath=$newPath">> $env:GITHUB_ENV
-        shell: pwsh
 
       - name: Upload vulnerabilities-${{ env.IMAGENAME }} Report
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
         with:
-          name: vulnerabilities-${{ env.IMAGENAME }}
-          path: sarif-${{ env.IMAGENAME }}.output.json
+          name: vulnerabilities-${{ env.SAFE_IMAGENAME }}
+          path: sarif-${{ env.SAFE_IMAGENAME }}.output.json
       - name: Upload SARIF result
         id: upload-sarif
         if: ${{ github.event_name != 'pull_request_target' }}
         uses: github/codeql-action/upload-sarif@48ab28a6f5dbc2a99bf1e0131198dd8f1df78169 # v3.28.0
         with:
-          sarif_file: sarif-${{ env.IMAGENAME }}.output.json
+          sarif_file: sarif-${{ env.SAFE_IMAGENAME }}.output.json
      
       - name: Check for Critical and High vulnerabilities
         run: |
-          $sarifFile = "sarif-${{ env.IMAGENAME }}.output.json"
+          $sarifFile = "sarif-${{ env.SAFE_IMAGENAME }}.output.json"
           $sarifContent = Get-Content -Path $sarifFile | ConvertFrom-Json
           foreach ($result in $sarifContent.runs.results) {
             $severity = ($result.message.text -match "Severity\s+:\s+(.*)\s*\n") | Out-Null
