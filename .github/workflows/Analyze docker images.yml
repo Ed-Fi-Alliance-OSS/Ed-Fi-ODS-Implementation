@@ -18,7 +18,8 @@ concurrency:
 
 env:
   CURRENT_STANDARD_VERSION: "6.0.0"
-  PACKAGE_VERSION: "7.3"
+  PACKAGE_VERSION: "7.3.1"
+  BUILD_VERSION: "6399"
   DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
   DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}  
 
@@ -68,9 +69,12 @@ jobs:
 
       - name: Build  ${{ matrix.dockerfile.name }} image in path ${{ matrix.dockerfile.path }}
         run: |
-          ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease
+          # Extract major.minor for NuGet packages (7.3.1 -> 7.3)
+          $package_version="${{ env.PACKAGE_VERSION }}"
+          $nuget_version = ($package_version -split '\.')[0..1] -join '.'
+          ./get-versions.ps1 -PackageVersion $nuget_version -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease
           ./Invoke-Build.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -PreRelease -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
-          $image ="edfialliance/${{ matrix.dockerfile.name }}:${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}"
+          $image ="edfialliance/${{ matrix.dockerfile.name }}:${{ env.PACKAGE_VERSION }}_${{ env.BUILD_VERSION }}-${{ matrix.StandardVersion }}"
 
           if ("${{ matrix.dockerfile.path }}".EndsWith("mssql")) {
               $image += "-mssql"
@@ -84,7 +88,7 @@ jobs:
         with:
           command: cves
           image: ${{ env.IMAGENAME }}
-          sarif-file: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json
+          sarif-file: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}_${{ env.BUILD_VERSION }}-${{ matrix.StandardVersion }}.output.json
           summary: true
           only-severities: "critical,high"
 
@@ -95,22 +99,21 @@ jobs:
           echo "DockerFile-ModifiedPath=$newPath">> $env:GITHUB_ENV
         shell: pwsh
 
-      - name: Upload vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }} Report
+      - name: Upload vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}_${{ env.BUILD_VERSION }}-${{ matrix.StandardVersion }} Report
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
         with:
-          name: vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}
-          path: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json
-
+          name: vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}_${{ env.BUILD_VERSION }}-${{ matrix.StandardVersion }}
+          path: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}_${{ env.BUILD_VERSION }}-${{ matrix.StandardVersion }}.output.json
       - name: Upload SARIF result
         id: upload-sarif
         if: ${{ github.event_name != 'pull_request_target' }}
         uses: github/codeql-action/upload-sarif@48ab28a6f5dbc2a99bf1e0131198dd8f1df78169 # v3.28.0
         with:
-          sarif_file: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json          
+          sarif_file: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}_${{ env.BUILD_VERSION }}-${{ matrix.StandardVersion }}.output.json          
      
       - name: Check for Critical and High vulnerabilities
         run: |
-          $sarifFile = "sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json"
+          $sarifFile = "sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}_${{ env.BUILD_VERSION }}-${{ matrix.StandardVersion }}.output.json"
           $sarifContent = Get-Content -Path $sarifFile | ConvertFrom-Json
           foreach ($result in $sarifContent.runs.results) {
             $severity = ($result.message.text -match "Severity\s+:\s+(.*)\s*\n") | Out-Null
