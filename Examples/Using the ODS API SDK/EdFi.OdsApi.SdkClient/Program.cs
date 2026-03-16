@@ -8,6 +8,9 @@ using EdFi.OdsApi.Sdk.Apis.All;
 using EdFi.OdsApi.Sdk.Client;
 using EdFi.OdsApi.Sdk.Models.All;
 using EdFi.OdsApi.SdkClient;
+using EdFi.OdsApi.SdkClient.EdFiTools.Authentication;
+using EdFi.OdsApi.SdkClient.EdFiTools.Serialization;
+using Microsoft.Extensions.Logging;
 
 // Parse the command line arguments
 var options = Parser.Default.ParseArguments<Options>(args)
@@ -16,34 +19,42 @@ var options = Parser.Default.ParseArguments<Options>(args)
 
 if (options == default) return;
 
-// Trust all SSL certs -- needed unless signed SSL certificates are configured.
-System.Net.ServicePointManager.ServerCertificateValidationCallback =
-    ((sender, certificate, chain, sslPolicyErrors) => true);
+var handler = new HttpClientHandler
+{
+    // Trust all SSL certs -- needed unless signed SSL certificates are configured.
+    ServerCertificateCustomValidationCallback =
+        HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+};
 
-//Explicitly configures outgoing network calls to use the latest version of TLS where possible.
-//Due to our reliance on some older libraries, the.NET framework won't necessarily default
-//to the latest unless we explicitly request it. Some hosting environments will not allow older versions
-//of TLS, and thus calls can fail without this extra configuration.
-System.Net.ServicePointManager.SecurityProtocol |= System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
+var httpClient = new HttpClient(handler)
+{
+    BaseAddress = new Uri($"{options.OdsApiUrl}/data/v3")
+};
+
 
 // TokenRetriever makes the oauth calls. It has RestSharp dependency
 var tokenRetriever = new TokenRetriever(options.OdsApiUrl, options.ClientKey, options.ClientSecret);
+var tokenProvider = new EdFiTokenProvider(() => tokenRetriever.ObtainNewBearerToken().Result);
+var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+var logger = loggerFactory.CreateLogger<StudentsApi>();
+var apiEvents = new StudentsApiEvents();
+var jsonSerializerOptionsProvider = new JsonSerializerOptionsProvider(EdFiJsonOptions.Create());
 
-// Plug Oauth access token. Tokens will need to be refreshed when they expire
-var configuration = new Configuration() { AccessToken = tokenRetriever.ObtainNewBearerToken(), BasePath = $"{options.OdsApiUrl}/data/v3" };
+var studentsApi = new StudentsApi(
+    logger,
+    loggerFactory,
+    httpClient,
+    jsonSerializerOptionsProvider,
+    apiEvents,
+    tokenProvider
+);
 
-// GET students
-var apiInstance = new StudentsApi(configuration);
-apiInstance.Configuration.DefaultHeaders.Add("Content-Type", "application/json");
+var studentResponse = await studentsApi.GetStudentsAsync(limit: 1, offset: 0, totalCount: true);
 
-// Fetch a single record with the totalCount flag set to true to retrieve the total number of records available
-var studentWithHttpInfo = apiInstance.GetStudentsWithHttpInfo(limit: 1, offset: 0, totalCount: true);
-
-var httpReponseCode = studentWithHttpInfo.StatusCode; // returns System.Net.HttpStatusCode.OK
-Console.WriteLine("Response code is " + httpReponseCode);
+Console.WriteLine("Response code is " + studentResponse.StatusCode);
 
 // Parse the total count value out of the "Total-Count" response header
-var totalCount = int.Parse(studentWithHttpInfo.Headers["total-count"].First());
+var totalCount = int.Parse(studentResponse.Headers.First(h => h.Key.Equals("total-count", StringComparison.OrdinalIgnoreCase)).Value.First());
 
 int offset = 0;
 int limit = 100;
@@ -52,7 +63,17 @@ var students = new List<EdFiStudent>();
 while (offset < totalCount)
 {
     Console.WriteLine($"Fetching student records {offset} through {Math.Min(offset + limit, totalCount)} of {totalCount}");
-    students.AddRange(apiInstance.GetStudents(limit: limit, offset: 0));
+    var resp = await studentsApi.GetStudentsAsync(limit: limit, offset: offset);
+
+    if (!resp.IsOk)
+    {
+        Console.WriteLine($"Request failed at offset {offset}. Status: {resp.StatusCode}");
+        break; // stop paging
+    }
+
+    var list = resp.Ok();         
+    students.AddRange(list);
+
     offset += limit;
 }
 
