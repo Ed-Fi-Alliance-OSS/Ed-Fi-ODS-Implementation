@@ -186,10 +186,6 @@ function Install-EdFiOdsSandboxAdmin {
         [string]
         $PackageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi%40Release/nuget/v3/index.json",
 
-        # Path for storing installation tools, e.g. nuget.exe. Default: "./tools".
-        [string]
-        $ToolsPath = "$PSScriptRoot/tools",
-
         # Path for storing downloaded packages. Default: "./downloads".
         [string]
         $DownloadPath = "$PSScriptRoot/downloads",
@@ -317,7 +313,6 @@ function Install-EdFiOdsSandboxAdmin {
         PackageName = $PackageName
         PackageVersion = $PackageVersion
         PackageSource = $PackageSource
-        ToolsPath = $ToolsPath
         DownloadPath = $DownloadPath
         WebSitePath = $WebSitePath
         WebSiteName = $WebSiteName
@@ -416,7 +411,6 @@ function Get-SandboxAdminPackage {
             PackageVersion = $Config.PackageVersion
             OutputDirectory = $Config.DownloadPath
             PackageSource = $Config.PackageSource
-            ToolsPath = $Config.ToolsPath
         }
         $packageDir = Get-NuGetPackage @parameters
         Test-Error
@@ -634,9 +628,6 @@ function Uninstall-EdFiOdsSandboxAdmin {
     #>
     [CmdletBinding()]
     param (
-        # Path for storing installation tools, e.g. nuget.exe. Default: "./tools".
-        [string]
-        $ToolsPath = "$PSScriptRoot/tools",
 
         # Path for the web application. Default: "c:\inetpub\Ed-Fi\SandboxAdmin".
         [string]

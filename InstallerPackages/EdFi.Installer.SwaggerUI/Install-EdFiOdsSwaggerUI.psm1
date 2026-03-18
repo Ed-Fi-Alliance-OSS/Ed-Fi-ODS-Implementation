@@ -35,7 +35,6 @@ function Install-EdFiOdsSwaggerUI {
 
     .EXAMPLE
         PS c:/> $parameters = @{
-            ToolsPath = "C:/temp/tools"
             WebApiMetadataUrl = "https://my-server.example/EdFiOdsWebApi/metadata"
             WebApiVersionUrl = "https://my-server.example/EdFiOdsWebApi"
             WebSitePath="c:\inetpub\Ed-Fi"
@@ -56,10 +55,6 @@ function Install-EdFiOdsSwaggerUI {
         # NuGet package source . default value is set for release package source for installer .
         [string]
         $PackageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi%40Release/nuget/v3/index.json",
-
-        # Path for storing installation tools, e.g. nuget.exe. Default: "./tools".
-        [string]
-        $ToolsPath = "$PSScriptRoot/tools",
 
         # Path for storing downloaded packages. Default: "./downloads".
         [string]
@@ -133,11 +128,10 @@ function Install-EdFiOdsSwaggerUI {
         PackageName = $PackageName
         PackageVersion = $PackageVersion
         PackageSource = $PackageSource
-        ToolsPath = $ToolsPath
         DownloadPath = $DownloadPath
         WebSitePath = $WebSitePath
         WebSiteName = $WebsiteName
-        WebSitePort = $WebsitePort
+        WebSitePort = $WebSitePort
         WebApplicationName = $WebApplicationName
         WebApiMetadataUrl = $WebApiMetadataUrl
         WebApiVersionUrl = $WebApiVersionUrl
@@ -194,9 +188,6 @@ function Uninstall-EdFiOdsSwaggerUI {
     #>
     [CmdletBinding()]
     param (
-        # Path for storing installation tools, e.g. nuget.exe. Default: "./tools".
-        [string]
-        $ToolsPath = "$PSScriptRoot/tools",
 
         # Path for the web application. Default: "c:\inetpub\Ed-Fi\SwaggerUI".
         [string]
@@ -216,7 +207,6 @@ function Uninstall-EdFiOdsSwaggerUI {
     )
 
     $config = @{
-        ToolsPath = $ToolsPath
         WebApplicationPath = $WebApplicationPath
         WebApplicationName = $WebApplicationName
         WebSiteName = $WebSiteName
@@ -259,7 +249,6 @@ function Get-SwaggerPackage {
             PackageVersion = $Config.PackageVersion
             OutputDirectory = $Config.DownloadPath
             PackageSource = $Config.PackageSource
-            ToolsPath = $Config.ToolsPath
         }
         $packageDir = Get-NuGetPackage @parameters
 
