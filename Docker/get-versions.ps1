@@ -46,7 +46,7 @@ param(
     $PackageVersion = "7.3",
 
     [string]
-    [ValidateSet('4.0.0', '5.2.0', '6.0.0')]
+    [ValidateSet('4.0.0', '5.2.0', '6.1.0')]
     $StandardVersion,
 
     [string]
@@ -201,7 +201,7 @@ $env:MSSQL_ODS_POPULATED_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.
 $env:MSSQL_ADMIN_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Database.Admin.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
 $env:MSSQL_SECURITY_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Database.Security.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
 
-if ([version]$StandardVersion -lt [version]'6.0.0') {
+if ([version]$StandardVersion -lt [version]'6.1.0') {
     $env:TPDM_MINIMAL_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.$ExtensionVersion.PostgreSQL.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
     $env:TPDM_POPULATED_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Populated.Template.TPDM.Core.$ExtensionVersion.PostgreSQL.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
     $env:MSSQL_TPDM_MINIMAL_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.$ExtensionVersion.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
