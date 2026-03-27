@@ -32,7 +32,7 @@ function Invoke-InstallCustomPackage {
 function Invoke-InstallCustomSettings {
     # this should match the example for the Install-EdFiOdsSandboxAdmin function in Install-EdFiOdsSandboxAdmin.psm1
     $parameters = @{
-        PackageVersion     = '6.0.0'
+        PackageVersion     = '6.1.0'
         WebSitePath        = 'c:\inetpub\SandboxAdmin'
         WebSitePort        = 8765
         WebApplicationPath = 'c:\inetpub\SandboxAdmin\6.0.0'
