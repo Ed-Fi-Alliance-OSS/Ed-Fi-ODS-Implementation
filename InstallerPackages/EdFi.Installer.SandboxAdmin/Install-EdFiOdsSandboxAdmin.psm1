@@ -133,7 +133,7 @@ function Install-EdFiOdsSandboxAdmin {
             WebSitePath        = 'c:\inetpub\Ed-Fi'
             WebSitePort        = 8765
             WebApplicationPath = 'SandboxAdmin'
-            WebApplicationName = 'SandboxAdmin6.0.0'
+            WebApplicationName = 'SandboxAdmin6.1.0'
             Settings           = @{
                 OAuthUrl                     = 'https://localhost/EdFiOdsWebApi'
                 DefaultApplicationName       = 'My Sandbox Administrator'
