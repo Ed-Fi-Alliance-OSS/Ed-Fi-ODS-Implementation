@@ -35,8 +35,8 @@ function Invoke-InstallCustomSettings {
         PackageVersion     = '6.1.0'
         WebSitePath        = 'c:\inetpub\SandboxAdmin'
         WebSitePort        = 8765
-        WebApplicationPath = 'c:\inetpub\SandboxAdmin\6.0.0'
-        WebApplicationName = 'SandboxAdmin6.0.0'
+        WebApplicationPath = 'c:\inetpub\SandboxAdmin\6.1.0'
+        WebApplicationName = 'SandboxAdmin6.1.0'
         Settings           = @{
             ConnectionStrings            = @{
                 EdFi_Ods      = 'Server=(local); Trusted_Connection=True; Database=EdFi_{0}; Application Name=EdFi.Ods.SandboxAdmin'
@@ -80,7 +80,7 @@ function Invoke-Uninstall { UnInstall-EdFiOdsSandboxAdmin }
 
 function Invoke-UninstallCustomSettings {
     $parameters = @{
-        WebApplicationPath = "c:\inetpub\SandboxAdmin\6.0.0"
+        WebApplicationPath = "c:\inetpub\SandboxAdmin\6.1.0"
         WebApplicationName = "SandboxAdmin"
     }
 
