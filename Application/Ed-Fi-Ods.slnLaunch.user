@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "Sandbox",
+    "Projects": [
+      {
+        "Path": "EdFi.Ods.SwaggerUI\\EdFi.Ods.SwaggerUI.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "EdFi.Ods.SandboxAdmin\\EdFi.Ods.SandboxAdmin.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "EdFi.Ods.WebApi\\EdFi.Ods.WebApi.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
