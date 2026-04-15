@@ -1,0 +1,73 @@
+# Lightweight test script for JWT token usage
+
+
+# The key and secret below require environment file settings
+# For more info in Visual Studio: https://learn.microsoft.com/en-us/aspnet/core/test/http-files#environment-files
+# For more info in Visual Studio Code: https://marketplace.visualstudio.com/items?itemName=humao.rest-client#environment-variables
+@key={{OdsApiKey}}
+@secret={{OdsApiSecret}}
+@apiBasePath={{OdsApiBasePath}}
+
+### Authenticate
+# @name token
+POST {{apiBasePath}}/oauth/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{key}}&client_secret={{secret}}&grant_type=client_credentials
+
+### Get Academic Weeks: 200
+GET {{apiBasePath}}/data/v3/ed-fi/academicWeeks
+Authorization: Bearer {{token.response.body.$.access_token}}
+
+### Token Info - Happy Path: 200
+POST {{apiBasePath}}/oauth/token_info
+Content-Type: application/json
+Authorization: Bearer {{token.response.body.$.access_token}}
+
+{
+  "token": "{{token.response.body.$.access_token}}"
+}
+
+### Token Info - No token: 400
+POST {{apiBasePath}}/oauth/token_info
+Content-Type: application/json
+Authorization: Bearer {{token.response.body.$.access_token}}
+
+{
+}
+
+### Token Info - wrong format: 400
+POST {{apiBasePath}}/oauth/token_info
+Content-Type: application/json
+Authorization: Bearer {{token.response.body.$.access_token}}
+
+{
+  "token": "not-a-guid"
+}
+
+### Token Info - mismatched token: 400
+POST {{apiBasePath}}/oauth/token_info
+Content-Type: application/json
+Authorization: Bearer {{token.response.body.$.access_token}}
+
+{
+  "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lcyIsImFkbWluIjp0cnVlLCJpYXQiOjE3NzYzMDUzODl9.Xz9a9AFFKE6sgWmhqmhjTdOo_-RzArc7LCDMvMFIQodue7bei3sBXoYt_NqVst5Bsv0pLifir7UjXO8XueAfARShYbdzW5y5nmud7VzHZiEDbW_ni-DeI4c8pYp7IiYl6h6NgUkL5GteX40hT-Xzk8OBxbeLOFFeeS-eLSu76njROMtIaXY7uMGv6PWoOuqBE38D3hd9TU4nD0H4orRU5nHhgVCoZwzi9xpFclEY8e0KFN_gju-2a9CrvqnvAajAm9ogCN5u9PVjvFF2vVxV7VzahltkL2_O13K8z_x2Mv-j-Xc9Zm4b_-Wqw4G9wJbjI1z8OA_1NgiI_RxghoZBpw"
+}
+
+### Token Info - matched but inactive token: 401
+POST {{apiBasePath}}/oauth/token_info
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lcyIsImFkbWluIjp0cnVlLCJpYXQiOjE3NzYzMDUzODl9.Xz9a9AFFKE6sgWmhqmhjTdOo_-RzArc7LCDMvMFIQodue7bei3sBXoYt_NqVst5Bsv0pLifir7UjXO8XueAfARShYbdzW5y5nmud7VzHZiEDbW_ni-DeI4c8pYp7IiYl6h6NgUkL5GteX40hT-Xzk8OBxbeLOFFeeS-eLSu76njROMtIaXY7uMGv6PWoOuqBE38D3hd9TU4nD0H4orRU5nHhgVCoZwzi9xpFclEY8e0KFN_gju-2a9CrvqnvAajAm9ogCN5u9PVjvFF2vVxV7VzahltkL2_O13K8z_x2Mv-j-Xc9Zm4b_-Wqw4G9wJbjI1z8OA_1NgiI_RxghoZBpw
+
+{
+  "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lcyIsImFkbWluIjp0cnVlLCJpYXQiOjE3NzYzMDUzODl9.Xz9a9AFFKE6sgWmhqmhjTdOo_-RzArc7LCDMvMFIQodue7bei3sBXoYt_NqVst5Bsv0pLifir7UjXO8XueAfARShYbdzW5y5nmud7VzHZiEDbW_ni-DeI4c8pYp7IiYl6h6NgUkL5GteX40hT-Xzk8OBxbeLOFFeeS-eLSu76njROMtIaXY7uMGv6PWoOuqBE38D3hd9TU4nD0H4orRU5nHhgVCoZwzi9xpFclEY8e0KFN_gju-2a9CrvqnvAajAm9ogCN5u9PVjvFF2vVxV7VzahltkL2_O13K8z_x2Mv-j-Xc9Zm4b_-Wqw4G9wJbjI1z8OA_1NgiI_RxghoZBpw"
+}
+
+### Token Info - invalid signature: 401
+POST {{apiBasePath}}/oauth/token_info
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTc3NjMwNTQ5NH0.gBIZKKqBCFHEiX847Do2P12b0ERoXFrJ6gzhoNnYIaKMRY3QGmf-AP7on78SJiBWcejAMo1AK27g9CSESFZUJA
+
+{
+  "token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTc3NjMwNTQ5NH0.gBIZKKqBCFHEiX847Do2P12b0ERoXFrJ6gzhoNnYIaKMRY3QGmf-AP7on78SJiBWcejAMo1AK27g9CSESFZUJA"
+}

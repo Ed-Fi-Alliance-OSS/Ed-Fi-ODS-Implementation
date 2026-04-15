@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.3.32825.248
+# Visual Studio Version 18
+VisualStudioVersion = 18.4.11626.88 stable
 MinimumVisualStudioVersion = 15.0.28307.852
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.Common", "..\..\Ed-Fi-ODS\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj", "{8D7CB143-8818-47A8-89E8-702D485E8DA0}"
 EndProject
@@ -71,6 +71,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_ProjectInformation", "_ProjectInformation", "{AF062E8B-178C-4ABE-B9E8-214B1DD4EC3A}"
 	ProjectSection(SolutionItems) = preProject
 		..\CONTRIBUTORS.md = ..\CONTRIBUTORS.md
+		jwt.http = jwt.http
 		..\NOTICES.md = ..\NOTICES.md
 		..\README.md = ..\README.md
 	EndProjectSection
