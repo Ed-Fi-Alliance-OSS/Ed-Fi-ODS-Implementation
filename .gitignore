@@ -126,3 +126,6 @@ environment.json
 
 #Nunit Test Reports (Pester)
 reportsNUnit/
+
+*.pem
+http-client.env.json

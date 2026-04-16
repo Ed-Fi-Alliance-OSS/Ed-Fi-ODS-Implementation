@@ -27,7 +27,7 @@ function Get-PluginScriptsFromSettings([hashtable] $Settings) {
 
     $scripts = $Settings.Plugin.Scripts
 
-    if ($null -eq $scripts) { return @() }
+    if ($null -eq $scripts -or $null -eq $Settings.ApiSettings -or [string]::IsNullOrWhiteSpace($Settings.ApiSettings.StandardVersion)) { return @() }
 
     if ([Version]::Parse($Settings.ApiSettings.StandardVersion) -ge [Version]::new(6,0,0)) {
         $scripts = $scripts | Where-Object { $_ -ne "tpdm" }
@@ -95,6 +95,11 @@ function Get-Plugins([hashtable] $Settings) {
     $prefix = "EdFi.Suite3.Ods."
     $filePath = (Get-RepositoryResolvedPath 'configuration.packages.json')
     foreach ($script in $scripts) {
+        # This allows overriding the $.Plugin.Scripts array in appsettings, for example using `dotnet user-secrets set "Plugin:Scripts" ""`
+        if ([string]::IsNullOrEmpty($script.Trim())) {
+            continue
+        }
+
         $scriptPath = Get-PluginScript $folder $script
 
         if("profiles.sample" -ne $script){
@@ -122,7 +127,7 @@ function Get-Plugins([hashtable] $Settings) {
         $postfix = "(.*$script).*"
         $newExtensionFolderName = $newExtensionFolderName -replace "$postfix", '$1'
         $sourcePath = Join-Path $folder $newExtensionFolderName
-        
+
         if (Test-Path $sourcePath) {
             Remove-Item $sourcePath -Recurse -Force | Out-Null
         }
@@ -174,7 +179,7 @@ function Update-PackageName([string] $scriptName, [string] $filePath) {
 
     $config = Get-Content $filePath | ConvertFrom-Json
     $packageName = $config.packages.($scriptName).PackageName
-   
+
     $StandardVersion = $Settings.ApiSettings.StandardVersion
     $ExtensionVersion = $Settings.ApiSettings.ExtensionVersion
 
