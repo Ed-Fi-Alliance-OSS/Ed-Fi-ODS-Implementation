@@ -19,19 +19,16 @@ var options = Parser.Default.ParseArguments<Options>(args)
 
 if (options == default) return;
 
-var handler = new HttpClientHandler
+var httpClient = new HttpClient(new HttpClientHandler
 {
     // Trust all SSL certs -- needed unless signed SSL certificates are configured.
-    ServerCertificateCustomValidationCallback =
-        HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
-};
-
-var httpClient = new HttpClient(handler)
+    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+})
 {
     BaseAddress = new Uri($"{options.OdsApiUrl}/data/v3")
 };
 
-var tokenRetriever = new TokenRetriever(options.OdsApiUrl, options.ClientKey, options.ClientSecret, new HttpClient(handler));
+var tokenRetriever = new TokenRetriever(options.OdsApiUrl, options.ClientKey, options.ClientSecret);
 var tokenProvider = new EdFiTokenProvider(() => tokenRetriever.ObtainNewBearerToken());
 var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
 var logger = loggerFactory.CreateLogger<StudentsApi>();

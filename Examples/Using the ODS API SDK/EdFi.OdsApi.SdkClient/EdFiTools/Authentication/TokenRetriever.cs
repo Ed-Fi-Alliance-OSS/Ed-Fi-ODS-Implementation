@@ -12,14 +12,17 @@ namespace EdFi.OdsApi.SdkClient.EdFiTools.Authentication
         private readonly string _basePath;
         private readonly string _clientKey;
         private readonly string _clientSecret;
-        private readonly HttpClient _httpClient;
+        private readonly HttpClient _httpClient = new(new HttpClientHandler
+        {
+            // Trust all SSL certs -- needed unless signed SSL certificates are configured.
+            ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+        });
 
-        public TokenRetriever(string basePath, string clientKey, string clientSecret, HttpClient httpClient)
+        public TokenRetriever(string basePath, string clientKey, string clientSecret)
         {
             _basePath = basePath;
             _clientKey = clientKey;
             _clientSecret = clientSecret;
-            _httpClient = httpClient;
         }
 
         public async Task<BearerTokenResponse> ObtainNewBearerToken()
