@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 
 namespace EdFi.OdsApi.SdkClient.EdFiTools.Serialization
 {
-    public class OptionJsonConverterFactory : JsonConverterFactory
+    internal class OptionJsonConverterFactory : JsonConverterFactory
     {
         public override bool CanConvert(Type typeToConvert)
             => typeToConvert.IsGenericType && typeToConvert.GetGenericTypeDefinition() == typeof(Option<>);

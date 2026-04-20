@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 
 namespace EdFi.OdsApi.SdkClient.EdFiTools.Serialization
 {
-    public class OptionJsonConverter<T> : JsonConverter<Option<T>>
+    internal class OptionJsonConverter<T> : JsonConverter<Option<T>>
     {
         public override Option<T> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

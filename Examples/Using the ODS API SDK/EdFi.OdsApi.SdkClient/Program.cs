@@ -49,7 +49,15 @@ var studentResponse = await studentsApi.GetStudentsAsync(limit: 1, offset: 0, to
 Console.WriteLine("Response code is " + studentResponse.StatusCode);
 
 // Parse the total count value out of the "Total-Count" response header
-var totalCount = int.Parse(studentResponse.Headers.First(h => h.Key.Equals("total-count", StringComparison.OrdinalIgnoreCase)).Value.First());
+var totalCountHeader = studentResponse.Headers
+    .FirstOrDefault(h => h.Key.Equals("total-count", StringComparison.OrdinalIgnoreCase))
+    .Value?.FirstOrDefault();
+
+if (!int.TryParse(totalCountHeader, out var totalCount))
+{
+    Console.WriteLine("Total-Count header missing or invalid. Cannot page results.");
+    return;
+}
 
 int offset = 0;
 int limit = 100;

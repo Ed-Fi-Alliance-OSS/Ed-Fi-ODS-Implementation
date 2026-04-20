@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace EdFi.OdsApi.SdkClient.EdFiTools.Serialization
 {
-    public class EdFiJsonOptions
+    internal class EdFiJsonOptions
     {
         public static JsonSerializerOptions Create()
         {

@@ -9,7 +9,7 @@ using System.Text.Json.Serialization.Metadata;
 
 namespace EdFi.OdsApi.SdkClient.EdFiTools.Serialization
 {
-    public class EdFiModelResolver : DefaultJsonTypeInfoResolver
+    internal class EdFiModelResolver : DefaultJsonTypeInfoResolver
     {
         public override JsonTypeInfo GetTypeInfo(Type type, JsonSerializerOptions options)
         {
