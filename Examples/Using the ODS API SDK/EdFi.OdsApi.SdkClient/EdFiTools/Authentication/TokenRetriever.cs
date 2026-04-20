@@ -1,15 +1,9 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.OdsApi.Sdk;
-using EdFi.OdsApi.Sdk.Client;
-using System.Net;
-using System.Runtime.Serialization;
-using System.Security.Authentication;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace EdFi.OdsApi.SdkClient.EdFiTools.Authentication
 {
@@ -18,17 +12,18 @@ namespace EdFi.OdsApi.SdkClient.EdFiTools.Authentication
         private readonly string _basePath;
         private readonly string _clientKey;
         private readonly string _clientSecret;
+        private readonly HttpClient _httpClient;
 
-        public TokenRetriever(string basePath, string clientKey, string clientSecret)
+        public TokenRetriever(string basePath, string clientKey, string clientSecret, HttpClient httpClient)
         {
             _basePath = basePath;
             _clientKey = clientKey;
             _clientSecret = clientSecret;
+            _httpClient = httpClient;
         }
 
         public async Task<BearerTokenResponse> ObtainNewBearerToken()
         {
-            using var httpClient = new HttpClient();
             var form = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("grant_type", "client_credentials"),
@@ -36,7 +31,7 @@ namespace EdFi.OdsApi.SdkClient.EdFiTools.Authentication
                 new KeyValuePair<string, string>("client_secret", _clientSecret)
             });
 
-            var response = await httpClient.PostAsync($"{_basePath}/oauth/token", form);
+            var response = await _httpClient.PostAsync($"{_basePath}/oauth/token", form);
             response.EnsureSuccessStatusCode();
 
             var json = await response.Content.ReadAsStringAsync();
@@ -52,8 +47,4 @@ namespace EdFi.OdsApi.SdkClient.EdFiTools.Authentication
             return tokenResponse;
         }
     }
-
-  
-
-    
 }

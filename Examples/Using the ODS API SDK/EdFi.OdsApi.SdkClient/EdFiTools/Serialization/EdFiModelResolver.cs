@@ -1,7 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Text;
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 
@@ -13,14 +15,8 @@ namespace EdFi.OdsApi.SdkClient.EdFiTools.Serialization
         {
             var ti = base.GetTypeInfo(type, options);
 
-            // only apply to Ed-Fi models
-            if (type.Namespace != null &&
-                type.Namespace.StartsWith("EdFi.OdsApi.Sdk.Models"))
-            {
-                // disable constructor usage
-                ti.CreateObject = () =>
-                    FormatterServices.GetUninitializedObject(type);
-            }
+            if (type.Namespace != null && type.Namespace.StartsWith("EdFi.OdsApi.Sdk.Models"))
+                ti.CreateObject = () => RuntimeHelpers.GetUninitializedObject(type);
 
             return ti;
         }

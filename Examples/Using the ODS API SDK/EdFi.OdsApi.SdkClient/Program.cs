@@ -31,10 +31,8 @@ var httpClient = new HttpClient(handler)
     BaseAddress = new Uri($"{options.OdsApiUrl}/data/v3")
 };
 
-
-// TokenRetriever makes the oauth calls. It has RestSharp dependency
-var tokenRetriever = new TokenRetriever(options.OdsApiUrl, options.ClientKey, options.ClientSecret);
-var tokenProvider = new EdFiTokenProvider(() => tokenRetriever.ObtainNewBearerToken().Result);
+var tokenRetriever = new TokenRetriever(options.OdsApiUrl, options.ClientKey, options.ClientSecret, new HttpClient(handler));
+var tokenProvider = new EdFiTokenProvider(() => tokenRetriever.ObtainNewBearerToken());
 var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
 var logger = loggerFactory.CreateLogger<StudentsApi>();
 var apiEvents = new StudentsApiEvents();
@@ -71,7 +69,7 @@ while (offset < totalCount)
         break; // stop paging
     }
 
-    var list = resp.Ok();         
+    var list = resp.Ok();
     students.AddRange(list);
 
     offset += limit;
