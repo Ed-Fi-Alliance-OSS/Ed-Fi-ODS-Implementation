@@ -17,5 +17,8 @@ namespace EdFi.OdsApi.SdkClient
 
         [Option('s', "secret", Required = true, HelpText = "The client secret.")]
         public required string ClientSecret { get; set; }
+
+        [Option("insecure", Required = false, Default = false, HelpText = "Disable SSL certificate validation. Use only in development environments.")]
+        public bool Insecure { get; set; }
     }
 }

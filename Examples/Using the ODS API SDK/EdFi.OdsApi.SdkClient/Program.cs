@@ -21,14 +21,15 @@ if (options == default) return;
 
 var httpClient = new HttpClient(new HttpClientHandler
 {
-    // Trust all SSL certs -- needed unless signed SSL certificates are configured.
-    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+    ServerCertificateCustomValidationCallback = options.Insecure
+        ? HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+        : null
 })
 {
     BaseAddress = new Uri($"{options.OdsApiUrl}/data/v3")
 };
 
-var tokenRetriever = new TokenRetriever(options.OdsApiUrl, options.ClientKey, options.ClientSecret);
+var tokenRetriever = new TokenRetriever(options.OdsApiUrl, options.ClientKey, options.ClientSecret, options.Insecure);
 var tokenProvider = new EdFiTokenProvider(() => tokenRetriever.ObtainNewBearerToken());
 var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
 var logger = loggerFactory.CreateLogger<StudentsApi>();
