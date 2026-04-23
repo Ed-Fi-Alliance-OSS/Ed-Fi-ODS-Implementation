@@ -55,6 +55,8 @@
                 var currentUrl = window.location.href;
                 var tenantMatch = currentUrl.match(/tenantIdentifier=(.+)/);
 
+                var baseUrl = configObject.WebApiVersionUrl;
+
                 if (tenantMatch !== null && tenantMatch.length > 1) {
                     configObject.WebApiVersionUrl = `${configObject.WebApiVersionUrl}/${tenantMatch[1]}`;
                 }
@@ -103,14 +105,14 @@
                                             // Check if route context values are in use by trying to get the currently selected route context value
                                             let contextValueSelected = system.getState().get('oas3').get('serverVariableValues').get(system.getState().get('oas3').get('selectedServer')).get('Context Selection')
 
+                                            // Get the base part of the templated server URL to build the token URL off of
+                                            let tokenURLBase = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/'
+
                                             // Handle the case when multi-tenant and route context segments are both in use
                                             if (tenantContextSelected !== undefined) {
 
                                                 // Get the selected tenant name by splitting it off of the tenant/routeContext dropdown selection
                                                 let selectedTenantName = tenantContextSelected.split('/')[0]
-
-                                                // Get the base part of the templated server URL to build the token URL off of
-                                                let tokenURLBase = system.getState().get('oas3').get('selectedServer').split('{')[0]
 
                                                 let tokenURL = tokenURLBase + tenantContextSelected + '/' + 'oauth/token'
 
@@ -122,9 +124,6 @@
                                             }
                                             // Handle situation with no multi-tenant, but with route context segment in use
                                             else if (contextValueSelected !== undefined) {
-
-                                                // Get the base part of the templated server URL to build the token URL from
-                                                let tokenURLBase = system.getState().get('oas3').get('selectedServer').split('{')[0]
 
                                                 // Construct a token URL with the route context segment matching what is selected in the UI
                                                 let tokenURL = tokenURLBase + contextValueSelected + '/' + 'oauth/token'
