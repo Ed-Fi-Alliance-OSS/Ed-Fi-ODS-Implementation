@@ -61,6 +61,9 @@ application/EduId.Database/EduId.Database.dbmdl
 # Release Notes Working File
 ReleaseNotes/pending.md
 
+# Workflow-generated build artifact (not meant to be tracked)
+repositories.json
+
 # File System Queues
 MessagingQueueData
 
