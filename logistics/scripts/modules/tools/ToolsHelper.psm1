@@ -173,7 +173,7 @@ function Test-DotNetCore {
     param (
         [Parameter()]
         [int]
-        $RequiredMajor = 8,
+        $RequiredMajor = 10,
         [Parameter()]
         [int]
         $RequiredMinor = 0
