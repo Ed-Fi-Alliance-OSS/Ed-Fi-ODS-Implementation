@@ -8,7 +8,7 @@ version: '3'
 services:
   db:
     container_name: ODS-PostgreSQL
-    image: postgres:16.13-alpine3.23@sha256:20edbde7749f822887a1a022ad526fde0a47d6b2be9a8364433605cf65099416
+    image: postgres:16.13-alpine3.23@sha256:4e6e670bb069649261c9c18031f0aded7bb249a5b6664ddec29c013a89310d50
     restart: always
     environment:
       # The default connection strings when using 'initdev -Engine PostgreSql' don't include a password, 
