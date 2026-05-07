@@ -8,7 +8,7 @@ FROM postgres:16.13-alpine3.23@sha256:4e6e670bb069649261c9c18031f0aded7bb249a5b6
 RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7
 
 # Workaround to fix false positive CVEs using gosu
-FROM golang:1.26.1 AS gosubuilder
+FROM golang:1.26.2 AS gosubuilder
 ENV GOSU_VERSION=1.17
 WORKDIR /go/src/github.com/tianon
 RUN git clone https://github.com/tianon/gosu.git --branch $GOSU_VERSION

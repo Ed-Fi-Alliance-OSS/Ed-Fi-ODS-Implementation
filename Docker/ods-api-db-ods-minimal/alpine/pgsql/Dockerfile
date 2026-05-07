@@ -9,7 +9,7 @@ RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 nodejs=~24 npm=~11 && \
     npm install -g semver@7
 
 # Workaround to fix false positive CVEs using gosu
-FROM golang:1.26.1 AS gosubuilder
+FROM golang:1.26.2 AS gosubuilder
 ENV GOSU_VERSION=1.17
 WORKDIR /go/src/github.com/tianon
 RUN git clone https://github.com/tianon/gosu.git --branch $GOSU_VERSION
