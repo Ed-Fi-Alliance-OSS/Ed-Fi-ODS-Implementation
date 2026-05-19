@@ -81,7 +81,7 @@ function Install-DotNetTool {
         [string] $Path,
         [string] $Name,
         [string] $Version,
-        [string[]] $Source = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+        [string[]] $Source = @()
     )
 
     $installedVersion = (Get-DotNetTool $Path $Name).Version
