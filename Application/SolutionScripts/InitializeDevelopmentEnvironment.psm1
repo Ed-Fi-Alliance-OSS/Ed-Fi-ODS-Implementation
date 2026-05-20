@@ -523,7 +523,6 @@ function Install-DbDeploy {
         $parameters = @{
             Name    = $packageSettings.packageName
             Version = $packageSettings.packageVersion
-            Source  = $packageSettings.packageSource
         }
         if ([string]::IsNullOrWhiteSpace($parameters.Path)) { $parameters.Path = $toolsPath }
         Install-DotNetTool @parameters
@@ -538,7 +537,6 @@ function Install-CodeGenUtility {
         $parameters = @{
             Name    = $packageSettings.packageName
             Version = $packageSettings.packageVersion
-            Source  = $packageSettings.packageSource
         }
         if ([string]::IsNullOrWhiteSpace($parameters.Path)) { $parameters.Path = $toolsPath }
         Install-DotNetTool @parameters
