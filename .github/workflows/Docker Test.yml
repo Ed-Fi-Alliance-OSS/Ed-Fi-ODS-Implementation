@@ -21,7 +21,7 @@ permissions: read-all
 
 env:
   CURRENT_STANDARD_VERSION: "6.1.0"
-  PACKAGE_VERSION: "7.3.2"
+  PACKAGE_VERSION: "7.3.3"
 
 jobs:
   docker-lint:
@@ -43,7 +43,7 @@ jobs:
           - ods-api-db-ods-sandbox/ubuntu/mssql
     steps:
       - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
-        run:  echo "${{ github.event.inputs.distinct_id }}" 
+        run:  echo "${{ github.event.inputs.distinct_id }}"
       - name: Checkout code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
@@ -78,7 +78,7 @@ jobs:
             { name: "ods-api-db-admin", path: "ubuntu/mssql" },
             { name: "ods-api-db-ods-minimal", path: "ubuntu/mssql" },
             { name: "ods-api-db-ods-sandbox", path: "ubuntu/mssql" }
-          ]        
+          ]
     name: ${{ matrix.dockerfile.name }}/${{ matrix.dockerfile.path }} Image for (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})
 
     steps:
