@@ -63,10 +63,9 @@ async function init() {
     }
   }
 
-  // Ensure 7.3.x releases are always included
+  // Ensure 7.3.1, 7.3.2 releases are always included
   versionsToProbe.push(semver.parse('7.3.1'));
   versionsToProbe.push(semver.parse('7.3.2'));
-  versionsToProbe.push(semver.parse('7.3.3'));
 
   const requests = versionsToProbe
     .reverse()
