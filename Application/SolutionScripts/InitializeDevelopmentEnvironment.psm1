@@ -85,7 +85,7 @@ function Initialize-DevelopmentEnvironment {
     .parameter PackageVersion
         Package version passed from CI that is used in Invoke-SdkGen
     .parameter MssqlSaPassword
-        IMPORTANT: Only use this parameter for deployment in isolated, ephemeral environments (i.e. a disposable container in an isolated CI/CD pipeline.) 
+        IMPORTANT: Only use this parameter for deployment in isolated, ephemeral environments (i.e. a disposable container in an isolated CI/CD pipeline.)
                    This password will be stored as plain-text in connection strings and may be present in log files or other unprotected formats.
         When using SQLServer, the password for 'sa' user account, which will be used for all database connection, overriding all other authentication methods or credentials.
     .parameter LocalDbBackupDirectory
@@ -107,7 +107,7 @@ function Initialize-DevelopmentEnvironment {
         [Alias('OdsYears')]
         [Parameter(Mandatory=$false)]
         [string[]] $OdsTokens,
-        
+
         [Parameter(Mandatory=$false)]
         [string[]] $Tenants,
 
@@ -181,7 +181,7 @@ function Initialize-DevelopmentEnvironment {
                 }
         })]
         [String] $ExtensionVersion = '1.1.0',
-		
+
 		[Parameter(Mandatory=$false)]
         [String] $JavaPath
     )
@@ -189,7 +189,7 @@ function Initialize-DevelopmentEnvironment {
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'SingleTenant') -and ($InstallType -ine 'MultiTenant')) {
         throw "The OdsTokens parameter can only be used with the 'SingleTenant' or 'MultiTenant' InstallType."
     }
-    
+
     if (($InstallType -eq 'MultiTenant') -and ([string]::IsNullOrWhiteSpace($Tenants))) {
         throw "The Tenants parameter is required with the 'MultiTenant' InstallType."
     }
@@ -223,10 +223,10 @@ function Initialize-DevelopmentEnvironment {
         $appsettings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
 
         $pluginFolderPath = $appsettings.Plugin.Folder
-        if ((-not [string]::IsNullOrWhiteSpace($pluginFolderPath)) -AND (($pluginFolderPath -eq './Plugin') -OR ($pluginFolderPath -eq '../../Plugin'))) { 
+        if ((-not [string]::IsNullOrWhiteSpace($pluginFolderPath)) -AND (($pluginFolderPath -eq './Plugin') -OR ($pluginFolderPath -eq '../../Plugin'))) {
             $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginFolder))
         }
-        
+
         $global:InvokedTasks = $null
         $script:result += Invoke-NewDevelopmentAppSettings $settings
 
@@ -465,15 +465,15 @@ function Invoke-CodeGen {
     param(
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $Engine,
-        
+
         [string[]] $ExtensionPaths,
-        
+
         [String] $RepositoryRoot,
-        
+
         [ValidateSet('4.0.0', '5.2.0', '6.1.0')]
         [Parameter(Mandatory=$true)]
         [string] $StandardVersion,
-        
+
         [ValidateScript({
                 if ($_ -match '^(?!0\.0\.0)\d+\.\d+\.\d+?$') {
                     $true
@@ -504,12 +504,12 @@ function Invoke-CodeGen {
             "--standardVersion", $StandardVersion,
             "--extensionVersion", $ExtensionVersion
         )
-        
+
         if ($ExtensionPaths.Length -gt 0) {
             $parameters += "--ExtensionPaths"
             $parameters += $ExtensionPaths
         }
-        
+
         Write-Host -ForegroundColor Magenta "& $codeGen $parameters"
         & $codeGen $parameters | Out-Host
     }
@@ -523,8 +523,15 @@ function Install-DbDeploy {
         $parameters = @{
             Name    = $packageSettings.packageName
             Version = $packageSettings.packageVersion
-            Source  = @($packageSettings.PackageSource)
         }
+
+        # If there is a nuget.config file in the repository root, then use it
+        # (implicitly) for the package source, otherwise rely on the package
+        # source from the $settings
+        if (-not (Test-Path nuget.config)) {
+            $parameters.Source = @($packageSettings.PackageSource)
+        }
+
         if ([string]::IsNullOrWhiteSpace($parameters.Path)) { $parameters.Path = $toolsPath }
         Install-DotNetTool @parameters
     }
@@ -538,7 +545,13 @@ function Install-CodeGenUtility {
         $parameters = @{
             Name    = $packageSettings.packageName
             Version = $packageSettings.packageVersion
-            Source  = @($packageSettings.PackageSource)
+        }
+
+        # If there is a nuget.config file in the repository root, then use it
+        # (implicitly) for the package source, otherwise rely on the package
+        # source from the $settings
+        if (-not (Test-Path nuget.config)) {
+            $parameters.Source = @($packageSettings.PackageSource)
         }
 
         if ([string]::IsNullOrWhiteSpace($parameters.Path)) { $parameters.Path = $toolsPath }
@@ -568,7 +581,7 @@ function Invoke-PesterTests {
             Run = @{
                 Exit = $true
             }
-            TestResult = @{ 
+            TestResult = @{
                 Enabled = $true
                 OutputPath  = $reports + "/PesterTestResults.xml"
             }
