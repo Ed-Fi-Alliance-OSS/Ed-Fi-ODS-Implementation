@@ -538,6 +538,7 @@ function Install-CodeGenUtility {
             Name    = $packageSettings.packageName
             Version = $packageSettings.packageVersion
         }
+
         if ([string]::IsNullOrWhiteSpace($parameters.Path)) { $parameters.Path = $toolsPath }
         Install-DotNetTool @parameters
     }

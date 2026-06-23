@@ -74,3 +74,7 @@ In appsettings.json, update the caching section similar to the following:
     }
 }
 ```
+
+## Testing
+
+In addition to performing manual tests of the caching functionality, explicitly run the integration tests from `RedisNotificationTests`.
