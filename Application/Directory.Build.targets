@@ -1,3 +1,0 @@
-<Project>
-  <Import Project="../../Ed-Fi-ODS/Directory.Build.targets" />
-</Project>
