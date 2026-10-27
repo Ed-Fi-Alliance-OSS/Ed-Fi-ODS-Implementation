@@ -78,7 +78,7 @@ jobs:
         exit 1
 
     - name: Download SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
-      uses: dawidd6/action-download-artifact@8a338493df3d275e4a7a63bcff3b8fe97e51a927 #v19
+      uses: dawidd6/action-download-artifact@d63b86af1b34672e53c440b1b83979861906bad7 #v24
       with:
         workflow: InitDev, Unit tests, Integration tests, Package.yml
         workflow_conclusion: success
@@ -89,7 +89,7 @@ jobs:
         if_no_artifact_found: fail
 
     - name: EdFi.Ods.Api.TestSdk NugetPackage
-      uses: dawidd6/action-download-artifact@8a338493df3d275e4a7a63bcff3b8fe97e51a927 #v19
+      uses: dawidd6/action-download-artifact@d63b86af1b34672e53c440b1b83979861906bad7 #v24
       with:
         workflow: InitDev, Smoke Tests.yml
         workflow_conclusion: success
