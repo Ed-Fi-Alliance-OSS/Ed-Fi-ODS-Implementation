@@ -74,7 +74,10 @@ param(
 
     [string] $LocalDbBackupDirectory,
 
-    [string] $DbServerBackupDirectory
+    [string] $DbServerBackupDirectory,
+
+    [ValidateSet('guid', 'jwt')]
+    [string] $AccessTokenType = 'guid'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -108,6 +111,7 @@ $params = @{
 	MssqlSaPassword        = $MssqlSaPassword
 	LocalDbBackupDirectory = $LocalDbBackupDirectory
 	DbServerBackupDirectory = $DbServerBackupDirectory
+	AccessTokenType        = $AccessTokenType
 }
 
 Write-FlatHashtable $params

@@ -98,6 +98,9 @@ function Initialize-DevelopmentEnvironment {
         Extension Version.
 	.parameter JavaPath
         Path to the java executable (used for SDK generation).
+    .parameter AccessTokenType
+        The access token type issued by the API: 'guid' (default) or 'jwt'. With 'jwt', the generated appsettings.Development.json
+        files use the signing key pair created by initdev (requires PowerShell 7+).
     #>
     param(
         [ValidateSet('Sandbox', 'SingleTenant', 'MultiTenant')]
@@ -183,7 +186,11 @@ function Initialize-DevelopmentEnvironment {
         [String] $ExtensionVersion = '1.1.0',
 		
 		[Parameter(Mandatory=$false)]
-        [String] $JavaPath
+        [String] $JavaPath,
+
+        [ValidateSet('guid', 'jwt')]
+        [Parameter(Mandatory=$false)]
+        [String] $AccessTokenType = 'guid'
     )
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'SingleTenant') -and ($InstallType -ine 'MultiTenant')) {
@@ -215,6 +222,7 @@ function Initialize-DevelopmentEnvironment {
         if ($MssqlSaPassword) { $settings.MssqlSaPassword = $MssqlSaPassword }
         if ($DbServerBackupDirectory) { $settings.DbServerBackupDirectory = $DbServerBackupDirectory }
         if ($LocalDbBackupDirectory) { $settings.LocalDbBackupDirectory = $LocalDbBackupDirectory }
+        if ($AccessTokenType) { $settings.Security = @{ AccessTokenType = $AccessTokenType } }
         Set-DeploymentSettings $settings | Out-Null
 
         if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }
