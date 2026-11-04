@@ -58,6 +58,9 @@ env:
   EDFI_SUITE_NUMBER: "Suite3"
   msbuild_buildConfiguration: "Release"
   LANG: "en_US.utf8"
+  # Clients with thousands of EdOrgs get JWTs larger than Kestrel's default 32 KB header limit (EDFI-2933).
+  # Raised for these test runs only, so the many-EdOrg Postman tests keep checking authorization in JWT mode.
+  Kestrel__Limits__MaxRequestHeadersTotalSize: "131072"
 
 jobs:
   CheckForChanges:
