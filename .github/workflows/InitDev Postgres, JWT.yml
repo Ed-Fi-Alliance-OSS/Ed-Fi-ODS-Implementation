@@ -5,20 +5,42 @@
 
 name: InitDev Postgres, JWT
 
-run-name: ${{github.event.client_payload.branch}}
+run-name: ${{ github.event.client_payload.branch || inputs.ods_branch }}
 
+# JWT tests are costly (initdev, SdkGen, Postman and smoke tests for every Standard version), so they don't run on
+# every PR and push. They run on weekdays when main changed, on PRs that touch the JWT test setup, and on demand.
 on:
   pull_request:
    branches: [main, 'b-v*-patch*','feature-*']
    types: [opened, synchronize, reopened, unlabeled]
-  push:
-   branches: [main, 'b-v*-patch*','feature-*']
+   paths:
+     - '.github/workflows/InitDev*JWT.yml'
+     - 'logistics/scripts/Invoke-JwtAccessTokenTests.ps1'
+     - 'logistics/scripts/Invoke-PostmanIntegrationTests.ps1'
+     - 'logistics/scripts/modules/postmanTestHarnessConfiguration.json'
+     - 'logistics/scripts/modules/settings/**'
+     - 'logistics/scripts/modules/utility/public-private-key-pair.psm1'
+     - 'logistics/scripts/modules/TestHarness.psm1'
+     - 'logistics/scripts/smokeTestHarnessConfiguration.json'
+     - 'logistics/scripts/run-smoke-tests.ps1'
+     - 'Application/SolutionScripts/InitializeDevelopmentEnvironment.psm1'
+     - 'build.github.ps1'
+     - 'Application/EdFi.Ods.WebApi/appsettings*.json'
+     - 'Application/EdFi.Ods.Api.IntegrationTestHarness/**'
+  schedule:
+    # Weekdays at 11:30 UTC, in a gap between the DMS scheduled jobs. The check-for-changes job skips the run when
+    # neither Ed-Fi-ODS main nor Ed-Fi-ODS-Implementation main changed since the last successful scheduled run.
+    - cron: '30 11 * * 1-5'
   workflow_dispatch:
     inputs:
       distinct_id:
         description: 'distinct ID for Trgr InitDev workflows in Implementation repo workflow'
         required: false
         default: 'distinct_id'
+      ods_branch:
+        description: 'Ed-Fi-ODS branch to test (optional). By default, the Ed-Fi-ODS branch with the same name, or main.'
+        required: false
+        default: ''
 
 permissions: read-all
 
@@ -32,16 +54,59 @@ env:
   CONFIGURATION: "Release"
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
-  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
+  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch || inputs.ods_branch }}
   EDFI_SUITE_NUMBER: "Suite3"
   msbuild_buildConfiguration: "Release"
   LANG: "en_US.utf8"
 
 jobs:
+  CheckForChanges:
+    runs-on: ubuntu-24.04
+    outputs:
+      run: ${{ steps.check.outputs.run }}
+    steps:
+    - name: Decide whether to run
+      id: check
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ github.token }}
+        EVENT_NAME: ${{ github.event_name }}
+        REPOSITORY_OWNER: ${{ github.repository_owner }}
+        WORKFLOW_NAME: ${{ github.workflow }}
+        ODS_BRANCH: ${{ inputs.ods_branch }}
+      run: |
+        $run = 'true'
+        if ($env:ODS_BRANCH) {
+          gh api "repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/branches/$($env:ODS_BRANCH)" --silent
+          if ($LASTEXITCODE -ne 0) {
+            Write-Output "::error::Ed-Fi-ODS branch '$($env:ODS_BRANCH)' was not found."
+            exit 1
+          }
+        }
+        if ($env:EVENT_NAME -eq 'schedule') {
+          if ($env:REPOSITORY_OWNER -ne 'Ed-Fi-Alliance-OSS') {
+            # Forks inherit the schedule but not the secrets
+            $run = 'false'
+          } else {
+            $lastSha = gh run list --repo $env:GITHUB_REPOSITORY --workflow $env:WORKFLOW_NAME --event schedule --status success --limit 1 --json headSha --jq '.[0].headSha'
+            $lastDate = gh run list --repo $env:GITHUB_REPOSITORY --workflow $env:WORKFLOW_NAME --event schedule --status success --limit 1 --json createdAt --jq '.[0].createdAt'
+            if ($lastSha -and $lastSha -eq $env:GITHUB_SHA) {
+              $odsCommits = gh api "repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/commits?sha=main&since=$lastDate&per_page=1" --jq 'length'
+              if ($odsCommits -eq '0') { $run = 'false' }
+            }
+            Write-Output "Last successful scheduled run: $lastDate ($lastSha)"
+          }
+        }
+        Write-Output "Run the tests: $run"
+        "run=$run" >> $env:GITHUB_OUTPUT
+        exit 0
+
   FindStandardAndExtensionVersions:
+    needs: CheckForChanges
+    if: needs.CheckForChanges.outputs.run == 'true'
     uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
     with:
-      calling_branch: ${{ github.head_ref || github.ref_name }}
+      calling_branch: ${{ inputs.ods_branch || github.head_ref || github.ref_name }}
 
   build:
     needs: FindStandardAndExtensionVersions
@@ -176,3 +241,21 @@ jobs:
           ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestSandbox.TestHarnessLog.log
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/JwtAccessTokenTests.TestHarnessLog.log
+
+  NotifyResults:
+    needs: [CheckForChanges, build]
+    if: always() && github.event_name == 'schedule' && needs.CheckForChanges.outputs.run == 'true'
+    runs-on: ubuntu-24.04
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    steps:
+    - name: Notify Slack
+      if: env.SLACK_WEBHOOK_URL != ''
+      uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d # v2.0.0
+      with:
+        payload: |
+          {
+            "text": "${{ needs.build.result == 'success' && ':heavy_check_mark:' || ':x:' }} ODS/API ${{ github.workflow }} scheduled run: ${{ needs.build.result }}. ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }
+        webhook: ${{ env.SLACK_WEBHOOK_URL }}
+        webhook-type: incoming-webhook
