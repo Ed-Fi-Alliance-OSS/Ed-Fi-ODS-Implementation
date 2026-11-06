@@ -125,6 +125,10 @@ jobs:
 
   build:
     needs: FindStandardAndExtensionVersions
+    permissions:
+      contents: read
+      actions: read
+      checks: write
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
@@ -157,6 +161,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
+           $env:REPOSITORY_DISPATCH_BRANCH = ''
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
