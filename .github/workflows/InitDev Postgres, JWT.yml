@@ -87,9 +87,11 @@ jobs:
             $reason = 'scheduled runs only run in Ed-Fi-Alliance-OSS'
           } else {
             # The baseline is the last successful scheduled run, so after a failure the tests run every weekday until they pass
-            $last = gh run list --repo $env:GITHUB_REPOSITORY --workflow $env:WORKFLOW_NAME --event schedule --status success --limit 1 --json headSha,createdAt --jq '.[0] | "\(.headSha) \(.createdAt)"'
-            if ($LASTEXITCODE -ne 0 -or -not $last) {
+            $last = gh run list --repo $env:GITHUB_REPOSITORY --workflow $env:WORKFLOW_NAME --event schedule --status success --limit 1 --json headSha,createdAt --jq '.[0] // empty | "\(.headSha) \(.createdAt)"'
+            if ($LASTEXITCODE -ne 0) {
               Write-Output "::warning::Could not read the last successful scheduled run; running the tests."
+              $reason = 'could not read the last successful scheduled run'
+            } elseif (-not $last) {
               $reason = 'no previous successful scheduled run'
             } else {
               $lastSha, $lastDate = $last -split ' '
@@ -161,7 +163,6 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
-           $env:REPOSITORY_DISPATCH_BRANCH = ''
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
