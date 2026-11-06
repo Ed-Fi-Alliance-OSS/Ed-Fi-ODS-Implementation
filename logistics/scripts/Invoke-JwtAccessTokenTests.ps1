@@ -56,6 +56,7 @@ function Assert-Condition([bool] $condition, [string] $description) {
     }
     else {
         Write-Host "FAIL  $description" -ForegroundColor Red
+        if ($env:GITHUB_ACTIONS) { Write-Host "::error::JWT access token check failed: $description" }
         $script:failures += $description
     }
 }
@@ -93,8 +94,10 @@ function Invoke-JwtAccessTokenChecks {
     $payload = ConvertFrom-Base64Url $parts[1] | ConvertFrom-Json
     Assert-Condition ($header.alg -eq 'RS256') "JWT is signed with RS256"
     Assert-Condition (-not [string]::IsNullOrEmpty($payload.jti)) "JWT has a jti claim"
-    Assert-Condition (-not [string]::IsNullOrEmpty($payload.iss)) "JWT has an iss claim"
-    Assert-Condition (@($payload.aud).Count -gt 0) "JWT has an aud claim"
+    Assert-Condition (-not [string]::IsNullOrEmpty($payload.iss)) "JWT has an iss claim (iss: '$($payload.iss)')"
+    # @($null).Count is 1, so count only non-empty audiences
+    $audiences = @($payload.aud | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
+    Assert-Condition ($audiences.Count -gt 0) "JWT has an aud claim (aud: '$($audiences -join ', ')')"
     Assert-Condition ($payload.exp -gt [DateTimeOffset]::UtcNow.ToUnixTimeSeconds()) "JWT exp claim is in the future"
     Assert-Condition (@($payload.educationOrganizationId) -contains $expectedEducationOrganizationId) "JWT educationOrganizationId claim includes $expectedEducationOrganizationId"
     Assert-Condition (-not [string]::IsNullOrEmpty($payload.odsInstances)) "JWT has an odsInstances claim"
@@ -105,7 +108,8 @@ function Invoke-JwtAccessTokenChecks {
     $statusCode = Get-StatusCode "$apiUrl/data/v3/ed-fi/schools?limit=1" $tokenResponse.access_token
     Assert-Condition ($statusCode -eq 200) "JWT authorizes GET /ed-fi/schools (status $statusCode)"
 
-    $tamperedToken = "$($parts[0]).$($parts[1]).$($parts[2].Substring(0, $parts[2].Length - 4))AAAA"
+    $signatureEnd = if ($parts[2].EndsWith('AAAA')) { 'BBBB' } else { 'AAAA' }
+    $tamperedToken = "$($parts[0]).$($parts[1]).$($parts[2].Substring(0, $parts[2].Length - 4))$signatureEnd"
     $statusCode = Get-StatusCode "$apiUrl/data/v3/ed-fi/schools?limit=1" $tamperedToken
     Assert-Condition ($statusCode -eq 401) "JWT with a tampered signature is rejected (status $statusCode)"
 
@@ -138,11 +142,8 @@ try {
     Test-Error
 
     if ($script:failures.Count -gt 0) {
-        throw "$($script:failures.Count) JWT access token check(s) failed."
+        throw "$($script:failures.Count) JWT access token check(s) failed: $($script:failures -join '; ')"
     }
-
-    $script:result += New-TaskResult -name '-' -duration '-'
-    $script:result += New-TaskResult -name $MyInvocation.MyCommand.Name -duration $elapsed.format
 
     return $script:result | Format-Table
 }

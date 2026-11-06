@@ -99,8 +99,11 @@ function Initialize-DevelopmentEnvironment {
 	.parameter JavaPath
         Path to the java executable (used for SDK generation).
     .parameter AccessTokenType
-        The access token type issued by the API: 'guid' (default) or 'jwt'. With 'jwt', the generated appsettings.Development.json
-        files use the signing key pair created by initdev (requires PowerShell 7+).
+        The access token type issued by the API: 'guid' (default) or 'jwt' (any casing). It is written to the generated
+        appsettings.Development.json files, so a later initdev run without it switches back to 'guid'. initdev always
+        creates a new signing key pair; with 'jwt' the API signs tokens with it, which requires PowerShell 7+.
+        Clients with thousands of EdOrgs get JWTs larger than Kestrel's default 32 KB header limit (EDFI-2933); for local
+        runs of the test harness, set Kestrel__Limits__MaxRequestHeadersTotalSize (e.g. 131072) as the JWT workflows do.
     #>
     param(
         [ValidateSet('Sandbox', 'SingleTenant', 'MultiTenant')]
@@ -205,6 +208,13 @@ function Initialize-DevelopmentEnvironment {
         throw "The MssqlSaPassword parameter can only be used with the 'SQLServer' Engine."
     }
 
+    # The API enables JWT only for the exact value 'jwt', so 'JWT' would silently run in GUID mode
+    $AccessTokenType = $AccessTokenType.ToLowerInvariant()
+
+    if (($AccessTokenType -eq 'jwt') -and ($PSVersionTable.PSVersion.Major -lt 7)) {
+        throw "AccessTokenType 'jwt' requires PowerShell 7+, which initdev needs to generate the JWT signing key pair. Run initdev from pwsh."
+    }
+
     Clear-Error
 
     $script:result = @()
@@ -222,7 +232,7 @@ function Initialize-DevelopmentEnvironment {
         if ($MssqlSaPassword) { $settings.MssqlSaPassword = $MssqlSaPassword }
         if ($DbServerBackupDirectory) { $settings.DbServerBackupDirectory = $DbServerBackupDirectory }
         if ($LocalDbBackupDirectory) { $settings.LocalDbBackupDirectory = $LocalDbBackupDirectory }
-        if ($AccessTokenType) { $settings.Security = @{ AccessTokenType = $AccessTokenType } }
+        $settings.Security = @{ AccessTokenType = $AccessTokenType }
         Set-DeploymentSettings $settings | Out-Null
 
         if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }

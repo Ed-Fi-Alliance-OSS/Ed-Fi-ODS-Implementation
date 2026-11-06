@@ -38,7 +38,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                 .ConfigureServices(
                     (hostingContext, services) =>
                     {
-                        // Lets test runs override Kestrel limits (e.g. Kestrel__Limits__MaxRequestHeadersTotalSize)
+                        // Lets test runs override Kestrel limits (e.g. Kestrel__Limits__MaxRequestHeadersTotalSize).
+                        // TODO(EDFI-2933): the JWT workflows rely on this to raise the header limit; remove it with that workaround.
                         services.Configure<KestrelServerOptions>(hostingContext.Configuration.GetSection("Kestrel"));
                     })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
