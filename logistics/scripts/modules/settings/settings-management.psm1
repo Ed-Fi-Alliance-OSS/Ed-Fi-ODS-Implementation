@@ -739,6 +739,10 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
 
     $keyPair = New-PublicPrivateKeyPair
 
+    if (($Settings.Security.AccessTokenType -eq 'jwt') -and [string]::IsNullOrEmpty($keyPair.PrivateKey)) {
+        throw "AccessTokenType 'jwt' requires a JWT signing key pair, which can only be generated with PowerShell 7+."
+    }
+
     foreach ($project in $developmentSettingsByProject.Keys) {
         $newDevelopmentSettings = (Get-DefaultConnectionStringsByEngine)[$Settings.ApiSettings.Engine]
         $newDevelopmentSettings = Add-ApplicationNameToConnectionStrings $newDevelopmentSettings $project
