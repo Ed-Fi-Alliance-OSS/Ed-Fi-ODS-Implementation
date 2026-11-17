@@ -826,6 +826,23 @@
       "NamespacePrefixes": [ "uri://ed-fi.org" ]
     },
     {
+      "Email": "test-api-publisher-reader@ed-fi.org",
+      "VendorName": "API Publisher Reader Test",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi API Publisher - Reader",
+          "ApiClients": [
+            {
+              "ApiClientName": "ApiPublisherReader",
+              "LocalEducationOrganizations": [255901]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
+    },
+    {
       "Email": "test-multiple_employment_associations@ed-fi-org",
       "VendorName": "Multiple Employment Associations Ed-Fi Namespace",
       "Applications": [

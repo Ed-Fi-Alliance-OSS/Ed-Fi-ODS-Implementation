@@ -1,0 +1,296 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: InitDev Postgres, JWT
+
+run-name: ${{ inputs.ods_branch }}
+
+# JWT tests are costly (initdev, SdkGen, Postman and smoke tests for every Standard version), so they don't run on
+# every PR and push. They run on weekdays when main changed, on PRs that touch the JWT test setup, and on demand.
+# Keep the triggers, CheckForChanges and NotifyResults in sync with 'InitDev, JWT.yml'.
+on:
+  pull_request:
+   branches: [main, 'b-v*-patch*','feature-*']
+   types: [opened, synchronize, reopened, unlabeled]
+   paths:
+     - '.github/workflows/InitDev*JWT.yml'
+     - 'logistics/scripts/**'
+     - 'Application/SolutionScripts/InitializeDevelopmentEnvironment.psm1'
+     - 'Initialize-PowershellForDevelopment.ps1'
+     - 'build.github.ps1'
+     - 'build.githubactions.ps1'
+     - 'Application/EdFi.Ods.WebApi/appsettings*.json'
+     - 'Application/EdFi.Ods.Api.IntegrationTestHarness/**'
+  schedule:
+    # Weekdays at 11:30 UTC, in a gap between the DMS scheduled jobs. The check-for-changes job skips the run when
+    # neither Ed-Fi-ODS main nor Ed-Fi-ODS-Implementation main changed since the last successful scheduled run.
+    - cron: '30 11 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      ods_branch:
+        description: 'Ed-Fi-ODS branch to test (optional). By default, the Ed-Fi-ODS branch with the same name, or main.'
+        required: false
+        default: ''
+
+permissions: read-all
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  INFORMATIONAL_VERSION: "7.3"
+  BUILD_INCREMENTER: "0"
+  CONFIGURATION: "Release"
+  HEAD_REF:  ${{ GITHUB.HEAD_REF }}
+  REF_NAME:  ${{ GITHUB.REF_NAME }}
+  EDFI_SUITE_NUMBER: "Suite3"
+  msbuild_buildConfiguration: "Release"
+  LANG: "en_US.utf8"
+  # TODO(EDFI-2933): remove once tokens for clients with many EdOrgs fit the default header limits.
+  # Clients with thousands of EdOrgs get JWTs larger than Kestrel's default 32 KB header limit (EDFI-2933).
+  # Raised for these test runs only, so the many-EdOrg Postman tests keep checking authorization in JWT mode.
+  # Real deployments and local initdev runs still use the default limit.
+  Kestrel__Limits__MaxRequestHeadersTotalSize: "131072"
+
+jobs:
+  CheckForChanges:
+    runs-on: ubuntu-24.04
+    outputs:
+      run: ${{ steps.check.outputs.run }}
+    steps:
+    - name: Decide whether to run
+      id: check
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ github.token }}
+        EVENT_NAME: ${{ github.event_name }}
+        REPOSITORY_OWNER: ${{ github.repository_owner }}
+        WORKFLOW_NAME: ${{ github.workflow }}
+        ODS_BRANCH: ${{ inputs.ods_branch }}
+      run: |
+        $run = 'true'
+        $reason = 'not a scheduled run'
+        if ($env:ODS_BRANCH) {
+          gh api "repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/branches/$($env:ODS_BRANCH)" --silent
+          if ($LASTEXITCODE -ne 0) {
+            Write-Output "::error::Ed-Fi-ODS branch '$($env:ODS_BRANCH)' was not found."
+            exit 1
+          }
+        }
+        if ($env:EVENT_NAME -eq 'schedule') {
+          if ($env:REPOSITORY_OWNER -ne 'Ed-Fi-Alliance-OSS') {
+            # Forks inherit the schedule but not the secrets
+            $run = 'false'
+            $reason = 'scheduled runs only run in Ed-Fi-Alliance-OSS'
+          } else {
+            # The baseline is the last successful scheduled run, so after a failure the tests run every weekday until they pass
+            $last = gh run list --repo $env:GITHUB_REPOSITORY --workflow $env:WORKFLOW_NAME --event schedule --status success --limit 1 --json headSha,createdAt --jq '.[0] // empty | "\(.headSha) \(.createdAt)"'
+            if ($LASTEXITCODE -ne 0) {
+              Write-Output "::warning::Could not read the last successful scheduled run; running the tests."
+              $reason = 'could not read the last successful scheduled run'
+            } elseif (-not $last) {
+              $reason = 'no previous successful scheduled run'
+            } else {
+              $lastSha, $lastDate = $last -split ' '
+              if ($lastSha -ne $env:GITHUB_SHA) {
+                $reason = "Ed-Fi-ODS-Implementation main changed since $lastDate"
+              } else {
+                $odsCommits = gh api "repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/commits?sha=main&since=$lastDate&per_page=1" --jq 'length'
+                if ($LASTEXITCODE -ne 0) {
+                  Write-Output "::warning::Could not read the Ed-Fi-ODS commits; running the tests."
+                  $reason = 'could not read the Ed-Fi-ODS commits'
+                } elseif ($odsCommits -eq '0') {
+                  $run = 'false'
+                  $reason = "neither Ed-Fi-ODS nor Ed-Fi-ODS-Implementation main changed since the last successful scheduled run ($lastDate)"
+                } else {
+                  $reason = "Ed-Fi-ODS main changed since $lastDate"
+                }
+              }
+            }
+          }
+        }
+        $message = if ($run -eq 'true') { "Running the JWT tests: $reason." } else { "Skipping the JWT tests: $reason." }
+        Write-Output "::notice::$message"
+        "### $message" >> $env:GITHUB_STEP_SUMMARY
+        "run=$run" >> $env:GITHUB_OUTPUT
+        exit 0
+
+  FindStandardAndExtensionVersions:
+    needs: CheckForChanges
+    if: needs.CheckForChanges.outputs.run == 'true'
+    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
+    with:
+      calling_branch: ${{ inputs.ods_branch || github.head_ref || github.ref_name }}
+
+  build:
+    needs: FindStandardAndExtensionVersions
+    permissions:
+      contents: read
+      actions: read
+      checks: write
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
+        ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
+    name: JWT build (Standard Version ${{ matrix.StandardVersion }})
+
+    services:
+      postgres:
+        image: postgres:16.12-alpine3.22@sha256:b0634f494e32d9c6e94a016a491e3ea91739be7288af5c8dd09542feea6bb4a7
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+    - name: Checkout Ed-Fi-ODS-Implementation
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+          path: Ed-Fi-ODS-Implementation/
+    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
+    - name: Checkout Ed-Fi-ODS
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-Fi-ODS/
+    - name: Is pull request branch exists in Ed-Fi-ODS
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      env:
+        # Only for the Ed-Fi-ODS checkout, so ods_branch doesn't switch the Ed-Fi-ODS-Implementation branch
+        REPOSITORY_DISPATCH_BRANCH: ${{ inputs.ods_branch }}
+      run: |
+           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
+    - name: Record the branches under test
+      shell: pwsh
+      run: |
+        foreach ($repo in 'Ed-Fi-ODS-Implementation', 'Ed-Fi-ODS') {
+          $branch = git -C "$env:GITHUB_WORKSPACE/$repo" rev-parse --abbrev-ref HEAD
+          $sha = git -C "$env:GITHUB_WORKSPACE/$repo" rev-parse --short HEAD
+          "- ${repo}: $branch ($sha)" >> $env:GITHUB_STEP_SUMMARY
+        }
+    - name: Cache Nuget packages
+      uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+          ${{ runner.os }}-
+          nuget-
+        enableCrossOsArchive: true
+    - name: Restore NuGet packages
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln"
+        .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
+      shell: pwsh
+    - name: ODS/API InitDev (JWT), SdkGen and Postman Tests
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        $ErrorActionPreference = 'Stop'
+        [int]$BuildCounter =  "${{ github.run_number }}"
+        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
+        [int]$newRevision =  $BuildCounter + $BuildIncrementer
+        [string]$version = "${{ env.INFORMATIONAL_VERSION}}" + "." + $newRevision.ToString()
+        .\build.github.ps1 -Engine PostgreSQL -AccessTokenType jwt -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateTestSdkPackage -RunPostman -NoPackaging  -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -JavaPath $env:JAVA_HOME_11_X64/bin/java
+      shell: pwsh
+    - name: Postman Test Report
+      uses: dorny/test-reporter@a43b3a5f7366b97d083190328d2c652e1a8b6aa2 # v3.0.0
+      if: success() || failure()
+      with:
+        name: JWT Postman Tests
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.xml
+        path-replace-backslashes: 'true'
+        working-directory: ${{ github.workspace }}/Ed-Fi-ODS-Implementation
+        reporter: java-junit
+    - name: Upload initdev and Postman logs
+      if: success() || failure()
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: JWT Initdev logs-${{ matrix.StandardVersion }}
+        path: |
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.html
+    - name: ODS/API JWT Access Token Tests
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        $ErrorActionPreference = 'Stop'
+        ./logistics/scripts/Invoke-JwtAccessTokenTests.ps1
+      shell: pwsh
+    - name: ODS/API Smoke Tests
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        $ErrorActionPreference = 'Stop'
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+
+        Reset-TestPopulatedTemplateDatabase
+        $params = @{
+                InstallType   = 'Sandbox'
+                Engine        = 'PostgreSQL'
+                DropDatabases = $true
+                NoDuration    = $true
+                UsePlugins    = $true
+        }
+        Initialize-DeploymentEnvironment @params
+
+        if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net10.0/publish) {
+          Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net10.0/publish -Recurse
+        }
+
+        $params = @{
+                testSets                 = @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk")
+                smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net10.0/EdFi.OdsApi.Sdk.dll"
+                testHarnessLogNamePrefix = "SmokeTestSandbox"
+        }
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 @params
+      shell: pwsh
+    - name: Upload Smoke Tests Logs
+      if: success() || failure()
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: JWT Smoke Tests Logs-${{ matrix.StandardVersion }}
+        path: |
+          ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestSandbox.TestHarnessLog.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/JwtAccessTokenTests.TestHarnessLog.log
+
+  NotifyResults:
+    needs: [CheckForChanges, FindStandardAndExtensionVersions, build]
+    if: always() && github.event_name == 'schedule' && needs.CheckForChanges.outputs.run == 'true'
+    runs-on: ubuntu-24.04
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      # Report a failure to find the Standard versions instead of the skipped build
+      RESULT: ${{ needs.FindStandardAndExtensionVersions.result == 'success' && needs.build.result || needs.FindStandardAndExtensionVersions.result }}
+    steps:
+    - name: Warn when Slack isn't configured
+      if: env.SLACK_WEBHOOK_URL == ''
+      run: echo "::warning::SLACK_WEBHOOK_URL is not set, so the scheduled JWT test result ($RESULT) was not posted to Slack."
+    - name: Notify Slack
+      if: env.SLACK_WEBHOOK_URL != ''
+      uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d # v2.0.0
+      with:
+        payload: |
+          {
+            "text": "${{ env.RESULT == 'success' && ':heavy_check_mark:' || ':x:' }} ODS/API ${{ github.workflow }} scheduled run: ${{ env.RESULT }}. ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }
+        webhook: ${{ env.SLACK_WEBHOOK_URL }}
+        webhook-type: incoming-webhook

@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -13,6 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 
@@ -32,6 +34,13 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                     (hostingContext, config) =>
                     {
                         config.SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName);
+                    })
+                .ConfigureServices(
+                    (hostingContext, services) =>
+                    {
+                        // Lets test runs override Kestrel limits (e.g. Kestrel__Limits__MaxRequestHeadersTotalSize).
+                        // TODO(EDFI-2933): the JWT workflows rely on this to raise the header limit; remove it with that workaround.
+                        services.Configure<KestrelServerOptions>(hostingContext.Configuration.GetSection("Kestrel"));
                     })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); }).Build();
