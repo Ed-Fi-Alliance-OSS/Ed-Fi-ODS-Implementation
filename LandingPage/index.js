@@ -19,7 +19,8 @@ const versionRanges = [
   // Note that probing will continue until the end of the range even if a specific version failed to answer.
   '5.0 - 5.10',
   '6.0 - 6.10',
-  '7.0 - 7.10'
+  '7.0 - 7.10',
+  '8.0 - 8.10'
 ];
 
 const versionVariants = [
@@ -68,7 +69,7 @@ async function init() {
   versionsToProbe.push(semver.parse('7.3.2'));
 
   const requests = versionsToProbe
-    .reverse()
+    .sort(semver.rcompare)
     .flatMap(version => versionVariants.map(variant => [version, variant]))
     .map(([version, variant]) => ([version, variant, buildApiProbeRequest(version, variant, apiUrlBase)]));
 
