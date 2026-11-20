@@ -167,6 +167,12 @@ function Invoke-Pack-ApiSdk {
         & dotnet $params | Out-Host
 
         $PackageDefinitionFile = (Get-ChildItem $PackageDefinitionFile)
+
+        # The package must declare what the generated SDK project actually references
+        Set-NuspecDependenciesFromProject `
+            -PackageDefinitionFile $PackageDefinitionFile `
+            -ProjectFile (Join-Path $ProjectPath "csharp/src/EdFi.OdsApi.Sdk/EdFi.OdsApi.Sdk.csproj")
+
         if (-not [string]::IsNullOrWhiteSpace($PackageId)) {
             [xml] $xml = Get-Content $PackageDefinitionFile
             $xml.package.metadata.id = $PackageId
@@ -182,6 +188,70 @@ function Invoke-Pack-ApiSdk {
 
         New-Package @params | Out-Host
     }
+}
+
+function Set-NuspecDependenciesFromProject {
+    <#
+    .description
+        Replaces the dependencies in the .nuspec file with the package references of the generated SDK project, so the
+        package declares what the compiled SDK uses. The generator writes the references and their versions into the
+        project, so they change with the generator version.
+    #>
+    param(
+        [Parameter(Mandatory = $true)]
+        [string] $PackageDefinitionFile,
+
+        [Parameter(Mandatory = $true)]
+        [string] $ProjectFile
+    )
+
+    if (-not (Test-Path $ProjectFile)) {
+        throw "The generated SDK project was not found at '$ProjectFile'."
+    }
+
+    [xml] $project = Get-Content $ProjectFile
+
+    $references = @(
+        $project.SelectNodes('//PackageReference') |
+            Where-Object { $_.GetAttribute('Include') } |
+            # References with PrivateAssets="all" (analyzers, build tools) are not dependencies of the package
+            Where-Object { $_.GetAttribute('PrivateAssets') -ne 'all' -and $_.PrivateAssets -ne 'all' } |
+            ForEach-Object {
+                $version = if ($_.GetAttribute('Version')) { $_.GetAttribute('Version') } else { $_.Version }
+
+                if ([string]::IsNullOrWhiteSpace($version)) {
+                    throw "The package reference '$($_.GetAttribute('Include'))' in '$ProjectFile' has no version."
+                }
+
+                # The generator writes versions with a trailing space (Version="10.0.1 ")
+                [PSCustomObject] @{ Id = $_.GetAttribute('Include'); Version = $version.Trim() }
+            }
+    )
+
+    if ($references.Count -eq 0) {
+        throw "No package references were found in '$ProjectFile'."
+    }
+
+    [xml] $nuspec = Get-Content $PackageDefinitionFile
+    $metadata = $nuspec.package.metadata
+    $namespace = $nuspec.package.NamespaceURI
+
+    $existing = $metadata.SelectSingleNode('*[local-name()="dependencies"]')
+    if ($null -ne $existing) { $metadata.RemoveChild($existing) | Out-Null }
+
+    $dependencies = $nuspec.CreateElement('dependencies', $namespace)
+
+    foreach ($reference in $references) {
+        $dependency = $nuspec.CreateElement('dependency', $namespace)
+        $dependency.SetAttribute('id', $reference.Id)
+        $dependency.SetAttribute('version', $reference.Version)
+        $dependencies.AppendChild($dependency) | Out-Null
+    }
+
+    $metadata.AppendChild($dependencies) | Out-Null
+    $nuspec.Save($PackageDefinitionFile)
+
+    Write-Host "Package dependencies from $(Split-Path $ProjectFile -Leaf): $(($references | ForEach-Object { "$($_.Id) $($_.Version)" }) -join ', ')"
 }
 
 function Invoke-Clean-SdkGen-Output {
