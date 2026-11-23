@@ -129,7 +129,7 @@ function Install-EdFiOdsSandboxAdmin {
 
     .EXAMPLE
         PS c:/> $parameters = @{
-            PackageVersion     = '6.1.0'
+            PackageVersion     = '6.2.0'
             WebSitePath        = 'c:\inetpub\Ed-Fi'
             WebSitePort        = 8765
             WebApplicationPath = 'SandboxAdmin'
