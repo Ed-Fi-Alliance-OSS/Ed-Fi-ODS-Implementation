@@ -9,10 +9,31 @@ PostgreSQL 16.
 
 ## Image Variants
 
-The only supported image at this time is an Alpine-based implementation using
-[PostgreSQL 16](https://hub.docker.com/_/postgres).
+The only supported image at this time is a Debian-based implementation using
+the [Docker Hardened Image for PostgreSQL 16](https://hub.docker.com/hardened-images/catalog/dhi/postgres).
+The folder keeps the name `alpine` from the previous base image.
 
 `edfialliance/ods-api-db-ods-populated:<version>`
+
+## Notes on the Base Image
+
+- The image runs as the `postgres` user (uid 70) and stores its data in
+  `/var/lib/postgresql/data`, the same as the earlier Alpine-based versions.
+- Files named `*.sh` and `*.sql` in `/docker-entrypoint-initdb.d` run in name
+  order the first time the image starts with an empty data directory.
+- The image has no package manager and only a small set of shell tools. Images
+  derived from this one cannot use `apk` or `apt`, and tools such as `wget`,
+  `curl`, `ps`, `grep`, `sed` and `gosu` are not available. Prepare files in a
+  separate build stage and copy them into the image.
+
+### Upgrading a volume created with an Alpine-based version
+
+Text values sort differently in this image than in the Alpine-based versions,
+which leaves the indexes on text columns in an existing data volume out of
+date. `reindexdb --all` rebuilds them in the sandbox databases but skips the two
+template databases, because they do not accept connections. The simplest
+option for this non-production image is to remove the volume and let the image
+create it again, which also removes the existing sandbox databases.
 
 ## Supported Environment Variables
 

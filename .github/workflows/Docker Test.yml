@@ -22,6 +22,8 @@ permissions: read-all
 env:
   CURRENT_STANDARD_VERSION: "6.1.0"
   PACKAGE_VERSION: "7.3.2"
+  DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+  DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
 
 jobs:
   docker-lint:
@@ -85,7 +87,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
+      # The PostgreSQL database images use a base image that requires an authenticated pull
+      - name: Log in to Docker Hub
+        if: ${{ env.DOCKER_HUB_TOKEN != '' }}
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
+        with:
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ env.DOCKER_HUB_TOKEN }}
+
+      - name: Skip build when the Docker Hub Token is missing in a forked repository
+        if: ${{ env.DOCKER_HUB_TOKEN == '' && matrix.dockerfile.path == 'alpine/pgsql' && startsWith(matrix.dockerfile.name, 'ods-api-db-') }}
+        run: echo "::warning::Skipping ${{ matrix.dockerfile.name }}/${{ matrix.dockerfile.path }} - its base image cannot be pulled without the Docker Hub Token"
+
       - name: Build  ${{ matrix.dockerfile.name }} image in path ${{ matrix.dockerfile.path }}
+        if: ${{ env.DOCKER_HUB_TOKEN != '' || !(matrix.dockerfile.path == 'alpine/pgsql' && startsWith(matrix.dockerfile.name, 'ods-api-db-')) }}
         # To confirm no errors occur. The "local" one will be built by the e2e
         # testing process.
         run: |
