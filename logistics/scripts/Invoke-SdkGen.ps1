@@ -167,6 +167,11 @@ function Invoke-Pack-ApiSdk {
         & dotnet $params | Out-Host
 
         $PackageDefinitionFile = (Get-ChildItem $PackageDefinitionFile)
+        $sdkProjectFile = Join-Path $ProjectPath "csharp/src/EdFi.OdsApi.Sdk/EdFi.OdsApi.Sdk.csproj"
+
+        # The package must declare what the generated SDK project actually references
+        Set-NuspecDependenciesFromProject -PackageDefinitionFile $PackageDefinitionFile -ProjectFile $sdkProjectFile
+
         if (-not [string]::IsNullOrWhiteSpace($PackageId)) {
             [xml] $xml = Get-Content $PackageDefinitionFile
             $xml.package.metadata.id = $PackageId
@@ -180,8 +185,154 @@ function Invoke-Pack-ApiSdk {
             OutputDirectory       = $nugetOutput
         }
 
+        $packStartTime = Get-Date
         New-Package @params | Out-Host
+
+        [xml] $nuspec = Get-Content $PackageDefinitionFile
+        $packageFile = Get-ChildItem $nugetOutput -Filter "$($nuspec.package.metadata.id).*.nupkg" |
+            Where-Object { $_.LastWriteTime -ge $packStartTime } |
+            Sort-Object LastWriteTime -Descending |
+            Select-Object -First 1
+
+        if ($null -eq $packageFile) {
+            throw "The package '$($nuspec.package.metadata.id)' was not found in '$nugetOutput' after packing."
+        }
+
+        Assert-PackageDependenciesMatchProject -PackageFile $packageFile.FullName -ProjectFile $sdkProjectFile
     }
+}
+
+function Get-ProjectPackageReferences {
+    <#
+    .description
+        Gets the package references of the generated SDK project that are dependencies of its package: each id once,
+        with its version, leaving out references with PrivateAssets="all" (analyzers and build tools).
+    #>
+    param(
+        [Parameter(Mandatory = $true)]
+        [string] $ProjectFile
+    )
+
+    if (-not (Test-Path $ProjectFile)) {
+        throw "The generated SDK project was not found at '$ProjectFile'. Run Invoke-SdkGen.ps1 with -generateApiSdkPackage, or check whether openapi-generator changed its output layout."
+    }
+
+    [xml] $project = Get-Content $ProjectFile
+
+    $references = @(
+        $project.SelectNodes('//PackageReference') |
+            Where-Object { $_.GetAttribute('Include') } |
+            Where-Object { $_.GetAttribute('PrivateAssets') -ne 'all' -and $_.PrivateAssets -ne 'all' } |
+            ForEach-Object {
+                $version = if ($_.GetAttribute('Version')) { $_.GetAttribute('Version') } else { $_.Version }
+
+                if ([string]::IsNullOrWhiteSpace($version)) {
+                    throw "The package reference '$($_.GetAttribute('Include'))' in '$ProjectFile' has no version. Central package management is not supported; put the version on the PackageReference."
+                }
+
+                # The generator writes some versions with trailing spaces
+                [PSCustomObject] @{ Id = $_.GetAttribute('Include'); Version = $version.Trim() }
+            } |
+            Sort-Object Id -Unique
+    )
+
+    if ($references.Count -eq 0) {
+        throw "No package references were found in '$ProjectFile'."
+    }
+
+    return $references
+}
+
+function Set-NuspecDependenciesFromProject {
+    <#
+    .description
+        Replaces the dependencies in the .nuspec file with the package references of the generated SDK project, so the
+        package declares what the compiled SDK uses. The generator writes the references and their versions into the
+        project, so they change with the generator version.
+    #>
+    param(
+        [Parameter(Mandatory = $true)]
+        [string] $PackageDefinitionFile,
+
+        [Parameter(Mandatory = $true)]
+        [string] $ProjectFile
+    )
+
+    $references = Get-ProjectPackageReferences -ProjectFile $ProjectFile
+
+    [xml] $nuspec = Get-Content $PackageDefinitionFile
+    $metadata = $nuspec.package.metadata
+    $namespace = $nuspec.package.NamespaceURI
+
+    $dependencies = $nuspec.CreateElement('dependencies', $namespace)
+
+    foreach ($reference in $references) {
+        $dependency = $nuspec.CreateElement('dependency', $namespace)
+        $dependency.SetAttribute('id', $reference.Id)
+        $dependency.SetAttribute('version', $reference.Version)
+        $dependencies.AppendChild($dependency) | Out-Null
+    }
+
+    # Replace in place, so the element stays next to the comment that explains it
+    $existing = $metadata.SelectSingleNode('*[local-name()="dependencies"]')
+
+    if ($null -ne $existing) {
+        $metadata.ReplaceChild($dependencies, $existing) | Out-Null
+    }
+    else {
+        $metadata.AppendChild($dependencies) | Out-Null
+    }
+
+    $nuspec.Save($PackageDefinitionFile)
+
+    Write-Host "Package dependencies of $($metadata.id) from $(Split-Path $ProjectFile -Leaf): $(($references | ForEach-Object { "$($_.Id) $($_.Version)" }) -join ', ')"
+}
+
+function Assert-PackageDependenciesMatchProject {
+    <#
+    .description
+        Fails when the dependencies declared in the packed .nupkg are not the package references of the generated SDK
+        project, for example if the dependencies were not written before packing.
+    #>
+    param(
+        [Parameter(Mandatory = $true)]
+        [string] $PackageFile,
+
+        [Parameter(Mandatory = $true)]
+        [string] $ProjectFile
+    )
+
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    $zip = [System.IO.Compression.ZipFile]::OpenRead($PackageFile)
+
+    try {
+        $entry = $zip.Entries | Where-Object { $_.FullName -notmatch '/' -and $_.Name -like '*.nuspec' } | Select-Object -First 1
+
+        if ($null -eq $entry) {
+            throw "No .nuspec file was found in '$PackageFile'."
+        }
+
+        $reader = New-Object System.IO.StreamReader($entry.Open())
+
+        try {
+            [xml] $nuspec = $reader.ReadToEnd()
+        }
+        finally {
+            $reader.Dispose()
+        }
+    }
+    finally {
+        $zip.Dispose()
+    }
+
+    $declared = @($nuspec.SelectNodes('//*[local-name()="dependency"]') | ForEach-Object { "$($_.GetAttribute('id')) $($_.GetAttribute('version'))" } | Sort-Object)
+    $expected = @(Get-ProjectPackageReferences -ProjectFile $ProjectFile | ForEach-Object { "$($_.Id) $($_.Version)" } | Sort-Object)
+
+    if (($declared -join ', ') -ne ($expected -join ', ')) {
+        throw "The package '$(Split-Path $PackageFile -Leaf)' declares [$($declared -join ', ')], but the generated SDK project references [$($expected -join ', ')]."
+    }
+
+    Write-Host "Checked the dependencies of $(Split-Path $PackageFile -Leaf): $($declared -join ', ')"
 }
 
 function Invoke-Clean-SdkGen-Output {
