@@ -35,6 +35,22 @@ template databases, because they do not accept connections. The simplest
 option for this non-production image is to remove the volume and let the image
 create it again, which also removes the existing sandbox databases.
 
+To keep the existing sandbox databases, stop the applications that use the
+database, start this image, run the commands below, then start the
+applications again. The commands open each template database, rebuild its
+indexes and close it again, and then rebuild the indexes of the other
+databases:
+
+```shell
+docker exec <container> sh -c '
+for db in EdFi_Ods_Minimal_Template EdFi_Ods_Populated_Template; do
+  psql --username "$POSTGRES_USER" --dbname postgres --command "alter database \"$db\" allow_connections true"
+  reindexdb --username "$POSTGRES_USER" --dbname "$db"
+  psql --username "$POSTGRES_USER" --dbname postgres --command "alter database \"$db\" allow_connections false"
+done
+reindexdb --username "$POSTGRES_USER" --all'
+```
+
 ## Supported Environment Variables
 
 ```none
