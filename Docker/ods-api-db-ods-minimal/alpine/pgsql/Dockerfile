@@ -3,22 +3,8 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-# Base image with additional packages
-FROM postgres:16.13-alpine3.23@sha256:4e6e670bb069649261c9c18031f0aded7bb249a5b6664ddec29c013a89310d50 AS base
-RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 nodejs=~24 npm=~11 && \
-    npm install -g semver@7
-
-# Workaround to fix false positive CVEs using gosu
-FROM golang:1.26.2 AS gosubuilder
-ENV GOSU_VERSION=1.17
-WORKDIR /go/src/github.com/tianon
-RUN git clone https://github.com/tianon/gosu.git --branch $GOSU_VERSION
-WORKDIR /go/src/github.com/tianon/gosu
-RUN go mod download; go build
-
-
-# Start a new layer so that the above layers can be cached
-FROM base AS build
+# Preparation stage: the runtime image has no package manager or download tools
+FROM alpine:3.24.4@sha256:f59abe656b692d901e184be3445e084786602108599d2a51d229c0f5a48c71bf AS prep
 ARG ODS_VERSION
 ARG TPDM_VERSION
 ARG STANDARD_VERSION
@@ -26,30 +12,40 @@ ARG EXTENSION_VERSION
 ARG ODS_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Minimal.Template.PostgreSQL.Standard.${STANDARD_VERSION}/versions/${ODS_VERSION}/content
 ARG TPDM_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.${EXTENSION_VERSION}.PostgreSQL.Standard.${STANDARD_VERSION}/versions/${TPDM_VERSION}/content
 
+WORKDIR /prep
+COPY init-database.sh ods-db-entrypoint.sh ./
+
+RUN mkdir pgdata sql && \
+    # Download and extract Minimal Template for core Ed-Fi Data Model
+    wget -q -O /tmp/OdsMinimalDatabase.zip "${ODS_URL}" && \
+    unzip -p /tmp/OdsMinimalDatabase.zip EdFi.Ods.Minimal.Template.sql > sql/EdFi_Ods_Minimal_Template.sql && \
+    # Download and extract Minimal Template for Teacher Prep Data Model (TPDM) when the data standard version is less than 6.0.0
+    if [ "${STANDARD_VERSION%%.*}" -lt 6 ]; then \
+        wget -q -O /tmp/TPDMOdsMinimalDatabase.zip "${TPDM_URL}" && \
+        unzip -p /tmp/TPDMOdsMinimalDatabase.zip EdFi.Ods.Minimal.Template.TPDM.Core.sql > sql/EdFi_Ods_Minimal_Template_TPDM_Core.sql; \
+    fi && \
+    rm -f /tmp/*.zip && \
+    # Normalize line endings in case the files were checked out on Windows
+    sed -i 's/\r$//' init-database.sh ods-db-entrypoint.sh sql/*.sql
+
+FROM dhi.io/postgres:16.16-debian13@sha256:b5dde2a748199e346e7d59456b59931dbeef5a6b7c856e3f3586e17fff9b9239 AS build
+
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
 # These variables can be overwritten at runtime
 ENV POSTGRES_DB=postgres
 
-# Override provided gosu with the one built from source with updated go version
-COPY --from=gosubuilder /go/src/github.com/tianon/gosu/gosu /usr/local/bin/gosu
+# Same data directory as the previous image, so that existing volumes and compose files keep working
+ENV PGDATA=/var/lib/postgresql/data
 
-COPY init-database.sh /docker-entrypoint-initdb.d/init-database.sh
+COPY --from=prep --chown=70:70 --chmod=700 /prep/pgdata /var/lib/postgresql/data
+COPY --from=prep --chmod=755 /prep/ods-db-entrypoint.sh /usr/local/bin/ods-db-entrypoint.sh
+COPY --from=prep --chmod=755 /prep/init-database.sh /docker-entrypoint-initdb.d/init-database.sh
+COPY --from=prep --chmod=644 /prep/sql/ /tmp/
 
-RUN \
-    # Download and extract Minimal Template for core Ed-Fi Data Model
-    wget -q -O /tmp/OdsMinimalDatabase.zip ${ODS_URL} && \
-    unzip -p /tmp/OdsMinimalDatabase.zip EdFi.Ods.Minimal.Template.sql > /tmp/EdFi_Ods_Minimal_Template.sql && \
-    # Download and extract Minimal Template for Teacher Prep Data Model (TPDM) when the data standard version is less than 6.0.0
-    if semver -r "<6.0.0" "$STANDARD_VERSION"; then \
-        wget -q -O /tmp/TPDMOdsMinimalDatabase.zip ${TPDM_URL} && \
-        unzip -p /tmp/TPDMOdsMinimalDatabase.zip EdFi.Ods.Minimal.Template.TPDM.Core.sql > /tmp/EdFi_Ods_Minimal_Template_TPDM_Core.sql; \
-    fi && \
-    rm -f /tmp/*.zip && \
-    dos2unix /docker-entrypoint-initdb.d/init-database.sh && \
-    dos2unix /tmp/*.sql && \
-    apk del unzip dos2unix nodejs npm
+VOLUME /var/lib/postgresql/data
 
 EXPOSE 5432
 USER postgres
-CMD ["docker-entrypoint.sh", "postgres"]
+ENTRYPOINT ["/usr/local/bin/ods-db-entrypoint.sh"]
+CMD ["postgres"]

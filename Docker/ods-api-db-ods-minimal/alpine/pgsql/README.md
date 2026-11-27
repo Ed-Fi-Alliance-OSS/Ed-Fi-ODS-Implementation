@@ -11,10 +11,34 @@ SA user is disabled after initial setup.
 
 ## Image Variants
 
-The only supported image at this time is an Alpine-based implementation using
-[PostgreSQL 16](https://hub.docker.com/_/postgres).
+The only supported image at this time is a Debian-based implementation using
+the [Docker Hardened Image for PostgreSQL 16](https://hub.docker.com/hardened-images/catalog/dhi/postgres).
+The folder keeps the name `alpine` from the previous base image.
 
 `edfialliance/ods-api-db-ods-minimal:<version>`
+
+## Notes on the Base Image
+
+- The image runs as the `postgres` user (uid 70) and stores its data in
+  `/var/lib/postgresql/data`, the same as the earlier Alpine-based versions.
+- Files named `*.sh` and `*.sql` in `/docker-entrypoint-initdb.d` run in name
+  order the first time the image starts with an empty data directory.
+- The image has no package manager and only a small set of shell tools. Images
+  derived from this one cannot use `apk` or `apt`, and tools such as `wget`,
+  `curl`, `ps`, `grep`, `sed` and `gosu` are not available. Prepare files in a
+  separate build stage and copy them into the image.
+
+### Upgrading a volume created with an Alpine-based version
+
+Text values sort differently in this image than in the Alpine-based versions.
+Indexes on text columns in an existing data volume must be rebuilt once after
+the upgrade, otherwise queries can miss rows. Stop the applications that use
+the database, start this image, run the command below, then start the
+applications again:
+
+```shell
+docker exec <container> sh -c 'reindexdb --username "$POSTGRES_USER" --all'
+```
 
 ## Supported Environment Variables
 
