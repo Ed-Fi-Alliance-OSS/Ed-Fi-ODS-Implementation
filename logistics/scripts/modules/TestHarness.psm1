@@ -83,7 +83,13 @@ function Invoke-SdkGenConsole {
     $sdkGenConsoleFolder = (Get-RepositoryResolvedPath "/Utilities/SdkGen/EdFi.SdkGen.Console" | Select-Object -ExpandProperty Path)
     $sdkGenConsoleExecutableFolderFullPath = (Get-SdkGenExecutable $buildConfiguration)
     $argumentList = @('-m', $apiMetadataUrl) + $arguments
-    Start-Process $sdkGenConsoleExecutableFolderFullPath -ArgumentList $argumentList -WorkingDirectory $sdkGenConsoleFolder -NoNewWindow -Wait | Out-Host
+    $process = Start-Process $sdkGenConsoleExecutableFolderFullPath -ArgumentList $argumentList -WorkingDirectory $sdkGenConsoleFolder -NoNewWindow -Wait -PassThru
+
+    # Stop here when SdkGen fails (for example, when it can't download openapi-generator-cli), instead of failing
+    # later because the generated SDK solution is missing.
+    if ($process.ExitCode -ne 0) {
+        throw "SdkGen failed with exit code $($process.ExitCode). See the SdkGen log above for the cause."
+    }
 }
 
 function Start-TestHarness {

@@ -209,6 +209,11 @@ jobs:
           ${{ runner.os }}-
           nuget-
         enableCrossOsArchive: true
+    - name: Cache openapi-generator-cli for SdkGen
+      uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      with:
+        path: Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/openapi-generator-cli.jar
+        key: ${{ runner.os }}-openapi-generator-cli-${{ hashFiles('Ed-Fi-ODS-Implementation/logistics/scripts/Invoke-SdkGen.ps1') }}
     - name: Restore NuGet packages
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
